@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Обоснование программы мотивации «Банкимани»</title>
+<style>
+  :root{
+    --blue:#0D6EFD;
+    --green:#3CD278;
+    --purple:#7B5FE8;
+    --text:#1A1D29;
+    --muted:#5B6270;
+    --bg:#F7F8FA;
+    --border:#E5E8EE;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI', Arial, sans-serif;
+    color:var(--text);
+    background:var(--bg);
+    line-height:1.55;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:48px 32px 80px;}
+  header{margin-bottom:40px;}
+  .kicker{
+    display:inline-block;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--blue);
+    background:rgba(13,110,253,.08);
+    padding:5px 12px;
+    border-radius:20px;
+    margin-bottom:14px;
+  }
+  h1{font-size:30px;margin:0 0 10px;color:var(--text);}
+  .subtitle{color:var(--muted);font-size:15px;margin:0;}
+  .meta{display:flex;gap:24px;margin-top:20px;font-size:13px;color:var(--muted);}
+  .meta strong{color:var(--text);}
+
+  section{margin-bottom:36px;}
+  h2{
+    font-size:20px;
+    margin:0 0 16px;
+    padding-bottom:10px;
+    border-bottom:2px solid var(--border);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  h2 .num{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:26px;height:26px;border-radius:50%;
+    background:var(--blue);color:#fff;font-size:13px;font-weight:700;
+    flex-shrink:0;
+  }
+  p{margin:0 0 14px;font-size:15px;color:var(--text);}
+  ul{margin:0 0 14px;padding-left:20px;}
+  li{margin-bottom:8px;font-size:15px;}
+
+  .card{
+    background:#fff;border:1px solid var(--border);border-radius:12px;
+    padding:24px 26px;
+  }
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:4px;}
+  .stat{
+    background:#fff;border:1px solid var(--border);border-radius:12px;
+    padding:18px 20px;text-align:center;
+  }
+  .stat .val{font-size:26px;font-weight:800;color:var(--blue);}
+  .stat .lbl{font-size:12.5px;color:var(--muted);margin-top:4px;}
+
+  table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;}
+  thead th{
+    background:var(--blue);color:#fff;text-align:left;
+    font-size:13px;padding:12px 14px;font-weight:700;
+  }
+  thead th.center{text-align:center;}
+  tbody td{padding:11px 14px;font-size:14px;border-bottom:1px solid var(--border);}
+  tbody td.center{text-align:center;font-weight:700;color:var(--blue);}
+  tr.group td{
+    background:#FFF7CC;font-weight:700;color:#7A6300;
+  }
+  .rationale{font-size:13px;color:var(--muted);}
+
+  .callout{
+    border-left:4px solid var(--green);
+    background:rgba(60,210,120,.08);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14.5px;
+  }
+  .callout.purple{border-left-color:var(--purple);background:rgba(123,95,232,.08);}
+
+  footer{
+    margin-top:50px;padding-top:20px;border-top:1px solid var(--border);
+    font-size:12.5px;color:var(--muted);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <span class="kicker">Внутренний документ · для согласования с HRD</span>
+    <h1>Обоснование программы мотивации «Банкимани»</h1>
+    <p class="subtitle">Логика начисления баллов за экспертную и публичную активность сотрудников — принципы, привязка к бизнес-эффекту, рекомендация к утверждению.</p>
+    <div class="meta">
+      <div><strong>Инициатор:</strong> административная группа / офис генерального директора</div>
+      <div><strong>Дата:</strong> июль 2026</div>
+    </div>
+  </header>
+
+  <section>
+    <h2><span class="num">1</span>Зачем нужна программа</h2>
+    <div class="card">
+      <p>«Банкимани» переводит вклад сотрудника за пределами прямых KPI — экспертизу, публичность, наставничество — в измеримый и вознаграждаемый актив компании. Без такой системы подобная активность держится на личной инициативе и не масштабируется.</p>
+      <div class="grid3">
+        <div class="stat"><div class="val">Бренд</div><div class="lbl">Узнаваемость экспертизы Банки.ру во внешней среде</div></div>
+        <div class="stat"><div class="val">Скорость</div><div class="lbl">Быстрее внедряются ИИ-решения и знания внутри команды</div></div>
+        <div class="stat"><div class="val">Удержание</div><div class="lbl">Признание вклада снижает риск выгорания и оттока</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">2</span>Принцип начисления баллов</h2>
+    <p>Размер баллов зависит от трёх факторов, а не назначается произвольно:</p>
+    <ul>
+      <li><strong>Уровень ответственности</strong> — быть автором/спикером стоит дороже, чем быть соавтором или гостем.</li>
+      <li><strong>Масштаб аудитории и бизнес-эффект</strong> — внешнее выступление или внедрённое ИИ-решение весят больше внутреннего поста.</li>
+      <li><strong>Регулярность против разового вклада</strong> — системная активность (обучение, наставничество) оценивается наравне с разовыми, но заметными результатами (конференция, статья).</li>
+    </ul>
+    <div class="callout">
+      Именно поэтому «ИИ-чемпион» (800) — вершина шкалы: это не просто активность, а измеримое изменение бизнес-процесса, а «Выступление на DEMO WEEK» (300) — минимальный порог входа в программу для нового спикера.
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">3</span>Таблица активностей и обоснование</h2>
+    <table>
+      <thead>
+        <tr><th>Активность</th><th class="center">Банкимани</th><th>Обоснование</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>ИИ-чемпион: внедрил ИИ-решение в бизнес-процесс</strong></td><td class="center">800</td><td class="rationale">Максимальный балл — прямой измеримый эффект на процесс компании, а не просто участие</td></tr>
+
+        <tr class="group"><td colspan="3">Выступление</td></tr>
+        <tr><td>Выступление на профильной конференции от лица Банки.ру</td><td class="center">700</td><td class="rationale">Внешнее представительство компании — влияет на репутацию и HR-бренд на рынке</td></tr>
+        <tr><td>Выступление на banki.meet</td><td class="center">500</td><td class="rationale">Внутренняя экспертная площадка, требует подготовки контента и публичного выступления</td></tr>
+        <tr><td>Выступление на frontend.meet</td><td class="center">500</td><td class="rationale">Профильная техническая экспертиза, сопоставимо по трудозатратам с banki.meet</td></tr>
+        <tr><td>Выступление с топиком на All Staff</td><td class="center">500</td><td class="rationale">Максимальный внутренний охват — выступление перед всей компанией</td></tr>
+        <tr><td>Выступление на DEMO WEEK</td><td class="center">300</td><td class="rationale">Более узкий/локальный формат, точка входа в публичную активность</td></tr>
+
+        <tr class="group"><td colspan="3">Обучение</td></tr>
+        <tr><td>Buddy: успешная адаптация новичка</td><td class="center">600</td><td class="rationale">Прямое влияние на удержание новых сотрудников и скорость их выхода на продуктивность</td></tr>
+        <tr><td>Проведение внутреннего обучения для Банки.ру</td><td class="center">500</td><td class="rationale">Передача экспертизы систематизирует знания и снижает bus-factor</td></tr>
+
+        <tr class="group"><td colspan="3">Авторство</td></tr>
+        <tr><td>Ведущий подкаста (1 раз)</td><td class="center">500</td><td class="rationale">Роль ведущего требует подготовки, модерации и публичной ответственности за формат</td></tr>
+        <tr><td>Автор статьи на Хабр</td><td class="center">500</td><td class="rationale">Внешняя площадка с высокой конкуренцией за внимание — усиливает HR- и tech-бренд</td></tr>
+        <tr><td>Автор постов для КОД ИИ ПРОД</td><td class="center">300</td><td class="rationale">Внутренний профильный канал, целевая, но не массовая аудитория</td></tr>
+        <tr><td>Автор постов для Диалога (не редактор)</td><td class="center">300</td><td class="rationale">Равнозначно по трудозатратам с постом для КОД ИИ ПРОД, роль без редакторской ответственности</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="num">4</span>Что это даёт компании</h2>
+    <div class="callout purple">
+      Программа не создаёт новых расходов на подбор или обучение — она делает видимой и вознаграждаемой ту активность, которая уже приносит пользу компании, но раньше не была формализована. Это снижает риск демотивации у наиболее вовлечённых сотрудников и стимулирует остальных пробовать новые роли (спикер, автор, наставник).
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">5</span>Рекомендация</h2>
+    <p><strong>Утвердить таблицу в текущем виде</strong> как первую версию программы. Через квартал — пересмотреть на основании фактической статистики начислений (какие категории наиболее востребованы, нет ли перекоса в сторону одной активности) и при необходимости скорректировать баллы или добавить новые категории.</p>
+  </section>
+
+  <footer>
+    Документ подготовлен для внутреннего согласования. Финальные значения баллов утверждаются HRD.
+  </footer>
+
+</div>
+</body>
+</html>
