@@ -112,6 +112,19 @@
 
   .rationale{font-size:13px;color:var(--muted);}
 
+  /* ---- Полное сопоставление: ранжированная таблица ---- */
+  .wrap.wide table{font-size:13px;}
+  td.rank{text-align:center;font-weight:700;color:var(--muted);width:36px;}
+  th.divider{border-left:2px solid rgba(255,255,255,.4);}
+  td.divider{border-left:2px solid var(--border);}
+  td.empty{color:#C3C7CF;font-style:italic;font-weight:400;}
+  td.logic{font-size:12px;color:var(--muted);font-weight:400;white-space:normal;}
+  tr.other td{background:#FBF9FF;}
+  tr.deleted td{background:#FAFAFB;}
+  tr.deleted td.asis-cell{color:#8B8F98;text-decoration:line-through;}
+  tr.section-start td{border-top:2px solid var(--border);}
+  .tag.manual{background:rgba(123,95,232,.12);color:var(--purple);}
+
   footer.doc-footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--border);font-size:12.5px;color:var(--muted);}
 
   @media (max-width: 860px){
@@ -386,92 +399,256 @@
       <header class="doc-header">
         <span class="kicker">Внутренний документ · для согласования с HRD</span>
         <h1>AS IS / TO BE — полное сопоставление программы «Банкимани»</h1>
-        <p class="subtitle">Обе версии программы целиком, рядом, для визуального сравнения.</p>
+        <p class="subtitle">Сопоставление действующей и обновлённой программы, с пояснением логики начисления.</p>
       </header>
 
-      <div class="cols">
-
-        <div class="panel">
-          <div class="panel-head asis">AS IS <span class="cnt">· действующая программа, 21 позиция</span></div>
-          <table>
-            <thead><tr><th>Активность</th><th class="center">Баллы</th></tr></thead>
-            <tbody>
-              <tr class="group"><td colspan="2">Внутренние активности</td></tr>
-              <tr><td>Подарок на день рождения<span class="note">начисляется автоматически</span></td><td class="center">5</td></tr>
-              <tr><td>Приветственные «Банкимани»<span class="note">начисляется автоматически</span></td><td class="center">3</td></tr>
-              <tr><td>«Банкимани» от CEO</td><td class="center">15</td></tr>
-              <tr><td>«Банкимани» от директора департамента / вертикали</td><td class="center">5</td></tr>
-              <tr><td>«Банкимани» от хранителя принципа</td><td class="center">5</td></tr>
-              <tr class="removed"><td>Участие в чемпионатах (Футбол, Шахматы)</td><td class="center">5</td></tr>
-              <tr><td>Выступление на Banki Meet</td><td class="center">5</td></tr>
-              <tr><td>Клуб менторов</td><td class="center">5</td></tr>
-              <tr class="removed"><td>Выступление в «Эксперт учит экспертов»<span class="note">→ объединено с внутренним обучением</span></td><td class="center">10</td></tr>
-              <tr class="removed"><td>Дайджест</td><td class="center">3</td></tr>
-              <tr class="removed"><td>Активности Банки.ру (создание сообщества)</td><td class="center">3</td></tr>
-              <tr><td>Активности Банки.ру (победа в состязании)</td><td class="center">3</td></tr>
-              <tr class="removed"><td>Tech.Banki.ru</td><td class="center">3</td></tr>
-              <tr><td>Пост в «Диалог»</td><td class="center">5</td></tr>
-              <tr><td>Участие в пользовательских исследованиях</td><td class="center">3</td></tr>
-              <tr class="removed"><td>Рекомендация стажёров в ДИТ</td><td class="center">4</td></tr>
-
-              <tr class="group"><td colspan="2">Внешние активности</td></tr>
-              <tr><td>Выступление на конференции</td><td class="center">10</td></tr>
-              <tr><td>Экспертная статья для СМИ</td><td class="center">15</td></tr>
-              <tr><td>Развитие HR бренда</td><td class="center">5</td></tr>
-              <tr><td>IT чемпионаты</td><td class="center">5</td></tr>
-              <tr><td>Публичные бизнес-кейсы</td><td class="center">10</td></tr>
-              <tr><td>Статья для проф. сообщества (Хабр и тд)</td><td class="center">25</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="panel">
-          <div class="panel-head tobe">TO BE <span class="cnt">· обновлённая программа</span></div>
-          <table>
-            <thead><tr><th>Активность</th><th class="center">Баллы</th></tr></thead>
-            <tbody>
-              <tr class="group"><td colspan="2">Высший уровень</td></tr>
-              <tr><td>ИИ-чемпион: внедрил ИИ-решение в бизнес-процесс</td><td class="center">800 <span class="tag new">Новое</span></td></tr>
-              <tr><td>Агент Банки.ру — тестирование продуктов и сервисов<span class="note">включает пользовательские исследования</span></td><td class="center">800 <span class="tag new">Новое</span></td></tr>
-              <tr><td>«Банкимани» от CEO</td><td class="center">1500 <span class="tag x100">×100</span></td></tr>
-
-              <tr class="group"><td colspan="2">Признание</td></tr>
-              <tr><td>«Банкимани» от директора департамента / вертикали</td><td class="center">500 <span class="tag x100">×100</span></td></tr>
-              <tr><td>«Банкимани» от хранителя принципа</td><td class="center">500 <span class="tag x100">×100</span></td></tr>
-              <tr><td>Приветственные «Банкимани»<span class="note">начисляется автоматически</span></td><td class="center">300 <span class="tag x100">×100</span></td></tr>
-              <tr><td>Подарок на день рождения<span class="note">начисляется автоматически</span></td><td class="center">500 <span class="tag x100">×100</span></td></tr>
-
-              <tr class="group"><td colspan="2">Выступление</td></tr>
-              <tr><td>Выступление на профильной конференции от лица Банки.ру</td><td class="center">700</td></tr>
-              <tr><td>Выступление на banki.meet</td><td class="center">500</td></tr>
-              <tr><td>Выступление на frontend.meet</td><td class="center">500</td></tr>
-              <tr><td>Выступление с топиком на All Staff</td><td class="center">500 <span class="tag new">Новое</span></td></tr>
-              <tr><td>Выступление на DEMO WEEK</td><td class="center">300 <span class="tag new">Новое</span></td></tr>
-
-              <tr class="group"><td colspan="2">Обучение</td></tr>
-              <tr><td>Buddy: успешная адаптация новичка<span class="note">включает Клуб менторов</span></td><td class="center">600</td></tr>
-              <tr><td>Проведение внутреннего обучения для Банки.ру<span class="note">включает «Эксперт учит эксперта»</span></td><td class="center">500</td></tr>
-
-              <tr class="group"><td colspan="2">Авторство</td></tr>
-              <tr><td>Автор статьи на Хабр</td><td class="center">500 <span class="tag x100">×20</span></td></tr>
-              <tr><td>Автор постов для КОД ИИ ПРОД</td><td class="center">300</td></tr>
-              <tr><td>Автор постов для Диалога (не редактор)</td><td class="center">300 <span class="tag x100">×60</span></td></tr>
-              <tr><td>Ведущий подкаста (1 раз)</td><td class="center">500 <span class="tag new">Новое</span></td></tr>
-              <tr><td>Экспертная статья для СМИ</td><td class="center">400</td></tr>
-
-              <tr class="group"><td colspan="2">Другое <span class="note" style="display:inline">— назначает администратор вручную, без фикс. баллов, для нерегулярных/новых активностей</span></td></tr>
-              <tr><td>Развитие HR бренда</td><td class="center">—</td></tr>
-              <tr><td>IT чемпионаты</td><td class="center">—</td></tr>
-              <tr><td>Публичные бизнес-кейсы</td><td class="center">—</td></tr>
-              <tr><td>Активности Банки.ру (победа в состязании)</td><td class="center">—</td></tr>
-            </tbody>
-          </table>
-        </div>
-
+      <div class="callout">
+        <strong>Логика.</strong> Строки отранжированы по убыванию баллов AS IS. Ниже — блок «Другое» (аналог есть, но балл назначает администратор вручную). В самом низу — блок «Неактуально» (аналога в TO BE нет вообще, зачёркнуто). Столбец «Как получается начисление» поясняет, кто согласует и начисляет балл.
       </div>
 
+      <table>
+        <thead>
+          <tr>
+            <th class="center">№</th>
+            <th>AS IS — активность</th>
+            <th class="center">AS IS баллы</th>
+            <th class="divider">TO BE — активность</th>
+            <th class="center">TO BE баллы</th>
+            <th>Как получается начисление</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td class="rank">1</td>
+            <td>Статья для проф. сообщества (Хабр и тд)</td>
+            <td class="center">25</td>
+            <td class="divider">Автор статьи на Хабр</td>
+            <td class="center">500 <span class="tag x100">×20</span></td>
+            <td class="logic">Согласует Внутриком, начисляет администратор (Egorova / Ivazova)</td>
+          </tr>
+          <tr>
+            <td class="rank">2</td>
+            <td>«Банкимани» от CEO</td>
+            <td class="center">15</td>
+            <td class="divider">«Банкимани» от CEO</td>
+            <td class="center">1500 <span class="tag x100">×100</span></td>
+            <td class="logic">Начисляет сам CEO (или администратор по просьбе CEO)</td>
+          </tr>
+          <tr>
+            <td class="rank">3</td>
+            <td>Экспертная статья для СМИ</td>
+            <td class="center">15</td>
+            <td class="divider">Экспертная статья для СМИ</td>
+            <td class="center">400</td>
+            <td class="logic">Согласует PR, начисляет администратор (Egorova / Ivazova)</td>
+          </tr>
+          <tr>
+            <td class="rank">4</td>
+            <td>Выступление на конференции</td>
+            <td class="center">10</td>
+            <td class="divider">Выступление на профильной конференции от лица Банки.ру</td>
+            <td class="center">700 <span class="tag x100">×70</span></td>
+            <td class="logic">Согласует PR, начисляет администратор (Egorova / Ivazova)</td>
+          </tr>
+          <tr>
+            <td class="rank">5</td>
+            <td>Выступление в «Эксперт учит экспертов»</td>
+            <td class="center">10</td>
+            <td class="divider">Проведение внутреннего обучения для Банки.ру<span class="note">включает «Эксперт учит эксперта»</span></td>
+            <td class="center">500</td>
+            <td class="logic">Согласует HR, начисляет администратор (Egorova / Ivazova)</td>
+          </tr>
+          <tr>
+            <td class="rank">6</td>
+            <td>«Банкимани» от директора департамента / вертикали</td>
+            <td class="center">5</td>
+            <td class="divider">«Банкимани» от директора департамента / вертикали</td>
+            <td class="center">500 <span class="tag x100">×100</span></td>
+            <td class="logic">Начисляет сам директор департамента / вертикали</td>
+          </tr>
+          <tr>
+            <td class="rank">7</td>
+            <td>«Банкимани» от хранителя принципа</td>
+            <td class="center">5</td>
+            <td class="divider">«Банкимани» от хранителя принципа</td>
+            <td class="center">500 <span class="tag x100">×100</span></td>
+            <td class="logic">Начисляет Хранитель принципа</td>
+          </tr>
+          <tr>
+            <td class="rank">8</td>
+            <td>Подарок на день рождения<span class="note">начисляется автоматически</span></td>
+            <td class="center">5</td>
+            <td class="divider">Подарок на день рождения<span class="note">начисляется автоматически</span></td>
+            <td class="center">500 <span class="tag x100">×100</span></td>
+            <td class="logic">Начисляется автоматически системой</td>
+          </tr>
+          <tr>
+            <td class="rank">9</td>
+            <td>Выступление на Banki Meet</td>
+            <td class="center">5</td>
+            <td class="divider">Выступление на banki.meet</td>
+            <td class="center">500 <span class="tag x100">×100</span></td>
+            <td class="logic">Согласует Внутриком, начисляет администратор (Egorova / Ivazova)</td>
+          </tr>
+          <tr>
+            <td class="rank">10</td>
+            <td>Клуб менторов</td>
+            <td class="center">5</td>
+            <td class="divider">Buddy: успешная адаптация новичка<span class="note">включает Клуб менторов</span></td>
+            <td class="center">600</td>
+            <td class="logic">Согласует HR, начисляет администратор (Egorova / Ivazova)</td>
+          </tr>
+          <tr>
+            <td class="rank">11</td>
+            <td>Пост в «Диалог»</td>
+            <td class="center">5</td>
+            <td class="divider">Автор постов для Диалога (не редактор)</td>
+            <td class="center">300 <span class="tag x100">×60</span></td>
+            <td class="logic">Согласует руководитель Комьюнити Банки.ру, начисляет администратор (Egorova / Ivazova)</td>
+          </tr>
+          <tr>
+            <td class="rank">12</td>
+            <td>Участие в пользовательских исследованиях</td>
+            <td class="center">3</td>
+            <td class="divider">Агент Банки.ру — тестирование продуктов и сервисов<span class="note">включает пользовательские исследования</span></td>
+            <td class="center">800 <span class="tag new">Новое</span></td>
+            <td class="logic">Согласует Ivazova, начисляет администратор (Egorova / Ivazova)</td>
+          </tr>
+          <tr>
+            <td class="rank">13</td>
+            <td>Приветственные «Банкимани»<span class="note">начисляется автоматически</span></td>
+            <td class="center">3</td>
+            <td class="divider">Приветственные «Банкимани»<span class="note">начисляется автоматически</span></td>
+            <td class="center">300 <span class="tag x100">×100</span></td>
+            <td class="logic">Начисляется автоматически системой</td>
+          </tr>
+          <tr>
+            <td class="rank">14</td>
+            <td class="empty">нет аналога в AS IS</td>
+            <td class="center empty">—</td>
+            <td class="divider">ИИ-чемпион: внедрил ИИ-решение в бизнес-процесс</td>
+            <td class="center">800 <span class="tag new">Новое</span></td>
+            <td class="logic">Согласует HR, начисляет администратор (Egorova / Ivazova)</td>
+          </tr>
+          <tr>
+            <td class="rank">15</td>
+            <td class="empty">нет аналога в AS IS</td>
+            <td class="center empty">—</td>
+            <td class="divider">Выступление на frontend.meet</td>
+            <td class="center">500</td>
+            <td class="logic">Согласует Внутриком, начисляет администратор (Egorova / Ivazova)</td>
+          </tr>
+          <tr>
+            <td class="rank">16</td>
+            <td class="empty">нет аналога в AS IS</td>
+            <td class="center empty">—</td>
+            <td class="divider">Выступление с топиком на All Staff</td>
+            <td class="center">500 <span class="tag new">Новое</span></td>
+            <td class="logic">Согласует Внутриком, начисляет администратор (Egorova / Ivazova)</td>
+          </tr>
+          <tr>
+            <td class="rank">17</td>
+            <td class="empty">нет аналога в AS IS</td>
+            <td class="center empty">—</td>
+            <td class="divider">Выступление на DEMO WEEK</td>
+            <td class="center">300 <span class="tag new">Новое</span></td>
+            <td class="logic">Согласует Внутриком, начисляет администратор (Egorova / Ivazova)</td>
+          </tr>
+          <tr>
+            <td class="rank">18</td>
+            <td class="empty">нет аналога в AS IS</td>
+            <td class="center empty">—</td>
+            <td class="divider">Автор постов для КОД ИИ ПРОД</td>
+            <td class="center">300</td>
+            <td class="logic">Согласует Внутриком, начисляет администратор (Egorova / Ivazova)</td>
+          </tr>
+          <tr>
+            <td class="rank">19</td>
+            <td class="empty">нет аналога в AS IS</td>
+            <td class="center empty">—</td>
+            <td class="divider">Ведущий подкаста (1 раз)</td>
+            <td class="center">500 <span class="tag new">Новое</span></td>
+            <td class="logic">Согласует Внутриком, начисляет администратор (Egorova / Ivazova)</td>
+          </tr>
+          <tr class="other section-start">
+            <td class="rank">20</td>
+            <td>Публичные бизнес-кейсы</td>
+            <td class="center">10</td>
+            <td class="divider">Публичные бизнес-кейсы</td>
+            <td class="center">— <span class="tag manual">Другое</span></td>
+            <td class="logic">Согласует HR, балл назначает администратор вручную (фикс. значения нет)</td>
+          </tr>
+          <tr class="other">
+            <td class="rank">21</td>
+            <td>Развитие HR бренда</td>
+            <td class="center">5</td>
+            <td class="divider">Развитие HR бренда</td>
+            <td class="center">— <span class="tag manual">Другое</span></td>
+            <td class="logic">Согласует HR, балл назначает администратор вручную (фикс. значения нет)</td>
+          </tr>
+          <tr class="other">
+            <td class="rank">22</td>
+            <td>IT чемпионаты</td>
+            <td class="center">5</td>
+            <td class="divider">IT чемпионаты</td>
+            <td class="center">— <span class="tag manual">Другое</span></td>
+            <td class="logic">Согласует HR, балл назначает администратор вручную (фикс. значения нет)</td>
+          </tr>
+          <tr class="other">
+            <td class="rank">23</td>
+            <td>Активности Банки.ру (победа в состязании)</td>
+            <td class="center">3</td>
+            <td class="divider">Активности Банки.ру (победа в состязании)</td>
+            <td class="center">— <span class="tag manual">Другое</span></td>
+            <td class="logic">Согласует HR, балл назначает администратор вручную (фикс. значения нет)</td>
+          </tr>
+          <tr class="deleted section-start">
+            <td class="rank">24</td>
+            <td class="asis-cell">Участие в чемпионатах (Футбол, Шахматы)</td>
+            <td class="center asis-cell">5</td>
+            <td class="divider empty">—</td>
+            <td class="center"><span class="tag gap">Неактуально</span></td>
+            <td class="logic">Активность неактуальна, начисление не производится</td>
+          </tr>
+          <tr class="deleted">
+            <td class="rank">25</td>
+            <td class="asis-cell">Рекомендация стажёров в ДИТ</td>
+            <td class="center asis-cell">4</td>
+            <td class="divider empty">—</td>
+            <td class="center"><span class="tag gap">Неактуально</span></td>
+            <td class="logic">Активность неактуальна, начисление не производится</td>
+          </tr>
+          <tr class="deleted">
+            <td class="rank">26</td>
+            <td class="asis-cell">Дайджест</td>
+            <td class="center asis-cell">3</td>
+            <td class="divider empty">—</td>
+            <td class="center"><span class="tag gap">Неактуально</span></td>
+            <td class="logic">Активность неактуальна, начисление не производится</td>
+          </tr>
+          <tr class="deleted">
+            <td class="rank">27</td>
+            <td class="asis-cell">Активности Банки.ру (создание сообщества)</td>
+            <td class="center asis-cell">3</td>
+            <td class="divider empty">—</td>
+            <td class="center"><span class="tag gap">Неактуально</span></td>
+            <td class="logic">Активность неактуальна, начисление не производится</td>
+          </tr>
+          <tr class="deleted">
+            <td class="rank">28</td>
+            <td class="asis-cell">Tech.Banki.ru</td>
+            <td class="center asis-cell">3</td>
+            <td class="divider empty">—</td>
+            <td class="center"><span class="tag gap">Неактуально</span></td>
+            <td class="logic">Активность неактуальна, начисление не производится</td>
+          </tr>
+
+        </tbody>
+      </table>
+
       <footer class="doc-footer">
-        Зачёркнутое в AS IS — удалено или объединено с другой позицией. Фиолетовый тег ×N — множитель редоминации относительно AS IS. Все 24 позиции AS IS распределены по TO BE: переведены на новую шкалу, объединены, перенесены в «Другое» или удалены — открытых вопросов не осталось.
+        Ранжирование — по столбцу «AS IS баллы», по убыванию. Блок «Другое» (№20–23) — аналог есть, балл назначается администратором вручную. Блок «Неактуально» (№24–28) — аналога в TO BE нет вообще. Подробный процесс согласования и валидации — на странице «Обоснование».
       </footer>
 
     </div>
