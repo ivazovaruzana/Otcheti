@@ -1,0 +1,1194 @@
+<title>Календарь CEO — пять разделов</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,500;0,600;0,700;1,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --paper: #EEF2F8;
+    --paper-raised: #FFFFFF;
+    --ink: #16233A;
+    --ink-soft: #51637C;
+    --line: #D2DEEC;
+    --line-soft: #E4EBF4;
+    --accent: #1B4E8F;
+    --accent-ink: #123A6B;
+    --accent-soft: #DCE9F8;
+    --teal: #0E7490;
+    --teal-soft: #DBEEF3;
+    --brick: #A6433C;
+    --brick-soft: #F3DFDC;
+    --shadow: 0 1px 2px rgba(15,35,60,0.07), 0 10px 26px -14px rgba(15,35,60,0.22);
+
+    --cat-team: #2a78d6;
+    --cat-ops: #eb6834;
+    --cat-ext: #1baf7a;
+    --cat-strategy: #b9790a;
+    --cat-protected: #7f93a6;
+    --cat-other: #c7ccd3;
+    --cat-selftime: #8a63d2;
+    --cat-other-ink: #3c4249;
+  }
+
+  :root:not([data-theme="light"]) {
+    @media (prefers-color-scheme: dark) {
+      --paper: #0D1626;
+      --paper-raised: #14213A;
+      --ink: #E7EEF8;
+      --ink-soft: #9FB1C9;
+      --line: #2A3B57;
+      --line-soft: #1D2A40;
+      --accent: #6FA8E6;
+      --accent-ink: #BFDCFA;
+      --accent-soft: #1B3151;
+      --teal: #5BC0DE;
+      --teal-soft: #163244;
+      --brick: #E0958D;
+      --brick-soft: #3C2422;
+      --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 10px 26px -14px rgba(0,0,0,0.55);
+
+      --cat-team: #3987e5;
+      --cat-ops: #d95926;
+      --cat-ext: #199e70;
+      --cat-strategy: #c98500;
+      --cat-protected: #6f8494;
+      --cat-other: #384049;
+      --cat-selftime: #a78bfa;
+      --cat-other-ink: #d7dbe0;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #0D1626;
+    --paper-raised: #14213A;
+    --ink: #E7EEF8;
+    --ink-soft: #9FB1C9;
+    --line: #2A3B57;
+    --line-soft: #1D2A40;
+    --accent: #6FA8E6;
+    --accent-ink: #BFDCFA;
+    --accent-soft: #1B3151;
+    --teal: #5BC0DE;
+    --teal-soft: #163244;
+    --brick: #E0958D;
+    --brick-soft: #3C2422;
+    --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 10px 26px -14px rgba(0,0,0,0.55);
+
+    --cat-team: #3987e5;
+    --cat-ops: #d95926;
+    --cat-ext: #199e70;
+    --cat-strategy: #c98500;
+    --cat-protected: #6f8494;
+    --cat-other: #384049;
+    --cat-selftime: #a78bfa;
+    --cat-other-ink: #d7dbe0;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Public Sans", -apple-system, "Segoe UI", sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--accent-soft); color: var(--accent-ink); }
+  a { color: var(--teal); }
+  h1, h2, h3 { font-family: "Newsreader", Georgia, serif; font-weight: 600; letter-spacing: -0.01em; }
+
+  /* ---------- Top shell nav ---------- */
+  .topnav {
+    position: sticky; top: 0; z-index: 40;
+    background: color-mix(in oklab, var(--paper) 92%, transparent);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topnav-inner {
+    max-width: 1180px; margin: 0 auto; padding: 14px 28px;
+    display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+  }
+  .topnav-title { font-family: "Newsreader", Georgia, serif; font-weight: 600; font-size: 1.05rem; margin-right: auto; white-space: nowrap; }
+  .topnav-tabs { display: inline-flex; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 11px; padding: 4px; gap: 4px; flex-wrap: wrap; }
+  .topnav-tab {
+    appearance: none; border: none; background: transparent; cursor: pointer;
+    font-family: "Public Sans", sans-serif; font-size: 13.5px; font-weight: 600;
+    color: var(--ink-soft); padding: 9px 16px; border-radius: 8px;
+  }
+  .topnav-tab.active { background: var(--accent); color: #fff; }
+  @media (max-width: 720px) { .topnav-inner { padding: 12px 16px; } .topnav-title { display:none; } }
+
+  .section-panel { display: none; }
+  .section-panel.active { display: block; }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 40px 28px 120px; }
+  .wrap-narrow { max-width: 860px; margin: 0 auto; padding: 48px 28px 120px; }
+  @media (max-width: 640px) { .wrap, .wrap-narrow { padding: 28px 16px 90px; } }
+
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px;
+    letter-spacing: 0.04em; padding: 5px 11px; border-radius: 100px;
+    border: 1px solid var(--line); color: var(--ink-soft); white-space: nowrap;
+  }
+  .pill.cost-low { border-color: color-mix(in oklab, var(--teal) 45%, var(--line)); color: var(--teal); }
+  .pill.cost-med { border-color: color-mix(in oklab, var(--accent) 45%, var(--line)); color: var(--accent-ink); }
+  .pill.cost-high { border-color: color-mix(in oklab, var(--brick) 45%, var(--line)); color: var(--brick); }
+
+  /* ================= SECTION 1: TO BE TABLES ================= */
+  .sec1-head { padding-bottom: 22px; border-bottom: 1px solid var(--line); margin-bottom: 30px; }
+  .sec1-head .status-row { display:flex; gap:10px; flex-wrap:wrap; margin-bottom: 16px; }
+  .sec1-head h1 { font-size: clamp(1.7rem, 3.6vw, 2.3rem); margin: 0 0 12px; text-wrap: balance; }
+  .sec1-head p { color: var(--ink-soft); max-width: 74ch; margin: 0; font-size: 1rem; }
+
+  .legend-row { display: flex; flex-wrap: wrap; gap: 10px 20px; padding: 16px 0 34px; }
+  .legend-item { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--ink-soft); }
+  .legend-swatch { width: 11px; height: 11px; border-radius: 3px; flex: none; }
+
+  .version-jump { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 40px; }
+  .version-jump a {
+    text-decoration: none; font-size: 13px; font-weight: 600; color: var(--ink-soft);
+    border: 1px solid var(--line); border-radius: 999px; padding: 8px 15px;
+  }
+  .version-jump a:hover { border-color: var(--accent); color: var(--accent-ink); }
+
+  .tobe-version { padding: 36px 0 46px; border-top: 1px solid var(--line-soft); scroll-margin-top: 84px; }
+  .tobe-version:first-of-type { border-top: 1px solid var(--line); }
+  .tobe-version-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 6px; }
+  .tobe-version-eyebrow { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--ink-soft); letter-spacing: 0.06em; text-transform: uppercase; }
+  .tobe-version-head h3 { font-size: 1.4rem; margin: 0; }
+  .tobe-version-tag { color: var(--ink-soft); max-width: 76ch; margin: 0 0 20px; font-size: 0.95rem; }
+
+  .week-tabs { display: inline-flex; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 11px; padding: 4px; gap: 4px; margin-bottom: 16px; flex-wrap: wrap; }
+  .week-tab-btn { appearance: none; border: none; background: transparent; cursor: pointer; font-family: "Public Sans"; font-size: 12.5px; font-weight: 600; color: var(--ink-soft); padding: 8px 13px; border-radius: 8px; }
+  .week-tab-btn.active { background: var(--paper); box-shadow: var(--shadow); color: var(--ink); }
+
+  .tt-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); background: var(--paper-raised); }
+  table.tt-table { width: 100%; border-collapse: collapse; min-width: 640px; table-layout: fixed; }
+  table.tt-table th, table.tt-table td { border: 1px solid var(--line-soft); vertical-align: top; }
+  table.tt-table th { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 600; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.04em; padding: 10px 6px; text-align: center; background: var(--paper); }
+  td.tt-h { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; color: var(--ink-soft); text-align: right; padding: 6px 8px; white-space: nowrap; width: 52px; background: var(--paper); vertical-align: top; }
+  td.tt-cell { padding: 7px 9px; min-height: 44px; color: #fff; }
+  td.tt-empty { background: var(--paper); }
+  .tt-label { display: block; font-size: 12px; font-weight: 700; line-height: 1.25; }
+  .tt-sub { display: block; font-size: 10.5px; font-weight: 500; opacity: 0.9; margin-top: 2px; line-height: 1.3; }
+  td.tt-cell.cat-team { background: var(--cat-team); }
+  td.tt-cell.cat-ops { background: var(--cat-ops); }
+  td.tt-cell.cat-ext { background: var(--cat-ext); }
+  td.tt-cell.cat-strategy { background: var(--cat-strategy); }
+  td.tt-cell.cat-protected { background: var(--cat-protected); }
+  td.tt-cell.cat-other { background: var(--cat-other); color: var(--cat-other-ink); }
+  td.tt-cell.tt-protected {
+    background: color-mix(in oklab, var(--cat-strategy) 16%, var(--paper-raised)) !important;
+    color: var(--ink) !important;
+    border: 1.5px dashed color-mix(in oklab, var(--cat-strategy) 55%, transparent);
+  }
+
+  /* ================= SECTION 2: BRIEF ================= */
+  .brief-hero { padding-bottom: 20px; border-bottom: 1px solid var(--line); margin-bottom: 34px; }
+  .brief-hero h1 { font-size: clamp(1.8rem, 4vw, 2.5rem); margin: 0 0 14px; max-width: 34ch; text-wrap: balance; }
+  .brief-hero p.lede { color: var(--ink-soft); max-width: 66ch; font-size: 1.05rem; margin: 0; }
+
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; margin: 30px 0 40px; }
+  @media (max-width: 720px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+  .stat-tile { background: var(--paper-raised); padding: 20px 18px; display: flex; flex-direction: column; gap: 6px; }
+  .stat-tile .num { font-family: "IBM Plex Mono", monospace; font-size: 1.7rem; font-weight: 600; color: var(--accent-ink); }
+  .stat-tile .lbl { font-size: 12.5px; color: var(--ink-soft); line-height: 1.4; }
+
+  .timebar { display: flex; width: 100%; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); margin-bottom: 14px; }
+  .timebar .seg { height: 100%; }
+  .timebar-figs { display: flex; flex-wrap: wrap; gap: 14px 22px; margin-bottom: 40px; }
+  .timebar-fig { display: flex; align-items: baseline; gap: 7px; font-size: 12.5px; color: var(--ink-soft); }
+  .timebar-fig .sw { width: 10px; height: 10px; border-radius: 3px; }
+  .timebar-fig b { color: var(--ink); font-family: "IBM Plex Mono", monospace; }
+
+  .reasons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 44px; }
+  @media (max-width: 860px) { .reasons-grid { grid-template-columns: 1fr; } }
+  .reasons-grid.reasons-grid-2col { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 640px) { .reasons-grid.reasons-grid-2col { grid-template-columns: 1fr; } }
+  .reason-card { border: 1px solid var(--line); border-radius: 12px; padding: 20px 20px 22px; background: var(--paper-raised); box-shadow: var(--shadow); }
+  .reason-card .rn { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--accent-ink); margin-bottom: 8px; }
+  .reason-card h4 { font-family: "Newsreader", Georgia, serif; font-size: 1.1rem; font-weight: 600; margin: 0 0 8px; }
+  .reason-card p { margin: 0; font-size: 0.92rem; color: var(--ink-soft); }
+
+  .data-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+  @media (max-width: 860px) { .data-grid-2 { grid-template-columns: 1fr; } }
+  .data-card { border: 1px solid var(--line); border-radius: 12px; padding: 22px 22px 24px; background: var(--paper-raised); box-shadow: var(--shadow); }
+  .data-card h4 { font-family: "Newsreader", Georgia, serif; font-size: 1.05rem; font-weight: 600; margin: 0 0 4px; }
+  .data-card .data-note { margin: 0 0 16px; font-size: 0.82rem; color: var(--ink-soft); }
+  .bar-list { display: flex; flex-direction: column; gap: 10px; }
+  .bar-row { display: grid; grid-template-columns: 96px 1fr 46px; align-items: center; gap: 10px; }
+  .bar-row .bl-label { font-size: 0.84rem; color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar-row .bl-track { height: 10px; background: var(--line-soft); border-radius: 5px; overflow: hidden; }
+  .bar-row .bl-fill { height: 100%; border-radius: 5px; background: var(--accent); }
+  .bar-row .bl-val { font-family: "IBM Plex Mono", monospace; font-size: 0.78rem; text-align: right; color: var(--ink); }
+  .data-foot-note { margin: 14px 0 0; font-size: 0.8rem; color: var(--ink-soft); }
+
+  .chart-trend { display: flex; align-items: flex-end; gap: 8px; height: 150px; margin-bottom: 8px; }
+  .chart-trend .t-col { flex: 1; display: flex; flex-direction: column-reverse; min-width: 0; border-radius: 4px 4px 0 0; overflow: hidden; background: var(--line-soft); }
+  .chart-trend .t-col .seg { width: 100%; }
+  .chart-trend-axis { display: flex; gap: 8px; margin-bottom: 18px; }
+  .chart-trend-axis span { flex: 1; text-align: center; font-size: 10.5px; color: var(--ink-soft); font-family: "IBM Plex Mono", monospace; }
+  .chart-legend { display: flex; flex-wrap: wrap; gap: 8px 16px; }
+  .chart-legend-item { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--ink-soft); }
+  .chart-legend-item .sw { width: 9px; height: 9px; border-radius: 2px; flex: none; }
+
+  .chart-wd { display: flex; align-items: flex-end; gap: 16px; height: 128px; padding-top: 24px; }
+  .chart-wd .w-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end; }
+  .chart-wd .w-bar { width: 100%; max-width: 44px; border-radius: 6px 6px 3px 3px; position: relative; background: var(--accent); }
+  .chart-wd .w-bar .val { position: absolute; top: -20px; left: 0; right: 0; text-align: center; font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 600; color: var(--ink); }
+  .chart-wd .w-label { font-size: 11.5px; color: var(--ink-soft); }
+
+  .callout { display: flex; flex-direction: column; }
+  .callout-row { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 13px 0; border-bottom: 1px dotted var(--line); font-size: 0.92rem; }
+  .callout-row:last-child { border-bottom: none; }
+  .callout-row .k { color: var(--ink-soft); }
+  .callout-row .v { font-weight: 700; color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .callout-row .v.accent { color: var(--accent); }
+
+  .section-heading { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+  .section-kicker { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); }
+  .section-heading h2 { font-size: 1.5rem; margin: 0; }
+
+  .brief-versions { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 44px; }
+  @media (max-width: 860px) { .brief-versions { grid-template-columns: 1fr; } }
+  .bv-card { border: 1px solid var(--line); border-radius: 14px; padding: 24px 24px 26px; background: var(--paper-raised); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 14px; }
+  .bv-card .bv-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .bv-card h3 { font-size: 1.25rem; margin: 0; }
+  .bv-metric { font-family: "IBM Plex Mono", monospace; font-size: 1.15rem; color: var(--accent-ink); font-weight: 600; }
+  .bv-metric-label { font-size: 11.5px; color: var(--ink-soft); margin-top: -8px; }
+  .bv-card p { margin: 0; font-size: 0.92rem; color: var(--ink); }
+  .bv-nuance { font-size: 0.88rem; color: var(--ink-soft); border-left: 2px solid var(--brick); padding-left: 12px; margin-top: 2px; }
+
+  .brief-reg { border: 1px solid var(--line); border-radius: 14px; background: var(--paper-raised); box-shadow: var(--shadow); padding: 24px 26px; margin-bottom: 44px; }
+  .brief-reg ol { margin: 0; padding-left: 1.3em; }
+  .brief-reg li { margin-bottom: 10px; font-size: 0.94rem; }
+  .brief-reg li:last-child { margin-bottom: 0; }
+  .brief-reg li b { font-weight: 600; }
+
+  .decisions-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 44px; }
+  @media (max-width: 720px) { .decisions-grid { grid-template-columns: 1fr; } }
+  .decision-card { border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; background: var(--paper-raised); }
+  .decision-card .dn { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--ink-soft); margin-bottom: 6px; }
+  .decision-card p { margin: 0 0 10px; font-size: 0.92rem; }
+  .owner-pill { display: inline-flex; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); }
+
+  .brief-footer { border-top: 1px solid var(--line); padding-top: 22px; font-size: 0.88rem; color: var(--ink-soft); }
+  .brief-footer a { font-weight: 600; }
+
+  /* ================= SECTION 3: REGLAMENT (reused clause styling) ================= */
+  .status-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 22px; }
+  .status-pill { display: inline-flex; align-items: center; gap: 6px; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 11px; border-radius: 100px; border: 1px solid var(--line); color: var(--ink-soft); }
+  .status-pill.draft { border-color: var(--accent); color: var(--accent-ink); background: var(--accent-soft); }
+  .status-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+  .reg-lede { font-size: 1.06rem; color: var(--ink-soft); max-width: 62ch; margin: 0 0 8px; }
+  .reg-lede strong { color: var(--ink); font-weight: 600; }
+  .basis-note { font-size: 0.9rem; color: var(--ink-soft); max-width: 62ch; margin: 10px 0 0; padding-left: 14px; border-left: 2px solid var(--line); }
+
+  .reg-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin: 36px 0 20px; }
+  @media (max-width: 640px) { .reg-stats { grid-template-columns: repeat(2, 1fr); } }
+  .reg-stat { background: var(--paper-raised); padding: 18px 16px; }
+  .reg-stat .num { font-family: "IBM Plex Mono", monospace; font-variant-numeric: tabular-nums; font-size: 1.35rem; color: var(--accent-ink); font-weight: 600; display: block; margin-bottom: 4px; }
+  .reg-stat .label { font-size: 0.8rem; color: var(--ink-soft); line-height: 1.35; }
+
+  section.clause { display: grid; grid-template-columns: 56px 1fr; gap: 4px 22px; padding: 34px 0; border-top: 1px solid var(--line-soft); }
+  section.clause:first-of-type { border-top: 1px solid var(--line); margin-top: 6px; }
+  @media (max-width: 640px) { section.clause { grid-template-columns: 1fr; gap: 8px; } }
+  .clause-num { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.95rem; color: var(--ink-soft); padding-top: 4px; }
+  .clause-body h2 { font-size: 1.4rem; margin: 0 0 14px; text-wrap: balance; }
+  .clause-body p { margin: 0 0 14px; max-width: 66ch; color: var(--ink); }
+  .clause-body p.muted { color: var(--ink-soft); font-size: 0.95rem; }
+  .clause-body ul, .clause-body ol { margin: 0 0 14px; padding-left: 1.3em; max-width: 64ch; }
+  .clause-body li { margin-bottom: 8px; }
+
+  .box { border-radius: 10px; border: 1px solid var(--line); padding: 18px 20px; margin: 4px 0 18px; box-shadow: var(--shadow); }
+  .box .box-label { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .box.protected { border-left: 3px solid var(--accent); background: var(--paper-raised); }
+  .box.protected .box-label { color: var(--accent-ink); }
+  .box.rule { border-left: 3px solid var(--teal); background: var(--paper-raised); }
+  .box.rule .box-label { color: var(--teal); }
+  .box.restricted { border-left: 3px solid var(--brick); background: var(--paper-raised); }
+  .box.restricted .box-label { color: var(--brick); }
+  .box p:last-child { margin-bottom: 0; }
+
+  .reg-table-scroll { overflow-x: auto; margin: 4px 0 20px; }
+  table.reg-table { width: 100%; border-collapse: collapse; min-width: 480px; font-size: 0.92rem; }
+  table.reg-table th, table.reg-table td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+  table.reg-table th { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); font-weight: 500; border-bottom: 1px solid var(--line); }
+  table.reg-table td.role { font-weight: 600; white-space: nowrap; }
+  table.reg-table tr:last-child td { border-bottom: none; }
+  .reg-tag { display: inline-block; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.72rem; padding: 2px 8px; border-radius: 5px; margin: 0 4px 4px 0; }
+  .reg-tag.yes { background: var(--teal-soft); color: var(--teal); }
+  .reg-tag.no { background: var(--brick-soft); color: var(--brick); }
+
+  .ladder { list-style: none; margin: 4px 0 20px; padding: 0; counter-reset: rung; }
+  .ladder li { counter-increment: rung; display: grid; grid-template-columns: 32px 1fr; gap: 14px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--line-soft); max-width: 64ch; }
+  .ladder li:last-child { border-bottom: none; }
+  .ladder li::before { content: counter(rung); font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.85rem; color: var(--accent-ink); }
+  .ladder strong { display: block; margin-bottom: 2px; }
+  .ladder span.detail { color: var(--ink-soft); font-size: 0.92rem; }
+
+  .open-q { background: var(--paper-raised); border: 1px dashed var(--line); border-radius: 10px; padding: 20px 22px; margin: 4px 0 4px; }
+  .open-q ol { margin: 0; padding-left: 1.2em; }
+  .open-q li { margin-bottom: 10px; }
+  .open-q li:last-child { margin-bottom: 0; }
+
+  .page-footer { margin-top: 50px; padding-top: 28px; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--ink-soft); }
+
+  /* ================= SECTION 5: BENCHMARKS ================= */
+  #sec-bench h1 { font-size: clamp(2rem, 5vw, 2.85rem); line-height: 1.12; letter-spacing: -0.01em; margin: 0 0 14px; text-wrap: balance; max-width: 18ch; }
+  .bn-status-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 22px; }
+  .bn-pill { display: inline-flex; align-items: center; gap: 6px; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 11px; border-radius: 100px; border: 1px solid var(--line); color: var(--ink-soft); }
+  .bn-pill.hero { border-color: var(--accent); color: var(--accent-ink); background: var(--accent-soft); }
+  .bn-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .bn-lede { font-size: 1.06rem; color: var(--ink-soft); max-width: 64ch; margin: 0 0 8px; }
+  .bn-lede strong { color: var(--ink); font-weight: 600; }
+  .bn-basis-note { font-size: 0.9rem; color: var(--ink-soft); max-width: 62ch; margin: 18px 0 0; padding-left: 14px; border-left: 2px solid var(--line); }
+
+  .bn-finding { padding: 44px 0; border-top: 1px solid var(--line-soft); }
+  .bn-finding:first-of-type { border-top: 1px solid var(--line); margin-top: 44px; }
+  .bn-finding-head { display: grid; grid-template-columns: 44px 1fr; gap: 4px 20px; margin-bottom: 22px; }
+  @media (max-width: 640px) { .bn-finding-head { grid-template-columns: 1fr; gap: 6px; } }
+  .bn-finding-num { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.9rem; color: var(--ink-soft); padding-top: 5px; }
+  .bn-finding-head h2 { font-size: 1.55rem; margin: 0 0 8px; text-wrap: balance; }
+  .bn-finding-body { max-width: 66ch; }
+  .bn-finding-body p { margin: 0 0 14px; }
+  .bn-finding-body p.muted { color: var(--ink-soft); font-size: 0.95rem; }
+  .bn-finding-body ul, .bn-finding-body ol { margin: 0 0 14px; padding-left: 1.3em; max-width: 62ch; }
+  .bn-finding-body li { margin-bottom: 8px; }
+
+  .bn-scale-block { margin: 8px 0 30px; padding: 22px 22px 18px; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); }
+  .bn-scale-title { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 18px; }
+  .bn-scale-row { display: grid; grid-template-columns: 168px 1fr 88px; align-items: center; gap: 14px; margin-bottom: 16px; position: relative; }
+  .bn-scale-row:last-child { margin-bottom: 4px; }
+  @media (max-width: 640px) { .bn-scale-row { grid-template-columns: 1fr; gap: 6px; } .bn-scale-row .bn-row-value { text-align: left; } }
+  .bn-scale-row .bn-row-label { font-size: 0.86rem; color: var(--ink-soft); line-height: 1.3; }
+  .bn-scale-row .bn-row-label strong { color: var(--ink); display: block; font-weight: 600; }
+  .bn-row-track { position: relative; height: 20px; background: var(--line-soft); border-radius: 5px; }
+  .bn-row-bar { position: absolute; top: 0; left: 0; height: 100%; border-radius: 5px; }
+  .bn-row-bar.brass { background: var(--accent); }
+  .bn-row-bar.teal-fill { background: var(--teal); }
+  .bn-row-marker { position: absolute; top: -6px; bottom: -6px; width: 2px; background: var(--ink-soft); }
+  .bn-row-marker .marker-label { position: absolute; top: -19px; left: 50%; transform: translateX(-50%); font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.68rem; color: var(--ink-soft); white-space: nowrap; }
+  .bn-row-value { font-family: "IBM Plex Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; font-size: 0.95rem; color: var(--ink); text-align: right; white-space: nowrap; }
+  .bn-scale-axis { display: flex; justify-content: space-between; margin: 10px 0 0 182px; padding-right: 88px; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.68rem; color: var(--ink-soft); }
+  @media (max-width: 640px) { .bn-scale-axis { margin-left: 0; padding-right: 0; } }
+  .bn-scale-foot { margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--line); font-size: 0.88rem; color: var(--ink-soft); }
+  .bn-scale-foot strong { color: var(--brick); font-weight: 600; }
+
+  .bn-table-scroll { overflow-x: auto; margin: 4px 0 8px; }
+  .bn-table-scroll table { width: 100%; border-collapse: collapse; min-width: 620px; font-size: 0.9rem; }
+  .bn-table-scroll th, .bn-table-scroll td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+  .bn-table-scroll th { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); font-weight: 500; border-bottom: 1px solid var(--line); }
+  .bn-table-scroll td.cat { font-weight: 600; white-space: nowrap; }
+  .bn-table-scroll tr:last-child td { border-bottom: none; }
+  .bn-tag { display: inline-block; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.7rem; padding: 3px 9px; border-radius: 5px; white-space: nowrap; }
+  .bn-tag.ok { background: var(--teal-soft); color: var(--teal); }
+  .bn-tag.gap { background: var(--brick-soft); color: var(--brick); }
+  .bn-tag.neutral { background: var(--line-soft); color: var(--ink-soft); }
+
+  .bn-quote-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 8px 0 4px; }
+  @media (max-width: 640px) { .bn-quote-grid { grid-template-columns: 1fr; } }
+  .bn-quote-card { background: var(--paper-raised); border: 1px solid var(--line); border-radius: 10px; padding: 20px 22px; box-shadow: var(--shadow); display: flex; flex-direction: column; }
+  .bn-quote-card.confirms { border-left: 3px solid var(--teal); }
+  .bn-quote-card.contradicts { border-left: 3px solid var(--brick); }
+  .bn-quote-card.context { border-left: 3px solid var(--accent); }
+  .bn-quote-tag { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 12px; }
+  .bn-quote-card.confirms .bn-quote-tag { color: var(--teal); }
+  .bn-quote-card.contradicts .bn-quote-tag { color: var(--brick); }
+  .bn-quote-card.context .bn-quote-tag { color: var(--accent-ink); }
+  .bn-quote-stat { font-family: "IBM Plex Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; font-size: 1.7rem; font-weight: 600; color: var(--accent-ink); line-height: 1; margin-bottom: 6px; }
+  .bn-quote-stat-label { font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 14px; }
+  .bn-quote-card p.quote-note { font-size: 0.92rem; color: var(--ink); margin: 0 0 14px; }
+  .bn-quote-card blockquote { font-family: "Newsreader", Georgia, serif; font-style: italic; font-size: 1.08rem; line-height: 1.45; margin: 0 0 14px; color: var(--ink); }
+  .bn-quote-card cite { font-style: normal; font-size: 0.85rem; color: var(--ink-soft); display: block; margin-bottom: 12px; }
+  .bn-quote-card cite strong { color: var(--ink); font-weight: 600; }
+  .bn-quote-takeaway { font-size: 0.9rem; color: var(--ink-soft); margin-top: auto; padding-top: 12px; border-top: 1px dashed var(--line); }
+
+  .bn-footer-note { margin-top: 40px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--ink-soft); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <div class="topnav-title">Календарь CEO</div>
+    <div class="topnav-tabs">
+      <button type="button" class="topnav-tab active" data-sec="asis">Календарь CEO: As Is</button>
+      <button type="button" class="topnav-tab" data-sec="tobe">Календарь CEO: To Be</button>
+      <button type="button" class="topnav-tab" data-sec="brief">Бриф</button>
+      <button type="button" class="topnav-tab" data-sec="reg">Регламент</button>
+      <button type="button" class="topnav-tab" data-sec="bench">Бенчмарки</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ SECTION 1: CALENDAR AS IS ============ -->
+<div class="section-panel active" id="sec-asis">
+  <div class="wrap-narrow">
+    <div class="status-row">
+  <span class="status-pill draft"><span class="dot"></span>Диагностика</span>
+  <span class="status-pill">Апрель–август 2026 · 701 встреча</span>
+</div>
+
+<h1>Календарь CEO: As Is</h1>
+<p class="reg-lede">Реальный календарь CEO за пять месяцев (выгрузка из Outlook) — на этих цифрах строятся предпосылки и все варианты To Be.</p>
+
+<div class="reg-stats">
+  <div class="reg-stat"><span class="num">133 ч/мес</span><span class="label">занято встречами</span></div>
+  <div class="reg-stat"><span class="num">4,7 ч/мес</span><span class="label">под стратегию — почти всё один выезд Advisory Board</span></div>
+  <div class="reg-stat"><span class="num">50%</span><span class="label">переходов между встречами без буфера</span></div>
+  <div class="reg-stat"><span class="num">23 чел.</span><span class="label">на еженедельных личных синках, ~33 ч/мес</span></div>
+</div>
+
+<div class="section-heading">
+  <div class="section-kicker">Структура календаря</div>
+  <h2>Куда уходит время</h2>
+</div>
+<div class="timebar">
+  <div class="seg" style="width:24.7%;background:var(--cat-team)" title="Команда: 1:1 — 24,7%"></div>
+  <div class="seg" style="width:13.9%;background:var(--cat-ops)" title="Операционка / HR — 13,9%"></div>
+  <div class="seg" style="width:10.9%;background:var(--cat-ext)" title="Внешние — 10,9%"></div>
+  <div class="seg" style="width:3.5%;background:var(--cat-strategy)" title="Стратегия — 3,5%"></div>
+  <div class="seg" style="width:22.9%;background:var(--cat-protected)" title="Self Work / защищено — 22,9%"></div>
+  <div class="seg" style="width:24.1%;background:var(--cat-other)" title="Прочее / не размечено — 24,1%"></div>
+</div>
+<div class="timebar-figs">
+  <div class="timebar-fig"><span class="sw" style="background:var(--cat-team)"></span>Команда: 1:1 — <b>33,0 ч/мес · 24,7%</b></div>
+  <div class="timebar-fig"><span class="sw" style="background:var(--cat-ops)"></span>Операционка / HR — <b>18,5 ч/мес · 13,9%</b></div>
+  <div class="timebar-fig"><span class="sw" style="background:var(--cat-ext)"></span>Внешние — <b>14,6 ч/мес · 10,9%</b></div>
+  <div class="timebar-fig"><span class="sw" style="background:var(--cat-strategy)"></span>Стратегия — <b>4,7 ч/мес · 3,5%</b></div>
+  <div class="timebar-fig"><span class="sw" style="background:var(--cat-protected)"></span>Self Work / защищено — <b>30,5 ч/мес · 22,9%</b></div>
+  <div class="timebar-fig"><span class="sw" style="background:var(--cat-other)"></span>Прочее / не размечено — <b>32,2 ч/мес · 24,1%</b></div>
+</div>
+
+<div class="section-heading">
+  <div class="section-kicker">Разбор пяти месяцев</div>
+  <h2>Динамика по месяцам, дням недели и организаторам</h2>
+</div>
+
+<div class="data-card" style="margin-bottom:20px;">
+  <h4>Динамика по месяцам</h4>
+  <p class="data-note">Часы встреч в месяц, по категориям (апрель–август 2026)</p>
+  <div class="chart-trend">
+    <div class="t-col" style="height:93.9%" title="Апрель 26 — 137,4 ч">
+      <div class="seg" style="height:22.9%;background:var(--cat-team)"></div>
+      <div class="seg" style="height:5.5%;background:var(--cat-ops)"></div>
+      <div class="seg" style="height:8.6%;background:var(--cat-ext)"></div>
+      <div class="seg" style="height:12.4%;background:var(--cat-strategy)"></div>
+      <div class="seg" style="height:22.1%;background:var(--cat-protected)"></div>
+      <div class="seg" style="height:28.6%;background:var(--cat-other)"></div>
+    </div>
+    <div class="t-col" style="height:92.4%" title="Май 26 — 135,2 ч">
+      <div class="seg" style="height:25.5%;background:var(--cat-team)"></div>
+      <div class="seg" style="height:10.7%;background:var(--cat-ops)"></div>
+      <div class="seg" style="height:5.9%;background:var(--cat-ext)"></div>
+      <div class="seg" style="height:23.9%;background:var(--cat-protected)"></div>
+      <div class="seg" style="height:34.0%;background:var(--cat-other)"></div>
+    </div>
+    <div class="t-col" style="height:100%" title="Июнь 26 — 146,3 ч">
+      <div class="seg" style="height:17.4%;background:var(--cat-team)"></div>
+      <div class="seg" style="height:30.6%;background:var(--cat-ops)"></div>
+      <div class="seg" style="height:9.5%;background:var(--cat-ext)"></div>
+      <div class="seg" style="height:0.5%;background:var(--cat-strategy)"></div>
+      <div class="seg" style="height:20.5%;background:var(--cat-protected)"></div>
+      <div class="seg" style="height:21.5%;background:var(--cat-other)"></div>
+    </div>
+    <div class="t-col" style="height:80.6%" title="Июль 26 — 117,9 ч">
+      <div class="seg" style="height:24.2%;background:var(--cat-team)"></div>
+      <div class="seg" style="height:8.3%;background:var(--cat-ops)"></div>
+      <div class="seg" style="height:13.4%;background:var(--cat-ext)"></div>
+      <div class="seg" style="height:4.8%;background:var(--cat-strategy)"></div>
+      <div class="seg" style="height:27.1%;background:var(--cat-protected)"></div>
+      <div class="seg" style="height:22.3%;background:var(--cat-other)"></div>
+    </div>
+    <div class="t-col" style="height:89.3%" title="Август 26 — 130,8 ч">
+      <div class="seg" style="height:34.4%;background:var(--cat-team)"></div>
+      <div class="seg" style="height:12.2%;background:var(--cat-ops)"></div>
+      <div class="seg" style="height:18.0%;background:var(--cat-ext)"></div>
+      <div class="seg" style="height:21.4%;background:var(--cat-protected)"></div>
+      <div class="seg" style="height:13.9%;background:var(--cat-other)"></div>
+    </div>
+  </div>
+  <div class="chart-trend-axis"><span>Апр 26</span><span>Май 26</span><span>Июн 26</span><span>Июл 26</span><span>Авг 26</span></div>
+  <div class="chart-legend">
+    <div class="chart-legend-item"><span class="sw" style="background:var(--cat-team)"></span>Команда</div>
+    <div class="chart-legend-item"><span class="sw" style="background:var(--cat-ops)"></span>Операционка</div>
+    <div class="chart-legend-item"><span class="sw" style="background:var(--cat-ext)"></span>Внешние</div>
+    <div class="chart-legend-item"><span class="sw" style="background:var(--cat-strategy)"></span>Стратегия</div>
+    <div class="chart-legend-item"><span class="sw" style="background:var(--cat-protected)"></span>Защищено</div>
+    <div class="chart-legend-item"><span class="sw" style="background:var(--cat-other)"></span>Прочее</div>
+  </div>
+  <p class="data-foot-note">Картина нестабильна месяц к месяцу — операционка скачет от 7,6 до 44,8 ч, стратегия пропадает совсем в мае и августе — но сумма всегда держится в диапазоне 118–146 ч/мес.</p>
+</div>
+
+<div class="data-grid-2">
+  <div class="data-card">
+    <h4>Нагрузка по дням недели</h4>
+    <p class="data-note">Часов встреч в среднем на день</p>
+    <div class="chart-wd">
+      <div class="w-col"><div class="w-bar" style="height:82.7%"><span class="val">6,2</span></div><div class="w-label">Пн</div></div>
+      <div class="w-col"><div class="w-bar" style="height:90.7%"><span class="val">6,8</span></div><div class="w-label">Вт</div></div>
+      <div class="w-col"><div class="w-bar" style="height:73.3%"><span class="val">5,5</span></div><div class="w-label">Ср</div></div>
+      <div class="w-col"><div class="w-bar" style="height:100%;background:var(--brick)"><span class="val">7,5</span></div><div class="w-label">Чт</div></div>
+      <div class="w-col"><div class="w-bar" style="height:62.7%;background:var(--teal)"><span class="val">4,7</span></div><div class="w-label">Пт</div></div>
+    </div>
+    <p class="data-foot-note">Самый загруженный день — четверг, самый лёгкий — пятница. Разброс держится месяц к месяцу, это не сезонный эффект, а структура недели.</p>
+  </div>
+  <div class="data-card">
+    <h4>Кто ставит встречи напрямую</h4>
+    <p class="data-note">Топ-7 организаторов из 57 за 5 месяцев, число встреч</p>
+    <div class="bar-list">
+      <div class="bar-row"><span class="bl-label">Малеванкина (HR)</span><span class="bl-track"><span class="bl-fill" style="width:100%"></span></span><span class="bl-val">17</span></div>
+      <div class="bar-row"><span class="bl-label">Егорова (All&nbsp;Staff)</span><span class="bl-track"><span class="bl-fill" style="width:82.4%"></span></span><span class="bl-val">14</span></div>
+      <div class="bar-row"><span class="bl-label">Доценко (HR)</span><span class="bl-track"><span class="bl-fill" style="width:70.6%"></span></span><span class="bl-val">12</span></div>
+      <div class="bar-row"><span class="bl-label">Лапикова</span><span class="bl-track"><span class="bl-fill" style="width:52.9%"></span></span><span class="bl-val">9</span></div>
+      <div class="bar-row"><span class="bl-label">Авагян</span><span class="bl-track"><span class="bl-fill" style="width:35.3%"></span></span><span class="bl-val">6</span></div>
+      <div class="bar-row"><span class="bl-label">Мандрик</span><span class="bl-track"><span class="bl-fill" style="width:35.3%"></span></span><span class="bl-val">6</span></div>
+      <div class="bar-row"><span class="bl-label">Гарнец</span><span class="bl-track"><span class="bl-fill" style="width:35.3%"></span></span><span class="bl-val">6</span></div>
+    </div>
+    <p class="data-foot-note">57 уникальных организаторов за 5 месяцев. 78% встреч идёт через ассистента или самого CEO — но HR/наём (Малеванкина + Доценко) поставили напрямую 29 встреч, Егорова (All Staff / AI Demo) — 14.</p>
+  </div>
+</div>
+
+<div class="data-card" style="margin-bottom:20px;">
+  <h4>Буферы и вечерние переработки</h4>
+  <div class="callout">
+    <div class="callout-row"><span class="k">Переходов между встречами без буфера</span><span class="v accent">50%</span></div>
+    <div class="callout-row"><span class="k">Переходов с буфером 1–10 минут</span><span class="v">8%</span></div>
+    <div class="callout-row"><span class="k">Средний буфер, когда он есть</span><span class="v">41 мин</span></div>
+    <div class="callout-row"><span class="k">Встреч, заканчивающихся позже 18:00</span><span class="v accent">14 / мес</span></div>
+    <div class="callout-row"><span class="k">Встреч, начинающихся раньше 9:30</span><span class="v">3 / мес</span></div>
+    <div class="callout-row"><span class="k">Самый загруженный день</span><span class="v">четверг · 7,5 ч</span></div>
+    <div class="callout-row"><span class="k">Самый лёгкий день</span><span class="v">пятница · 4,7 ч</span></div>
+  </div>
+</div>
+
+<div class="section-heading">
+  <div class="section-kicker">Выводы</div>
+  <h2>Что это значит на практике</h2>
+</div>
+<div class="reasons-grid reasons-grid-2col">
+  <div class="reason-card">
+    <div class="rn">01</div>
+    <h4>Индивидуальные 1:1 — четверть календаря, стабильно все 5 месяцев</h4>
+    <p>33,0 ч/мес. 23 человека получают персональный слот с CEO каждую неделю. В июле–августе добавился ещё и параллельный цикл «Оценка 1H 2026» — фактически два касания с частью команды.</p>
+  </div>
+  <div class="reason-card">
+    <div class="rn">02</div>
+    <h4>Стратегия — это не регулярная практика, а один выезд</h4>
+    <p>4,7 ч/мес. 23,4 часа за 5 месяцев с пометкой «стратегия» — 19 из них это Advisory Board 2–3 апреля в Стамбуле. Без этого выезда регулярного стратегического времени в календаре нет вообще.</p>
+  </div>
+</div>
+
+<div class="brief-footer">
+  Полная интерактивная версия (календарь по дням, разбор 130 неразмеченных встреч) — в личном кабинете: <a href="https://claude.ai/code/artifact/ea1773a6-5e2a-4881-9a7d-91f4de6bac62">Календарь CEO — личный кабинет</a>.
+</div>
+
+  </div>
+</div>
+
+<!-- ============ SECTION 2: TO BE TABLES ============ -->
+<div class="section-panel" id="sec-tobe">
+  <div class="wrap">
+    <div class="sec1-head">
+      <div class="status-row">
+        <span class="status-pill draft"><span class="dot"></span>5 вариантов</span>
+        <span class="status-pill">Только сетки недели</span>
+      </div>
+      <h1>Варианты To Be — недельные таблицы</h1>
+      <p>Пять вариантов новой структуры недели CEO — только сами сетки. Вариант 1&ndash;3 показаны как одна неделя; вариант 4 и 5 закреплены по именам и меняются по 4-недельной ротации &mdash; переключайте недели вкладками внутри карточки.</p>
+    </div>
+
+    <div class="legend-row">
+      <div class="legend-item"><span class="legend-swatch" style="background:var(--cat-team)"></span>Команда: 1:1 и синки</div>
+      <div class="legend-item"><span class="legend-swatch" style="background:var(--cat-ops)"></span>Операционка / HR</div>
+      <div class="legend-item"><span class="legend-swatch" style="background:var(--cat-ext)"></span>Внешние</div>
+      <div class="legend-item"><span class="legend-swatch" style="background:var(--cat-strategy)"></span>Стратегия</div>
+      <div class="legend-item"><span class="legend-swatch" style="background:var(--cat-protected)"></span>Self Work / защищено</div>
+      <div class="legend-item"><span class="legend-swatch" style="background:var(--cat-other)"></span>Прочее / резерв</div>
+    </div>
+
+    <div class="version-jump">
+      <a href="#tobe-v4">4 · Стратегическая пятница</a>
+      <a href="#tobe-v5">5 · Все 1:1 — 2×/мес</a>
+      <a href="#tobe-v1">1 · Быстрые победы</a>
+      <a href="#tobe-v2">2 · Защищённые окна</a>
+      <a href="#tobe-v3">3 · Тематические дни</a>
+    </div>
+
+    <div class="tobe-version" id="tobe-v4"><div class="tobe-version-head"><div class="tobe-version-eyebrow">Вариант 4</div><h3>Стратегическая пятница</h3></div><p class="tobe-version-tag">Понедельник–четверг забирают всю нагрузку недели — короче слоты, теснее буфер. Взамен пятница полностью свободна от встреч, удалённая и отдана под стратегию — это не почасовой блок в будни, а целый день.</p><div class="week-tabs" data-group="v4"><button type="button" class="week-tab-btn active" data-group="v4" data-idx="0">Неделя 1</button><button type="button" class="week-tab-btn" data-group="v4" data-idx="1">Неделя 2</button><button type="button" class="week-tab-btn" data-group="v4" data-idx="2">Неделя 3</button><button type="button" class="week-tab-btn" data-group="v4" data-idx="3">Неделя 4</button></div><div class="week-tab-panel" data-group="v4" data-idx="0"><div class="tt-wrap"><table class="tt-table" id="v4-w0"><thead><tr><th class="tt-h"></th><th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th></tr></thead><tbody><tr><td class="tt-h">10:00</td><td class="tt-cell cat-ext" rowspan="2"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext" rowspan="2"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext" rowspan="2"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-protected tt-protected" rowspan="9"><span class="tt-label">Стратегическая пятница</span><span class="tt-sub">без встреч, удалённо — по умолчанию</span></td></tr><tr><td class="tt-h">11:00</td><td class="tt-cell cat-team"><span class="tt-label">Силаев</span><span class="tt-sub">3×/мес, 50 мин</span></td></tr><tr><td class="tt-h">12:00</td><td class="tt-cell cat-ops"><span class="tt-label">Статус встреча</span><span class="tt-sub">еженедельно, 60 мин</span></td><td class="tt-cell cat-ops"><span class="tt-label">Monthly Вклады</span><span class="tt-sub">1×/мес</span></td><td class="tt-cell cat-ops"><span class="tt-label">УК</span><span class="tt-sub">2×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Хачикян</span><span class="tt-sub">3×/мес, 50 мин</span></td></tr><tr><td class="tt-h">13:00</td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td></tr><tr><td class="tt-h">14:00</td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span><span class="tt-sub">Манджиева не на этой неделе</span></td><td class="tt-cell cat-team"><span class="tt-label">Сарибекян</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Князева</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span><span class="tt-sub">Кожухарь не на этой неделе</span></td></tr><tr><td class="tt-h">15:00</td><td class="tt-cell cat-team"><span class="tt-label">Щербаков</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span><span class="tt-sub">Полищук не на этой неделе</span></td><td class="tt-cell cat-team"><span class="tt-label">Максимова</span><span class="tt-sub">2×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Марченко</span><span class="tt-sub">2×/мес, 50 мин</span></td></tr><tr><td class="tt-h">16:00</td><td class="tt-cell cat-team"><span class="tt-label">Мандрик</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Пестов</span><span class="tt-sub">2×/мес, 50 мин</span></td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span><span class="tt-sub">Лапикова не на этой неделе</span></td><td class="tt-cell cat-team"><span class="tt-label">Егоров</span><span class="tt-sub">3×/мес, 50 мин</span></td></tr><tr><td class="tt-h">17:00</td><td class="tt-cell cat-team"><span class="tt-label">Лукашова</span><span class="tt-sub">3×/мес, 50 мин · перенесено с Вт 11:00</span></td><td class="tt-cell cat-team"><span class="tt-label">Воронин</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Шамба</span><span class="tt-sub">3×/мес, 50 мин · перенесено с 11:00</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td></tr><tr><td class="tt-h">18:00</td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-team"><span class="tt-label">Хасанова</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-ops"><span class="tt-label">Weekly с акционерами</span><span class="tt-sub">еженедельно, 60 мин</span></td></tr></tbody></table></div></div><div class="week-tab-panel" data-group="v4" data-idx="1" style="display:none"><div class="tt-wrap"><table class="tt-table" id="v4-w1"><thead><tr><th class="tt-h"></th><th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th></tr></thead><tbody><tr><td class="tt-h">10:00</td><td class="tt-cell cat-ext" rowspan="2"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext" rowspan="2"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext" rowspan="2"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-protected tt-protected" rowspan="9"><span class="tt-label">Стратегическая пятница</span><span class="tt-sub">без встреч, удалённо — по умолчанию</span></td></tr><tr><td class="tt-h">11:00</td><td class="tt-cell cat-team"><span class="tt-label">Силаев</span><span class="tt-sub">3×/мес, 50 мин</span></td></tr><tr><td class="tt-h">12:00</td><td class="tt-cell cat-ops"><span class="tt-label">Статус встреча</span><span class="tt-sub">еженедельно, 60 мин</span></td><td class="tt-cell cat-ops"><span class="tt-label">Курсы валют</span><span class="tt-sub">1×/мес</span></td><td class="tt-cell cat-ops"><span class="tt-label">Биздев</span><span class="tt-sub">2×/мес, 60 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Хачикян</span><span class="tt-sub">3×/мес, 50 мин</span></td></tr><tr><td class="tt-h">13:00</td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td></tr><tr><td class="tt-h">14:00</td><td class="tt-cell cat-team"><span class="tt-label">Манджиева</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span><span class="tt-sub">Сарибекян не на этой неделе</span></td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span><span class="tt-sub">Князева не на этой неделе</span></td><td class="tt-cell cat-team"><span class="tt-label">Кожухарь</span><span class="tt-sub">3×/мес, 50 мин</span></td></tr><tr><td class="tt-h">15:00</td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span><span class="tt-sub">Щербаков не на этой неделе</span></td><td class="tt-cell cat-team"><span class="tt-label">Полищук</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span><span class="tt-sub">нет 1:1 на этой неделе</span></td><td class="tt-cell cat-team"><span class="tt-label">Сергунов</span><span class="tt-sub">2×/мес, 50 мин</span></td></tr><tr><td class="tt-h">16:00</td><td class="tt-cell cat-team"><span class="tt-label">Мандрик</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Багиров</span><span class="tt-sub">2×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Лапикова</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span><span class="tt-sub">Егоров не на этой неделе</span></td></tr><tr><td class="tt-h">17:00</td><td class="tt-cell cat-team"><span class="tt-label">Лукашова</span><span class="tt-sub">3×/мес, 50 мин · перенесено с Вт 11:00</span></td><td class="tt-cell cat-team"><span class="tt-label">Воронин</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Шамба</span><span class="tt-sub">3×/мес, 50 мин · перенесено с 11:00</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td></tr><tr><td class="tt-h">18:00</td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-team"><span class="tt-label">Хасанова</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-ops"><span class="tt-label">Weekly с акционерами</span><span class="tt-sub">еженедельно, 60 мин</span></td></tr></tbody></table></div></div><div class="week-tab-panel" data-group="v4" data-idx="2" style="display:none"><div class="tt-wrap"><table class="tt-table" id="v4-w2"><thead><tr><th class="tt-h"></th><th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th></tr></thead><tbody><tr><td class="tt-h">10:00</td><td class="tt-cell cat-ext" rowspan="2"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext" rowspan="2"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext" rowspan="2"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-protected tt-protected" rowspan="9"><span class="tt-label">Стратегическая пятница</span><span class="tt-sub">без встреч, удалённо — по умолчанию</span></td></tr><tr><td class="tt-h">11:00</td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span><span class="tt-sub">Силаев не на этой неделе</span></td></tr><tr><td class="tt-h">12:00</td><td class="tt-cell cat-ops"><span class="tt-label">Статус встреча</span><span class="tt-sub">еженедельно, 60 мин</span></td><td class="tt-cell cat-ops"><span class="tt-label">WELCOME</span><span class="tt-sub">1×/мес</span></td><td class="tt-cell cat-ops"><span class="tt-label">УК</span><span class="tt-sub">2×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Хачикян</span><span class="tt-sub">3×/мес, 50 мин</span></td></tr><tr><td class="tt-h">13:00</td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td></tr><tr><td class="tt-h">14:00</td><td class="tt-cell cat-team"><span class="tt-label">Манджиева</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Сарибекян</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Князева</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Кожухарь</span><span class="tt-sub">3×/мес, 50 мин</span></td></tr><tr><td class="tt-h">15:00</td><td class="tt-cell cat-team"><span class="tt-label">Щербаков</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Полищук</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Максимова</span><span class="tt-sub">2×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Марченко</span><span class="tt-sub">2×/мес, 50 мин</span></td></tr><tr><td class="tt-h">16:00</td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span><span class="tt-sub">Мандрик не на этой неделе</span></td><td class="tt-cell cat-team"><span class="tt-label">Пестов</span><span class="tt-sub">2×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Лапикова</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Егоров</span><span class="tt-sub">3×/мес, 50 мин</span></td></tr><tr><td class="tt-h">17:00</td><td class="tt-cell cat-team"><span class="tt-label">Лукашова</span><span class="tt-sub">3×/мес, 50 мин · перенесено с Вт 11:00</span></td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span><span class="tt-sub">Воронин не на этой неделе</span></td><td class="tt-cell cat-team"><span class="tt-label">Шамба</span><span class="tt-sub">3×/мес, 50 мин · перенесено с 11:00</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td></tr><tr><td class="tt-h">18:00</td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span><span class="tt-sub">Хасанова не на этой неделе</span></td><td class="tt-cell cat-ops"><span class="tt-label">Weekly с акционерами</span><span class="tt-sub">еженедельно, 60 мин</span></td></tr></tbody></table></div></div><div class="week-tab-panel" data-group="v4" data-idx="3" style="display:none"><div class="tt-wrap"><table class="tt-table" id="v4-w3"><thead><tr><th class="tt-h"></th><th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th></tr></thead><tbody><tr><td class="tt-h">10:00</td><td class="tt-cell cat-ext" rowspan="2"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext" rowspan="2"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext" rowspan="2"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-protected tt-protected" rowspan="9"><span class="tt-label">Стратегическая пятница</span><span class="tt-sub">без встреч, удалённо — по умолчанию</span></td></tr><tr><td class="tt-h">11:00</td><td class="tt-cell cat-team"><span class="tt-label">Силаев</span><span class="tt-sub">3×/мес, 50 мин</span></td></tr><tr><td class="tt-h">12:00</td><td class="tt-cell cat-ops"><span class="tt-label">Статус встреча</span><span class="tt-sub">еженедельно, 60 мин</span></td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span><span class="tt-sub">нет monthly-встреч на этой неделе</span></td><td class="tt-cell cat-ops"><span class="tt-label">Биздев</span><span class="tt-sub">2×/мес, 60 мин</span></td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span><span class="tt-sub">Хачикян не на этой неделе</span></td></tr><tr><td class="tt-h">13:00</td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td></tr><tr><td class="tt-h">14:00</td><td class="tt-cell cat-team"><span class="tt-label">Манджиева</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Сарибекян</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Князева</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Кожухарь</span><span class="tt-sub">3×/мес, 50 мин</span></td></tr><tr><td class="tt-h">15:00</td><td class="tt-cell cat-team"><span class="tt-label">Щербаков</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Полищук</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span><span class="tt-sub">нет 1:1 на этой неделе</span></td><td class="tt-cell cat-team"><span class="tt-label">Сергунов</span><span class="tt-sub">2×/мес, 50 мин</span></td></tr><tr><td class="tt-h">16:00</td><td class="tt-cell cat-team"><span class="tt-label">Мандрик</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Багиров</span><span class="tt-sub">2×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Лапикова</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Егоров</span><span class="tt-sub">3×/мес, 50 мин</span></td></tr><tr><td class="tt-h">17:00</td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span><span class="tt-sub">Лукашова не на этой неделе</span></td><td class="tt-cell cat-team"><span class="tt-label">Воронин</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span><span class="tt-sub">Шамба не на этой неделе</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td></tr><tr><td class="tt-h">18:00</td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-team"><span class="tt-label">Хасанова</span><span class="tt-sub">3×/мес, 50 мин</span></td><td class="tt-cell cat-ops"><span class="tt-label">Weekly с акционерами</span><span class="tt-sub">еженедельно, 60 мин</span></td></tr></tbody></table></div></div></div>
+<div class="tobe-version" id="tobe-v5"><div class="tobe-version-head"><div class="tobe-version-eyebrow">Вариант 5</div><h3>Все 1:1 — 2×/мес</h3></div><p class="tobe-version-tag">Тот же каркас, что и в варианте 4 (окна «Внешние», операционка, Self Time, Self Work, стратегическая пятница) — но ВСЕ 20 человек на едином ритме 2 раза в месяц, а не смешанном 15×3/мес + 5×2/мес.</p><div class="week-tabs" data-group="v5"><button type="button" class="week-tab-btn active" data-group="v5" data-idx="0">Неделя 1</button><button type="button" class="week-tab-btn" data-group="v5" data-idx="1">Неделя 2</button><button type="button" class="week-tab-btn" data-group="v5" data-idx="2">Неделя 3</button><button type="button" class="week-tab-btn" data-group="v5" data-idx="3">Неделя 4</button></div><div class="week-tab-panel" data-group="v5" data-idx="0"><div class="tt-wrap"><table class="tt-table" id="v5-w0"><thead><tr><th class="tt-h"></th><th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th></tr></thead><tbody><tr><td class="tt-h">10:00</td><td class="tt-cell cat-ext" rowspan="2"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext" rowspan="2"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext" rowspan="2"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-protected" rowspan="2"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-protected tt-protected" rowspan="9"><span class="tt-label">Стратегическая пятница</span><span class="tt-sub">без встреч, удалённо — по умолчанию</span></td></tr><tr><td class="tt-h">11:00</td></tr><tr><td class="tt-h">12:00</td><td class="tt-cell cat-ops"><span class="tt-label">Статус встреча</span><span class="tt-sub">еженедельно, 60 мин</span></td><td class="tt-cell cat-ops"><span class="tt-label">Monthly Вклады</span><span class="tt-sub">1×/мес</span></td><td class="tt-cell cat-ops"><span class="tt-label">УК</span><span class="tt-sub">2×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Марченко</span><span class="tt-sub">2×/мес, 50 мин · недели 1 и 3</span></td></tr><tr><td class="tt-h">13:00</td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td></tr><tr><td class="tt-h">14:00</td><td class="tt-cell cat-team"><span class="tt-label">Манджиева</span><span class="tt-sub">2×/мес, 50 мин · недели 1 и 3</span></td><td class="tt-cell cat-team"><span class="tt-label">Полищук</span><span class="tt-sub">2×/мес, 50 мин · недели 1 и 3</span></td><td class="tt-cell cat-team"><span class="tt-label">Лапикова</span><span class="tt-sub">2×/мес, 50 мин · недели 1 и 3</span></td><td class="tt-cell cat-team"><span class="tt-label">Пестов</span><span class="tt-sub">2×/мес, 50 мин · недели 1 и 3</span></td></tr><tr><td class="tt-h">15:00</td><td class="tt-cell cat-team"><span class="tt-label">Мандрик</span><span class="tt-sub">2×/мес, 50 мин · недели 1 и 3</span></td><td class="tt-cell cat-team"><span class="tt-label">Воронин</span><span class="tt-sub">2×/мес, 50 мин · недели 1 и 3</span></td><td class="tt-cell cat-team"><span class="tt-label">Силаев</span><span class="tt-sub">2×/мес, 50 мин · недели 1 и 3</span></td><td class="tt-cell cat-team"><span class="tt-label">Хасанова</span><span class="tt-sub">2×/мес, 50 мин · недели 1 и 3 · перенесено с 11:00 — час отдан под Self Work</span></td></tr><tr><td class="tt-h">16:00</td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td><td class="tt-cell cat-team"><span class="tt-label">Кожухарь</span><span class="tt-sub">2×/мес, 50 мин · недели 1 и 3</span></td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td></tr><tr><td class="tt-h">17:00</td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td></tr><tr><td class="tt-h">18:00</td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td><td class="tt-cell cat-ops"><span class="tt-label">Weekly с акционерами</span><span class="tt-sub">еженедельно, 60 мин</span></td></tr></tbody></table></div></div><div class="week-tab-panel" data-group="v5" data-idx="1" style="display:none"><div class="tt-wrap"><table class="tt-table" id="v5-w1"><thead><tr><th class="tt-h"></th><th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th></tr></thead><tbody><tr><td class="tt-h">10:00</td><td class="tt-cell cat-ext" rowspan="2"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext" rowspan="2"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext" rowspan="2"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-protected" rowspan="2"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-protected tt-protected" rowspan="9"><span class="tt-label">Стратегическая пятница</span><span class="tt-sub">без встреч, удалённо — по умолчанию</span></td></tr><tr><td class="tt-h">11:00</td></tr><tr><td class="tt-h">12:00</td><td class="tt-cell cat-ops"><span class="tt-label">Статус встреча</span><span class="tt-sub">еженедельно, 60 мин</span></td><td class="tt-cell cat-ops"><span class="tt-label">Курсы валют</span><span class="tt-sub">1×/мес</span></td><td class="tt-cell cat-ops"><span class="tt-label">Биздев</span><span class="tt-sub">2×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Сергунов</span><span class="tt-sub">2×/мес, 50 мин · недели 2 и 4</span></td></tr><tr><td class="tt-h">13:00</td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td></tr><tr><td class="tt-h">14:00</td><td class="tt-cell cat-team"><span class="tt-label">Щербаков</span><span class="tt-sub">2×/мес, 50 мин · недели 2 и 4</span></td><td class="tt-cell cat-team"><span class="tt-label">Сарибекян</span><span class="tt-sub">2×/мес, 50 мин · недели 2 и 4</span></td><td class="tt-cell cat-team"><span class="tt-label">Князева</span><span class="tt-sub">2×/мес, 50 мин · недели 2 и 4</span></td><td class="tt-cell cat-team"><span class="tt-label">Багиров</span><span class="tt-sub">2×/мес, 50 мин · недели 2 и 4</span></td></tr><tr><td class="tt-h">15:00</td><td class="tt-cell cat-team"><span class="tt-label">Лукашова</span><span class="tt-sub">2×/мес, 50 мин · недели 2 и 4</span></td><td class="tt-cell cat-team"><span class="tt-label">Шамба</span><span class="tt-sub">2×/мес, 50 мин · недели 2 и 4</span></td><td class="tt-cell cat-team"><span class="tt-label">Хачикян</span><span class="tt-sub">2×/мес, 50 мин · недели 2 и 4</span></td><td class="tt-cell cat-team"><span class="tt-label">Максимова</span><span class="tt-sub">2×/мес, 50 мин · недели 2 и 4 · перенесено с 11:00 — час отдан под Self Work</span></td></tr><tr><td class="tt-h">16:00</td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td><td class="tt-cell cat-team"><span class="tt-label">Егоров</span><span class="tt-sub">2×/мес, 50 мин · недели 2 и 4</span></td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td></tr><tr><td class="tt-h">17:00</td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td></tr><tr><td class="tt-h">18:00</td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td><td class="tt-cell cat-ops"><span class="tt-label">Weekly с акционерами</span><span class="tt-sub">еженедельно, 60 мин</span></td></tr></tbody></table></div></div><div class="week-tab-panel" data-group="v5" data-idx="2" style="display:none"><div class="tt-wrap"><table class="tt-table" id="v5-w2"><thead><tr><th class="tt-h"></th><th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th></tr></thead><tbody><tr><td class="tt-h">10:00</td><td class="tt-cell cat-ext" rowspan="2"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext" rowspan="2"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext" rowspan="2"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-protected" rowspan="2"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-protected tt-protected" rowspan="9"><span class="tt-label">Стратегическая пятница</span><span class="tt-sub">без встреч, удалённо — по умолчанию</span></td></tr><tr><td class="tt-h">11:00</td></tr><tr><td class="tt-h">12:00</td><td class="tt-cell cat-ops"><span class="tt-label">Статус встреча</span><span class="tt-sub">еженедельно, 60 мин</span></td><td class="tt-cell cat-ops"><span class="tt-label">WELCOME</span><span class="tt-sub">1×/мес</span></td><td class="tt-cell cat-ops"><span class="tt-label">УК</span><span class="tt-sub">2×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Марченко</span><span class="tt-sub">2×/мес, 50 мин · недели 1 и 3</span></td></tr><tr><td class="tt-h">13:00</td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td></tr><tr><td class="tt-h">14:00</td><td class="tt-cell cat-team"><span class="tt-label">Манджиева</span><span class="tt-sub">2×/мес, 50 мин · недели 1 и 3</span></td><td class="tt-cell cat-team"><span class="tt-label">Полищук</span><span class="tt-sub">2×/мес, 50 мин · недели 1 и 3</span></td><td class="tt-cell cat-team"><span class="tt-label">Лапикова</span><span class="tt-sub">2×/мес, 50 мин · недели 1 и 3</span></td><td class="tt-cell cat-team"><span class="tt-label">Пестов</span><span class="tt-sub">2×/мес, 50 мин · недели 1 и 3</span></td></tr><tr><td class="tt-h">15:00</td><td class="tt-cell cat-team"><span class="tt-label">Мандрик</span><span class="tt-sub">2×/мес, 50 мин · недели 1 и 3</span></td><td class="tt-cell cat-team"><span class="tt-label">Воронин</span><span class="tt-sub">2×/мес, 50 мин · недели 1 и 3</span></td><td class="tt-cell cat-team"><span class="tt-label">Силаев</span><span class="tt-sub">2×/мес, 50 мин · недели 1 и 3</span></td><td class="tt-cell cat-team"><span class="tt-label">Хасанова</span><span class="tt-sub">2×/мес, 50 мин · недели 1 и 3 · перенесено с 11:00 — час отдан под Self Work</span></td></tr><tr><td class="tt-h">16:00</td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td><td class="tt-cell cat-team"><span class="tt-label">Кожухарь</span><span class="tt-sub">2×/мес, 50 мин · недели 1 и 3</span></td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td></tr><tr><td class="tt-h">17:00</td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td></tr><tr><td class="tt-h">18:00</td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td><td class="tt-cell cat-ops"><span class="tt-label">Weekly с акционерами</span><span class="tt-sub">еженедельно, 60 мин</span></td></tr></tbody></table></div></div><div class="week-tab-panel" data-group="v5" data-idx="3" style="display:none"><div class="tt-wrap"><table class="tt-table" id="v5-w3"><thead><tr><th class="tt-h"></th><th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th></tr></thead><tbody><tr><td class="tt-h">10:00</td><td class="tt-cell cat-ext" rowspan="2"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext" rowspan="2"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext" rowspan="2"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-protected" rowspan="2"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-protected tt-protected" rowspan="9"><span class="tt-label">Стратегическая пятница</span><span class="tt-sub">без встреч, удалённо — по умолчанию</span></td></tr><tr><td class="tt-h">11:00</td></tr><tr><td class="tt-h">12:00</td><td class="tt-cell cat-ops"><span class="tt-label">Статус встреча</span><span class="tt-sub">еженедельно, 60 мин</span></td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span><span class="tt-sub">нет monthly-встреч на этой неделе</span></td><td class="tt-cell cat-ops"><span class="tt-label">Биздев</span><span class="tt-sub">2×/мес, 50 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Сергунов</span><span class="tt-sub">2×/мес, 50 мин · недели 2 и 4</span></td></tr><tr><td class="tt-h">13:00</td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td></tr><tr><td class="tt-h">14:00</td><td class="tt-cell cat-team"><span class="tt-label">Щербаков</span><span class="tt-sub">2×/мес, 50 мин · недели 2 и 4</span></td><td class="tt-cell cat-team"><span class="tt-label">Сарибекян</span><span class="tt-sub">2×/мес, 50 мин · недели 2 и 4</span></td><td class="tt-cell cat-team"><span class="tt-label">Князева</span><span class="tt-sub">2×/мес, 50 мин · недели 2 и 4</span></td><td class="tt-cell cat-team"><span class="tt-label">Багиров</span><span class="tt-sub">2×/мес, 50 мин · недели 2 и 4</span></td></tr><tr><td class="tt-h">15:00</td><td class="tt-cell cat-team"><span class="tt-label">Лукашова</span><span class="tt-sub">2×/мес, 50 мин · недели 2 и 4</span></td><td class="tt-cell cat-team"><span class="tt-label">Шамба</span><span class="tt-sub">2×/мес, 50 мин · недели 2 и 4</span></td><td class="tt-cell cat-team"><span class="tt-label">Хачикян</span><span class="tt-sub">2×/мес, 50 мин · недели 2 и 4</span></td><td class="tt-cell cat-team"><span class="tt-label">Максимова</span><span class="tt-sub">2×/мес, 50 мин · недели 2 и 4 · перенесено с 11:00 — час отдан под Self Work</span></td></tr><tr><td class="tt-h">16:00</td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td><td class="tt-cell cat-team"><span class="tt-label">Егоров</span><span class="tt-sub">2×/мес, 50 мин · недели 2 и 4</span></td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td></tr><tr><td class="tt-h">17:00</td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td></tr><tr><td class="tt-h">18:00</td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-other"><span class="tt-label">Свободно</span><span class="tt-sub">высвобождено — было занято в варианте 4</span></td><td class="tt-cell cat-ops"><span class="tt-label">Weekly с акционерами</span><span class="tt-sub">еженедельно, 60 мин</span></td></tr></tbody></table></div></div></div>
+<div class="tobe-version" id="tobe-v1"><div class="tobe-version-head"><div class="tobe-version-eyebrow">Вариант 1</div><h3>Быстрые победы</h3></div><p class="tobe-version-tag">Минимум перестроений: те же дни и темы, что сейчас, — но с буфером, жёстким стопом в 19:00, ежедневным Self Time и одним защищённым часом на стратегию по пятницам.</p><div class="tt-wrap"><table class="tt-table"><thead><tr><th class="tt-h"></th><th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th></tr></thead><tbody><tr><td class="tt-h">10:00</td><td class="tt-cell cat-ext"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ops"><span class="tt-label">Операционка</span><span class="tt-sub">буфер 10 мин</span></td><td class="tt-cell cat-strategy tt-protected"><span class="tt-label">Стратегия</span><span class="tt-sub">защищено</span></td></tr><tr><td class="tt-h">11:00</td><td class="tt-cell cat-team" rowspan="2"><span class="tt-label">Команда / 1:1</span><span class="tt-sub">ротация 20 имён, буфер 10 мин</span></td><td class="tt-cell cat-ops"><span class="tt-label">Monthly Вклады / Курсы валют / WELCOME</span><span class="tt-sub">по очереди, 1×/мес каждая</span></td><td class="tt-cell cat-team" rowspan="2"><span class="tt-label">Команда / 1:1</span><span class="tt-sub">ротация 20 имён, буфер 10 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Команда / 1:1</span><span class="tt-sub">ротация 20 имён, буфер 10 мин</span></td><td class="tt-cell cat-ops" rowspan="2"><span class="tt-label">Операционка</span></td></tr><tr><td class="tt-h">12:00</td><td class="tt-cell cat-ops"><span class="tt-label">Операционка</span><span class="tt-sub">буфер 10 мин</span></td><td class="tt-cell cat-ops"><span class="tt-label">Weekly с акционерами</span><span class="tt-sub">еженедельно</span></td></tr><tr><td class="tt-h">13:00</td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-team"><span class="tt-label">Команда / 1:1</span><span class="tt-sub">ротация</span></td></tr><tr><td class="tt-h">14:00</td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td></tr><tr><td class="tt-h">15:00</td><td class="tt-cell cat-ops"><span class="tt-label">Статус встреча</span><span class="tt-sub">еженедельно</span></td><td class="tt-cell cat-team" rowspan="2"><span class="tt-label">Команда / 1:1</span><span class="tt-sub">ротация 20 имён, буфер 10 мин</span></td><td class="tt-cell cat-ops"><span class="tt-label">УК / Биздев</span><span class="tt-sub">по очереди, 2×/мес каждая</span></td><td class="tt-cell cat-team" rowspan="4"><span class="tt-label">Команда / 1:1</span><span class="tt-sub">ротация 20 имён, буфер 10 мин</span></td><td class="tt-cell cat-team" rowspan="2"><span class="tt-label">Команда / 1:1</span><span class="tt-sub">ротация</span></td></tr><tr><td class="tt-h">16:00</td><td class="tt-cell cat-ops"><span class="tt-label">Операционка</span><span class="tt-sub">буфер 10 мин</span></td><td class="tt-cell cat-ops"><span class="tt-label">Операционка</span><span class="tt-sub">буфер 10 мин</span></td></tr><tr><td class="tt-h">17:00</td><td class="tt-cell cat-ext"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-other" rowspan="2"><span class="tt-label">Резерв</span><span class="tt-sub">стоп в 19:00</span></td></tr><tr><td class="tt-h">18:00</td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span><span class="tt-sub">стоп в 19:00</span></td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span><span class="tt-sub">стоп в 19:00</span></td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span><span class="tt-sub">стоп в 19:00</span></td></tr></tbody></table></div></div>
+<div class="tobe-version" id="tobe-v2"><div class="tobe-version-head"><div class="tobe-version-eyebrow">Вариант 2</div><h3>Защищённые окна</h3></div><p class="tobe-version-tag">Дни остаются примерно на своих местах: Self Time ежедневно в 13:00, а стратегия теперь занимает 2-часовой блок по пятницам вместо среды. Часть еженедельных 1:1 переходит на biweekly.</p><div class="tt-wrap"><table class="tt-table"><thead><tr><th class="tt-h"></th><th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th></tr></thead><tbody><tr><td class="tt-h">10:00</td><td class="tt-cell cat-ext"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-team" rowspan="3"><span class="tt-label">Команда / оценки</span><span class="tt-sub">ротация 20 имён, буфер 10 мин</span></td><td class="tt-cell cat-strategy tt-protected" rowspan="2"><span class="tt-label">Стратегия</span><span class="tt-sub">защищено, еженедельно</span></td></tr><tr><td class="tt-h">11:00</td><td class="tt-cell cat-team" rowspan="2"><span class="tt-label">Команда / 1:1</span><span class="tt-sub">ротация 20 имён, буфер 10 мин</span></td><td class="tt-cell cat-team" rowspan="2"><span class="tt-label">Команда / 1:1</span><span class="tt-sub">ротация 20 имён, буфер 10 мин</span></td><td class="tt-cell cat-ops"><span class="tt-label">УК / Биздев</span><span class="tt-sub">по очереди, 2×/мес каждая</span></td></tr><tr><td class="tt-h">12:00</td><td class="tt-cell cat-ops"><span class="tt-label">Операционка</span></td><td class="tt-cell cat-team" rowspan="3"><span class="tt-label">Команда (остаток)</span><span class="tt-sub">часть — biweekly</span></td></tr><tr><td class="tt-h">13:00</td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td></tr><tr><td class="tt-h">14:00</td><td class="tt-cell cat-team"><span class="tt-label">Команда / 1:1</span><span class="tt-sub">ротация 20 имён, буфер 10 мин</span></td><td class="tt-cell cat-ops"><span class="tt-label">Monthly Вклады / Курсы валют / WELCOME</span><span class="tt-sub">по очереди, 1×/мес каждая</span></td><td class="tt-cell cat-ops" rowspan="2"><span class="tt-label">Операционка</span></td><td class="tt-cell cat-team"><span class="tt-label">Команда / оценки</span><span class="tt-sub">ротация 20 имён, буфер 10 мин</span></td></tr><tr><td class="tt-h">15:00</td><td class="tt-cell cat-ops"><span class="tt-label">Статус встреча</span><span class="tt-sub">еженедельно</span></td><td class="tt-cell cat-ops" rowspan="2"><span class="tt-label">Операционка</span></td><td class="tt-cell cat-ops"><span class="tt-label">Weekly с акционерами</span><span class="tt-sub">еженедельно</span></td><td class="tt-cell cat-ops" rowspan="3"><span class="tt-label">Операционка / резерв</span></td></tr><tr><td class="tt-h">16:00</td><td class="tt-cell cat-ops"><span class="tt-label">Операционка</span></td><td class="tt-cell cat-team"><span class="tt-label">Команда / 1:1</span><span class="tt-sub">ротация 20 имён, буфер 10 мин</span></td><td class="tt-cell cat-ops" rowspan="2"><span class="tt-label">Операционка</span></td></tr><tr><td class="tt-h">17:00</td><td class="tt-cell cat-ext"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext"><span class="tt-label">Внешние</span></td></tr><tr><td class="tt-h">18:00</td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span></td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span></td><td class="tt-cell cat-team"><span class="tt-label">Команда / 1:1</span><span class="tt-sub">ротация 20 имён, буфер 10 мин</span></td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span></td><td class="tt-cell tt-empty"></td></tr></tbody></table></div></div>
+<div class="tobe-version" id="tobe-v3"><div class="tobe-version-head"><div class="tobe-version-eyebrow">Вариант 3</div><h3>Тематические дни</h3></div><p class="tobe-version-tag">Каждый день недели получает свою тему: понедельник — внешним и операционке, вторник и четверг — команде, среда — управлению, пятница — стратегии. Self Time ежедневно в 13:00. Самая заметная перестройка, но и самый явный эффект.</p><div class="tt-wrap"><table class="tt-table"><thead><tr><th class="tt-h"></th><th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th></tr></thead><tbody><tr><td class="tt-h">10:00</td><td class="tt-cell cat-ext"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-team" rowspan="3"><span class="tt-label">Команда: 1:1 / оценки</span><span class="tt-sub">ротация 20 имён, буфер 10 мин</span></td><td class="tt-cell cat-strategy tt-protected" rowspan="3"><span class="tt-label">Стратегический блок</span><span class="tt-sub">встречи не ставятся</span></td></tr><tr><td class="tt-h">11:00</td><td class="tt-cell cat-ops"><span class="tt-label">Статус встреча</span><span class="tt-sub">еженедельно</span></td><td class="tt-cell cat-team" rowspan="2"><span class="tt-label">Команда: 1:1 блоком</span><span class="tt-sub">ротация 20 имён, буфер 10 мин</span></td><td class="tt-cell cat-ops"><span class="tt-label">УК / Биздев</span><span class="tt-sub">по очереди, 2×/мес каждая</span></td></tr><tr><td class="tt-h">12:00</td><td class="tt-cell cat-ops"><span class="tt-label">Monthly Вклады / Курсы валют / WELCOME</span><span class="tt-sub">по очереди, 1×/мес каждая</span></td><td class="tt-cell cat-ops"><span class="tt-label">Операционка</span></td></tr><tr><td class="tt-h">13:00</td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Time</span></td><td class="tt-cell tt-empty"></td></tr><tr><td class="tt-h">14:00</td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-protected"><span class="tt-label">Self Work</span></td><td class="tt-cell cat-ops"><span class="tt-label">Операционка</span></td><td class="tt-cell cat-ops"><span class="tt-label">Weekly с акционерами</span><span class="tt-sub">еженедельно</span></td><td class="tt-cell cat-other" rowspan="3"><span class="tt-label">Резерв / буфер</span><span class="tt-sub">стоп в 17:00</span></td></tr><tr><td class="tt-h">15:00</td><td class="tt-cell cat-ops" rowspan="2"><span class="tt-label">Операционка / статусы</span></td><td class="tt-cell cat-team" rowspan="2"><span class="tt-label">Команда: 1:1 / оценки</span><span class="tt-sub">ротация 20 имён, буфер 10 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Команда (остаток)</span><span class="tt-sub">ротация 20 имён, буфер 10 мин</span></td><td class="tt-cell cat-team"><span class="tt-label">Команда: 1:1 (доп. блок)</span><span class="tt-sub">ротация 20 имён, буфер 10 мин</span></td></tr><tr><td class="tt-h">16:00</td><td class="tt-cell cat-team"><span class="tt-label">Команда (остаток)</span><span class="tt-sub">ротация 20 имён, буфер 10 мин</span></td><td class="tt-cell cat-team" rowspan="3"><span class="tt-label">Команда: 1:1 (доп. блок)</span><span class="tt-sub">ротация 20 имён, буфер 10 мин</span></td></tr><tr><td class="tt-h">17:00</td><td class="tt-cell cat-ext"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext"><span class="tt-label">Внешние</span></td><td class="tt-cell cat-ext"><span class="tt-label">Внешние</span></td><td class="tt-cell tt-empty"></td></tr><tr><td class="tt-h">18:00</td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span></td><td class="tt-cell cat-other"><span class="tt-label">Резерв</span></td><td class="tt-cell cat-team"><span class="tt-label">Команда (остаток)</span><span class="tt-sub">ротация 20 имён, буфер 10 мин</span></td><td class="tt-cell tt-empty"></td></tr></tbody></table></div></div>
+
+  </div>
+</div>
+
+<!-- ============ SECTION 3: BRIEF FOR HRD ============ -->
+<div class="section-panel" id="sec-brief">
+  <div class="wrap-narrow">
+    <div class="brief-hero">
+  <h1>Календарь CEO: что менять и зачем</h1>
+</div>
+
+<div class="section-heading">
+  <h2>Предпосылки</h2>
+</div>
+<div class="brief-reg">
+  <ol>
+    <li><b>Календарь перегружен.</b> Встречами занято 133 из ~217 рабочих часов в месяц — 61%.</li>
+    <li><b>Изменения не всегда известны заранее.</b> Переносы и отмены случаются день в день.</li>
+    <li><b>Тайминг не соблюдается.</b> Встречи нахлёстываются друг на друга.</li>
+    <li><b>Нет времени продумывать стратегию.</b> На стратегию уходит 3,5% календаря (4,7 ч/мес) — и это в основном один разовый выезд, а не системная практика.</li>
+    <li><b>Нет времени просто отдохнуть и перезагрузиться.</b> Личное время не защищено так же, как рабочие категории.</li>
+    <li><b>Нет буфера между встречами.</b> Половина переходов между встречами — совсем без паузы.</li>
+    <li><b>В команде нет дисциплины доступа.</b> Коллеги могут ставить встречи напрямую, в обход ассистента — единых правил, кто и как может занять слот, нет.</li>
+    <li><b>Коллеги прерывают уже идущие встречи.</b> Заходят или обращаются с вопросом во время встречи, которая уже началась, — это не соответствует деловому этикету и сбивает процесс текущей встречи.</li>
+  </ol>
+</div>
+
+<div class="section-heading">
+  <div class="section-kicker">Диагностика · апрель–август 2026, 701 встреча</div>
+  <h2>Куда сейчас уходит время</h2>
+</div>
+<div class="timebar">
+  <div class="seg" style="width:24.7%;background:var(--cat-team)" title="Команда: 1:1 — 24,7%"></div>
+  <div class="seg" style="width:13.9%;background:var(--cat-ops)" title="Операционка / HR — 13,9%"></div>
+  <div class="seg" style="width:10.9%;background:var(--cat-ext)" title="Внешние — 10,9%"></div>
+  <div class="seg" style="width:3.5%;background:var(--cat-strategy)" title="Стратегия — 3,5%"></div>
+  <div class="seg" style="width:22.9%;background:var(--cat-protected)" title="Self Work / защищено — 22,9%"></div>
+  <div class="seg" style="width:24.1%;background:var(--cat-other)" title="Прочее / не размечено — 24,1%"></div>
+</div>
+<div class="timebar-figs">
+  <div class="timebar-fig"><span class="sw" style="background:var(--cat-team)"></span>Команда: 1:1 — <b>33,0 ч/мес · 24,7%</b></div>
+  <div class="timebar-fig"><span class="sw" style="background:var(--cat-ops)"></span>Операционка / HR — <b>18,5 ч/мес · 13,9%</b></div>
+  <div class="timebar-fig"><span class="sw" style="background:var(--cat-ext)"></span>Внешние — <b>14,6 ч/мес · 10,9%</b></div>
+  <div class="timebar-fig"><span class="sw" style="background:var(--cat-strategy)"></span>Стратегия — <b>4,7 ч/мес · 3,5%</b></div>
+  <div class="timebar-fig"><span class="sw" style="background:var(--cat-protected)"></span>Self Work / защищено — <b>30,5 ч/мес · 22,9%</b></div>
+  <div class="timebar-fig"><span class="sw" style="background:var(--cat-other)"></span>Прочее / не размечено — <b>32,2 ч/мес · 24,1%</b></div>
+</div>
+
+<div class="reasons-grid">
+  <div class="reason-card">
+    <div class="rn">01</div>
+    <h4>Нет защищённого времени для стратегии</h4>
+    <p>4,7 часа в месяц на стратегию — и почти все они сгорели на одном выезде Advisory Board в апреле.</p>
+  </div>
+  <div class="reason-card">
+    <div class="rn">02</div>
+    <h4>Календарь раздроблен</h4>
+    <p>Ровно половина переходов между встречами — без единой минуты буфера. Картина одинаковая из месяца в месяц: это не сезонный всплеск, а системная особенность. Нет и логического разделения типов встреч — операционка смешивается с 1:1, внешние с командными, без закреплённых зон под каждую категорию.</p>
+  </div>
+  <div class="reason-card">
+    <div class="rn">03</div>
+    <h4>Нет правил доступа на бумаге</h4>
+    <p>Правил, зафиксированных письменно, нет: без них любая новая сетка откатится к старой за 3–4 недели.</p>
+  </div>
+</div>
+
+<div class="brief-versions">
+  <div class="bv-card">
+    <div class="bv-head">
+      <h3>To Be 4 · Стратегическая пятница</h3>
+    </div>
+    <div>
+      <div class="bv-metric">Вся пятница</div>
+      <div class="bv-metric-label">под стратегию — целый день, не почасовой блок среди недели</div>
+    </div>
+    <p>20 из 23 еженедельных 1:1 переходят на фиксированный ритм 2–3 раза в месяц по 50 минут, каждый человек — на своём закреплённом дне и часе. Понедельник–четверг взамен уплотняются: буфера на срочные вопросы почти не остаётся.</p>
+    <p class="bv-nuance">Честно: это не сокращение суммарных часов на 1:1 — по факту сейчас команда видится с CEO в среднем 1,2–2,8 раза в месяц, а не еженедельно, так что новый ритм может даже увеличить время на 1:1 за счёт дисциплины. Стратегическое время в календаре — пятница, но удержать слоты сложно: встречи склонны нахлёстываться на неё без защиты регламентом.</p>
+  </div>
+  <div class="bv-card">
+    <div class="bv-head">
+      <h3>To Be 5 · Все 1:1 — 2×/мес</h3>
+    </div>
+    <div>
+      <div class="bv-metric">7 ч/нед</div>
+      <div class="bv-metric-label">открытого времени против варианта 4 — Пн/Вт 16:00–18:00, Ср 17:00–19:00, Чт 16:00–17:00</div>
+    </div>
+    <p>Тот же каркас, что в варианте 4, но все 20 человек — на едином ритме 2 раза в месяц, парами по чётности недели ротации.</p>
+    <p class="bv-nuance">Честно: для 9 из 20 человек факт сейчас — 2,2 раза в месяц и выше, то есть новый ритм для них будет более редким, чем происходит по факту. Требует пересмотра частоты с 15 из 20 человек и отдельного, более чувствительного разговора с этой группой.</p>
+  </div>
+</div>
+
+<div class="section-heading">
+  <div class="section-kicker">Регламент · самое важное</div>
+  <h2>9 правил, без которых новая сетка не удержится</h2>
+</div>
+<div class="brief-reg">
+  <ol>
+    <li><b>Буфер ≥10 минут</b> между любыми двумя встречами — «встык» не допускается ни при каком уровне доступа; встречи позже 19:00 — только заранее согласованное исключение.</li>
+    <li><b>Окно для внешних</b> — только 10:00–12:00, пн–ср. По четвергам и пятницам внешних встреч нет вообще.</li>
+    <li><b>Прямой доступ к календарю CEO — только у Ассистента.</b> Остальная команда и внешние контакты ставят встречи только через готовый слот от Ассистента, не напрямую к CEO.</li>
+    <li><b>Защищённые зоны</b> — Self Work и стратегия недоступны для брони без личного «да» от CEO, кем бы ни был инициатор.</li>
+    <li><b>Повестка обязательна</b> — прислана не позднее вечера предыдущего дня, иначе встреча снимается с календаря.</li>
+    <li><b>Ритм 1:1 фиксирован по имени и времени</b> — не «плавающий». На тематические периоды (см. ниже) приостанавливается целиком одним объявлением, а не переносится по одному человеку.</li>
+    <li><b>Тематические периоды</b> (стратсессия, подготовка к Совету директоров, оценка) — особый режим всего календаря: стандартные вики отменяются на весь период, внешние встречи не назначаются вообще без личного согласия CEO.</li>
+    <li><b>Лестница приоритета при конфликте</b> — сначала личное время и здоровье CEO, затем защищённые окна, затем внешние в своих окнах, затем операционка, и только потом уступает команда.</li>
+    <li><b>Ревью раз в квартал</b> — синхронно с замером высвобожденных часов через 4 недели после внедрения. Систематическое нарушение правила — сигнал поправить правило, а не смириться.</li>
+  </ol>
+</div>
+
+<div class="section-heading">
+  <div class="section-kicker">Регламент · необязательное, но полезное</div>
+  <h2>Рекомендация</h2>
+</div>
+<div class="brief-reg">
+  <ol>
+    <li><b>Теги в заметках Remarkable.</b> CEO ведёт записи 1:1 на планшете и может направлять фрагменты Ассистенту с тегами — например «проконтролировать», «напомнить». Тег — это прямое поручение, а не пометка для истории: получив фрагмент с тегом, Ассистент заводит задачу и ведёт её до закрытия.</li>
+    <li><b>Привлечение коллег по HR и финансам.</b> Такие вопросы не должны попадать к CEO непроработанными: либо выносятся уже согласованными с профильными коллегами, либо сразу ставятся как совместная встреча с их участием.</li>
+  </ol>
+</div>
+
+<div class="section-heading">
+  <div class="section-kicker">К этой встрече</div>
+  <h2>Что решить с CEO и HRD</h2>
+</div>
+<div class="decisions-grid">
+  <div class="decision-card">
+    <div class="dn">Решение 1</div>
+    <p>Какой вариант берём за основу — To Be 4, To Be 5 или гибрид. От этого зависит ритм 1:1 в финальном регламенте.</p>
+    <span class="owner-pill">CEO</span>
+  </div>
+  <div class="decision-card">
+    <div class="dn">Решение 2</div>
+    <p>Кто именно входит в приоритетный круг с прямым доступом к операционным окнам CEO. Есть ли критичные направления, у кого всегда «зелёный» доступ, вне очереди на остальных.</p>
+    <span class="owner-pill">HRD</span>
+  </div>
+  <div class="decision-card">
+    <div class="dn">Решение 3</div>
+    <p>Как и когда объявить команде о новом ритме 1:1.</p>
+    <span class="owner-pill">HRD</span>
+  </div>
+  <div class="decision-card">
+    <div class="dn">Решение 4</div>
+    <p>Утвердить регламент в целом — согласовать 9 ключевых правил и дату первого квартального ревью.</p>
+    <span class="owner-pill">CEO и HRD</span>
+  </div>
+</div>
+
+<div class="brief-footer">
+  Это сжатая версия для встречи. Полный личный кабинет со всеми 5 вариантами и диагностикой — во вкладке «Таблицы To Be» выше; полный регламент из 13 пунктов — во вкладке «Регламент».
+</div>
+
+  </div>
+</div>
+
+<!-- ============ SECTION 4: REGLAMENT ============ -->
+<div class="section-panel" id="sec-reg">
+  <div class="wrap-narrow">
+    <div class="status-row">
+  <span class="status-pill draft"><span class="dot"></span>Черновик · v0.1</span>
+  <span class="status-pill">Вариант-агностичный</span>
+  <span class="status-pill">Шаг 3 проекта</span>
+</div>
+
+<h1>Регламент календаря CEO</h1>
+<p class="reg-lede">Правила, которые делают новую структуру недели <strong>устойчивой</strong> — не разовой перекладкой встреч, а системой, которая держится сама, без ручного разгребания каждую неделю.</p>
+<p class="basis-note">Часть правил ниже одинакова для любого из вариантов To Be (иерархия доступа, окна для внешних, буферы, защищённые зоны) — их можно согласовывать уже сейчас. Детали, которые зависят от финального выбора недели (ритм 1:1), добавим отдельным блоком после решения с CEO.</p>
+
+<div class="reg-stats">
+  <div class="reg-stat"><span class="num">10 мин</span><span class="label">минимальный буфer между встречами</span></div>
+  <div class="reg-stat"><span class="num">10:00–12:00</span><span class="label">окно для внешних, только пн–ср</span></div>
+  <div class="reg-stat"><span class="num">10:00–19:00</span><span class="label">рамка рабочего дня в календаре</span></div>
+  <div class="reg-stat"><span class="num">чт–пт</span><span class="label">без внешних встреч вообще</span></div>
+  <div class="reg-stat"><span class="num">Обязательна</span><span class="label">повестка накануне — иначе встреча снимается</span></div>
+</div>
+
+<section class="clause">
+  <div class="clause-num">01</div>
+  <div class="clause-body">
+    <h2>Зачем регламент, а не только новая сетка</h2>
+    <p>Диагностика показала: 78% встреч в календаре сейчас ставит ассистент — доступ формально уже сосредоточен в узком кругу. Но правил, зафиксированных на бумаге, нет: нет ответа на вопрос «что делать, если кто-то пытается поставить встречу в защищённое время» или «кто может подвинуть 1:1, а кто нет». Без этого любая новая сетка недели откатится к прежнему виду за 3–4 недели — по инерции, а не из злого умысла.</p>
+    <p class="muted">Регламент — это то, что превращает разовую перекладку календаря в систему, которая держится сама.</p>
+  </div>
+</section>
+
+<section class="clause">
+  <div class="clause-num">02</div>
+  <div class="clause-body">
+    <h2>Иерархия доступа</h2>
+    <p>Кто может ставить встречи приоритетно в календарь CEO, а кому нужно согласование — и в каких категориях.</p>
+    <div class="reg-table-scroll">
+      <table class="reg-table">
+        <thead>
+          <tr><th>Роль</th><th>Операционка / HR</th><th>Команда 1:1</th><th>Внешние</th><th>Защищённые окна</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="role">CEO</td>
+            <td><span class="reg-tag yes">да</span></td>
+            <td><span class="reg-tag yes">да</span></td>
+            <td><span class="reg-tag yes">да</span></td>
+            <td><span class="reg-tag yes">да</span></td>
+          </tr>
+          <tr>
+            <td class="role">Ассистент</td>
+            <td><span class="reg-tag yes">да</span></td>
+            <td><span class="reg-tag yes">да</span></td>
+            <td><span class="reg-tag yes">да</span></td>
+            <td><span class="reg-tag no">только с ОК CEO</span></td>
+          </tr>
+          <tr>
+            <td class="role">Остальная команда</td>
+            <td><span class="reg-tag yes">только по слоту от ассистента</span></td>
+            <td><span class="reg-tag yes">только по слоту от ассистента</span></td>
+            <td><span class="reg-tag yes">только по слоту от ассистента</span></td>
+            <td><span class="reg-tag no">только с ОК CEO</span></td>
+          </tr>
+          <tr>
+            <td class="role">Внешние контакты</td>
+            <td><span class="reg-tag yes">только по слоту от ассистента</span></td>
+            <td><span class="reg-tag no">нет</span></td>
+            <td><span class="reg-tag yes">только по слоту от ассистента</span></td>
+            <td><span class="reg-tag no">только с ОК CEO</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="clause">
+  <div class="clause-num">03</div>
+  <div class="clause-body">
+    <h2>Защищённые зоны</h2>
+    <p>Self Work и стратегический блок — не «предпочтительно свободны», а недоступны для брони без явного действия CEO.</p>
+    <div class="box protected">
+      <span class="box-label">Правило</span>
+      <p>Никто — включая приоритетный круг — не ставит встречу в защищённое окно без личного «да» от CEO. Если возникает острая необходимость, Ассистент не занимает защищённый слот, а предлагает инициатору альтернативное время. Занять защищённую зону — всегда осознанное решение CEO, а не побочный эффект чьей-то спешки.</p>
+    </div>
+  </div>
+</section>
+
+<section class="clause">
+  <div class="clause-num">04</div>
+  <div class="clause-body">
+    <h2>Окна для внешних встреч</h2>
+    <p>Правило, общее для всех вариантов недели: внешние встречи — только в одном ежедневном окне, по понедельникам–средам.</p>
+    <div class="box rule">
+      <span class="box-label">Окно</span>
+      <p><strong>10:00–12:00</strong>, пн–ср. По четвергам и пятницам внешних встреч нет вообще — это время зарезервировано под команду и операционку.</p>
+    </div>
+    <p class="muted">Выход за пределы окна (например, внешняя встреча в четверг) — не автоматический запрет, а исключение, которое требует личного согласия CEO и фиксируется как исключение, а не как новая норма.</p>
+  </div>
+</section>
+
+<section class="clause">
+  <div class="clause-num">05</div>
+  <div class="clause-body">
+    <h2>Буферы и границы дня</h2>
+    <ul>
+      <li><strong>Буфер ≥10 минут</strong> между любыми двумя встречами — постановка «встык» не допускается ни при каком уровне доступа.</li>
+      <li><strong>Стоп в 19:00.</strong> Встречи позже — только заранее согласованное исключение (например, выездной Advisory Board), а не рабочая норма вечерних слотов.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="clause">
+  <div class="clause-num">06</div>
+  <div class="clause-body">
+    <h2>Повестка — обязательное условие встречи</h2>
+    <p>Встреча (в первую очередь именной 1:1 и тематические встречи) подтверждена, только если повестка прислана не позднее вечера предыдущего дня.</p>
+    <div class="box restricted">
+      <span class="box-label">Нет повестки → нет встречи</span>
+      <p>Если повестки к сроку нет, встреча снимается с календаря — не переносится «на потом» в моменте самой встречи, а просто не проводится. Это не наказание инициатора, а фильтр: неоформленный вопрос либо ещё не готов, либо решается не встречей.</p>
+    </div>
+  </div>
+</section>
+
+<section class="clause">
+  <div class="clause-num">07</div>
+  <div class="clause-body">
+    <h2>Ритм 1:1 и операционных встреч</h2>
+    <p>Каждый человек из списка получает фиксированный именной слот — не «плавающий», не «когда получится».</p>
+    <div class="box rule">
+      <span class="box-label">Паузы по регламенту</span>
+      <p>На тематические периоды (раздел 08) именные 1:1 приостанавливаются целиком — не переносятся по одному. Ассистент объявляет паузу заранее, одним сообщением на весь список, а не индивидуально каждому.</p>
+    </div>
+  </div>
+</section>
+
+<section class="clause">
+  <div class="clause-num">08</div>
+  <div class="clause-body">
+    <h2>Тематические периоды</h2>
+    <p>Стратегическая сессия, подготовка к Совету Директоров и оценка за полугодие — периоды с особым режимом всего календаря, а не набор точечных исключений по каждой встрече.</p>
+    <div class="box restricted">
+      <span class="box-label">Режим периода</span>
+      <p>Стандартные викли — 1:1 и операционные — отменяются на весь период. Новые встречи назначаются только по срочным вопросам. Внешние встречи не назначаются вообще, кроме случаев, отдельно согласованных лично с CEO.</p>
+    </div>
+    <p class="muted">Ассистент объявляет начало и конец периода заранее, одним сообщением на весь список.</p>
+  </div>
+</section>
+
+<section class="clause">
+  <div class="clause-num">09</div>
+  <div class="clause-body">
+    <h2>Записи 1:1 и передача задач ассистенту</h2>
+    <p>CEO ведёт записи 1:1 на планшете Remarkable и может направлять фрагменты Ассистенту с тегами — например «проконтролировать», «напомнить».</p>
+    <div class="box rule">
+      <span class="box-label">Правило</span>
+      <p>Тег — это не пометка для истории, а прямое поручение. Получив фрагмент с тегом, Ассистент заводит задачу на контроль или напоминание и ведёт её до закрытия, а не архивирует заметку как есть.</p>
+    </div>
+    <p class="muted">Полный список тегов и что каждый из них означает на практике — стоит зафиксировать отдельным списком (см. открытые вопросы).</p>
+    <p class="muted">* Отдельно стоит подумать над автоматизацией этого процесса.</p>
+  </div>
+</section>
+
+<section class="clause">
+  <div class="clause-num">10</div>
+  <div class="clause-body">
+    <h2>Уведомление об отсутствии</h2>
+    <p>Если участник встречи — сотрудник из списка, коллега, приглашённый — уходит в отпуск, командировку или иначе будет недоступен в дату своего слота, он уведомляет Ассистента заранее — не менее чем за 3 рабочих дня, а не в день встречи.</p>
+  </div>
+</section>
+
+<section class="clause">
+  <div class="clause-num">11</div>
+  <div class="clause-body">
+    <h2>Привлечение коллег к вопросам</h2>
+    <p>Если вопрос на встрече требует участия других людей, есть два пути: позвать коллег сразу на совместную встречу или согласовать вопрос с ними заранее, до того как он выносится к CEO. Какой путь выбрать — решает инициатор.</p>
+    <div class="box rule">
+      <span class="box-label">Особый случай — HR и финансы</span>
+      <p>По темам HR и финансов выбор не опционален: такие вопросы либо выносятся уже согласованными с профильными коллегами, либо сразу ставятся как совместная встреча с их участием. CEO не должен быть первой точкой, где вопрос по HR или финансам всплывает непроработанным.</p>
+    </div>
+  </div>
+</section>
+
+<section class="clause">
+  <div class="clause-num">12</div>
+  <div class="clause-body">
+    <h2>Что двигается первым при конфликте</h2>
+    <p>Лестница приоритета — кто уступает, когда два запроса претендуют на один слот.</p>
+    <ol class="ladder">
+      <li><strong>Личное время и здоровье CEO</strong><span class="detail">никогда не уступает ничему из нижестоящего</span></li>
+      <li><strong>Защищённые окна — Self Work, стратегия</strong><span class="detail">двигается только с личного согласия CEO (см. раздел 03)</span></li>
+      <li><strong>Внешние встречи в своём окне</strong><span class="detail">фиксированное время, пн–ср — см. раздел 04</span></li>
+      <li><strong>Операционка и HR</strong><span class="detail">уступает раньше внешних, но позже команды — двигается только внутри своих же окон</span></li>
+      <li><strong>Команда — именные 1:1 по списку</strong><span class="detail">первое, что уступает место при конфликте</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="clause">
+  <div class="clause-num">13</div>
+  <div class="clause-body">
+    <h2>Пересмотр регламента</h2>
+    <p>Регламент — не высечен в камне. Ревью — раз в квартал, синхронно с шагом 4 проекта (замер высвобожденных часов через 4 недели после внедрения). Если правило систематически нарушается или мешает — это сигнал поправить правило, а не смириться с нарушением.</p>
+  </div>
+</section>
+
+<footer class="page-footer">
+  Черновик для обсуждения с CEO · часть проекта «Календарь CEO — оптимизация».
+</footer>
+
+  </div>
+</div>
+
+<!-- ============ SECTION 5: BENCHMARKS ============ -->
+<div class="section-panel" id="sec-bench">
+  <div class="wrap-narrow">
+
+<div class="bn-status-row">
+  <span class="bn-pill hero"><span class="dot"></span>Бенчмарк · Шаг 2</span>
+  <span class="bn-pill">7 исследований + 4 голоса индустрии</span>
+</div>
+
+<h1>Сколько времени должно уходить на что</h1>
+<p class="bn-lede">Прямых цифр по календарям Avito, ЦИАН, Ozon, Wildberries, МТС, Альфа-Банка, Яндекса и Telegram не существует — такое не публикуют. Но есть строгие количественные исследования CEO сопоставимого уровня и четыре живых голоса из этой же среды — и вместе они дают откалиброванную шкалу «нормально / много / мало» для CEO Banki.ru.</p>
+<p class="bn-basis-note">Источник силы этого документа не в точности одной цифры, а в сопоставлении: где CEO Banki.ru укладывается в норму, а где разрыв измеряется не «чуть-чуть», а в разы — с указанием, откуда каждая цифра.</p>
+
+<section class="bn-finding">
+  <div class="bn-finding-head">
+    <div class="bn-finding-num">01</div>
+    <div><h2>Встреч не больше нормы — это не то, что стоит резать</h2></div>
+  </div>
+  <div class="bn-finding-body">
+    <p>Первая гипотеза почти всегда звучит как «слишком много встреч». Бенчмарк её не подтверждает.</p>
+
+    <div class="bn-scale-block">
+      <div class="bn-scale-title">Доля рабочего времени в переговорах и встречах</div>
+      <div class="bn-scale-row">
+        <div class="bn-row-label"><strong>CEO Banki.ru</strong>факт по календарю, 5 мес.</div>
+        <div class="bn-row-track"><div class="bn-row-bar brass" style="width:33%"></div></div>
+        <div class="bn-row-value">33%</div>
+      </div>
+      <div class="bn-scale-row">
+        <div class="bn-row-label"><strong>Медиана CEO</strong>Porter&nbsp;&amp;&nbsp;Nohria, HBS, 27 компаний</div>
+        <div class="bn-row-track"><div class="bn-row-bar teal-fill" style="width:72%"></div></div>
+        <div class="bn-row-value">72%</div>
+      </div>
+      <div class="bn-scale-axis"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
+      <div class="bn-scale-foot">CEO Banki.ru проводит в переговорах <strong>меньше</strong>, чем медианный CEO крупной компании. Проблема — не в объёме встреч.</div>
+    </div>
+
+    <p class="muted">Методологическая оговорка: бенчмарк HBS считался слежкой 24/7 (включая неформальные разговоры и звонки вне календаря), у Banki.ru — только то, что попало в Outlook. Реальный разрыв может быть чуть меньше, но не настолько, чтобы поменять вывод.</p>
+  </div>
+</section>
+
+<section class="bn-finding">
+  <div class="bn-finding-head">
+    <div class="bn-finding-num">02</div>
+    <div><h2>Стратегия — в 3–4 раза ниже даже скромной нормы</h2></div>
+  </div>
+  <div class="bn-finding-body">
+    <p>Вот где разрыв настоящий. И он не «в целом маловато» — он количественно измерим на трёх уровнях сразу.</p>
+
+    <div class="bn-scale-block">
+      <div class="bn-scale-title">Доля времени на стратегию (шкала 0–40%)</div>
+      <div class="bn-scale-row">
+        <div class="bn-row-label"><strong>CEO Banki.ru</strong>4,7 ч/мес — почти всё это один выезд Advisory Board</div>
+        <div class="bn-row-track"><div class="bn-row-bar brass" style="width:8.75%"></div></div>
+        <div class="bn-row-value">3,5%</div>
+      </div>
+      <div class="bn-scale-row">
+        <div class="bn-row-label"><strong>Рабочая норма</strong>McKinsey: 20–30 дней/год</div>
+        <div class="bn-row-track">
+          <div class="bn-row-bar teal-fill" style="left:20%; width:10%; position:absolute;"></div>
+          <div class="bn-row-marker" style="left:82.5%" aria-hidden="true"><span class="marker-label">хотят: 33%</span></div>
+        </div>
+        <div class="bn-row-value">8–12%</div>
+      </div>
+      <div class="bn-scale-axis"><span>0%</span><span>10%</span><span>20%</span><span>30%</span><span>40%</span></div>
+      <div class="bn-scale-foot">Даже нижняя, самая скромная планка бенчмарка — в <strong>3–4 раза</strong> выше того, что есть сейчас. А пунктир справа — не мечта, а то, что сами CEO в опросах называют желаемым ориентиром.</div>
+    </div>
+
+    <p>За пять месяцев анализа 23,4 из 23,5 часа «стратегии» в календаре — это одна поездка в Стамбул. Вне неё стратегического времени в календаре нет практически совсем: не «мало», а по сути отсутствует как регулярная практика.</p>
+  </div>
+</section>
+
+<section class="bn-finding">
+  <div class="bn-finding-head">
+    <div class="bn-finding-num">03</div>
+    <div><h2>Настоящий корень — не календарь, а структура</h2></div>
+  </div>
+  <div class="bn-finding-body">
+    <p>Вот где, кажется, зарыто главное золото — и оно выходит за рамки чистого тайм-менеджмента.</p>
+    <p>У CEO 23 человека на индивидуальных еженедельных 1:1-слотах — 24,7% занятого времени. Ни один бенчмарк для компании такого масштаба не предполагает 23 персональных отношения на уровне CEO. Это типичная картина <strong>организации без сформированного управленческого слоя</strong> — и она предсказуемо возникает именно на 2–3 году в должности, пока новый CEO ещё не достроил команду, которой можно по-настоящему делегировать.</p>
+
+    <div class="box restricted">
+      <span class="box-label">Russell Reynolds · 178 CEO, первые 12–18 мес.</span>
+      <p><strong>52%</strong> новых CEO называют построение сильной управленческой команды приоритетом №1 переходного периода. <strong>79%</strong> считают, что формирование культуры — единственное, что может сделать только сам CEO. Пока такого слоя нет, любая раскладка календаря лечит симптом: 23 линии останутся 23 линиями при любой сетке слотов.</p>
+    </div>
+
+    <p class="muted">Это стыкуется с уже найденным в проекте: реальная частота встреч с этими людьми сейчас — 1,2–2,8 раза в месяц по факту, не еженедельно номинально. Часть слотов и так не проводится — сетка интуитивно ощущается избыточной.</p>
+  </div>
+</section>
+
+<section class="bn-finding">
+  <div class="bn-finding-head">
+    <div class="bn-finding-num">04</div>
+    <div><h2>Остальное — по категориям</h2></div>
+  </div>
+  <div class="bn-finding-body">
+    <p>Не всё требует немедленного внимания. Часть категорий уже в пределах нормы.</p>
+
+    <div class="bn-table-scroll">
+      <table>
+        <thead><tr><th>Категория</th><th>CEO Banki.ru</th><th>Бенчмарк</th><th>Статус</th></tr></thead>
+        <tbody>
+          <tr><td class="cat">Стратегия</td><td>3,5% (4,7 ч/мес)</td><td>8–12% (McKinsey)</td><td><span class="bn-tag gap">ниже минимума в 3–4×</span></td></tr>
+          <tr><td class="cat">Команда: 1:1</td><td>24,7% (33 ч/мес), 23 чел. на weekly</td><td>прямого часового норматива нет</td><td><span class="bn-tag gap">структурная аномалия</span></td></tr>
+          <tr><td class="cat">Внешние</td><td>10,9% (14,6 ч/мес ≈ 44 ч/кв)</td><td>медиана ~5% (41 ч/кв), разброс 6–165 ч/год</td><td><span class="bn-tag neutral">выше медианы, в пределах разброса</span></td></tr>
+          <tr><td class="cat">Встречи, всего</td><td>33% раб. времени</td><td>медиана 72% (HBS)</td><td><span class="bn-tag ok">не перегружен</span></td></tr>
+          <tr><td class="cat">Доступ / гейткипинг</td><td>78% ставит ассистент/CEO</td><td>75% времени запланировано заранее (Porter&nbsp;&amp;&nbsp;Nohria)</td><td><span class="bn-tag ok">совпадает с нормой</span></td></tr>
+          <tr><td class="cat">Буферы</td><td>50% переходов — без буфера</td><td>норматива в минутах нет ни у кого</td><td><span class="bn-tag neutral">вопрос энергии, не гигиены</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted">Индустрия не считает буфер вопросом с единственно верным ответом — и это само по себе показательно. McKinsey CEO Excellence формулирует принцип иначе: управление энергией так же важно, как управление временем, а иногда даёт больший эффект — через циклы «фокус → восстановление», а не через минимизацию пауз.</p>
+  </div>
+</section>
+
+<section class="bn-finding">
+  <div class="bn-finding-head">
+    <div class="bn-finding-num">05</div>
+    <div><h2>Четыре голоса из этой же среды</h2></div>
+  </div>
+  <div class="bn-finding-body">
+    <p>Публичных разбивок календаря от CEO этого круга нет, но прямые высказывания стоят многих цифр — потому что говорят о разном понимании того, что вообще значит «эффективный CEO». Ниже — две подтверждающие бенчмарк модели и две расходящиеся с ним, включая полярный структурный пример.</p>
+  </div>
+
+  <div class="bn-quote-grid">
+    <div class="bn-quote-card confirms">
+      <span class="bn-quote-tag">Подтверждает бенчмарк</span>
+      <blockquote>«Все тренировки по утрам, так как никогда не знаешь, во сколько закончится рабочий день… у меня четыре тренировки в неделю, они всегда системны».</blockquote>
+      <cite><strong>Татьяна Ким</strong>, Wildberries — Ведомости, 2025</cite>
+      <div class="bn-quote-takeaway">При непредсказуемом дне управляемо только утро. Аргумент за то, чтобы протестировать перенос Self Time с 13:00 на утро.</div>
+    </div>
+
+    <div class="bn-quote-card context">
+      <span class="bn-quote-tag">Другая модель — для контекста</span>
+      <div class="bn-quote-stat">30–60 человек</div>
+      <div class="bn-quote-stat-label">вся команда Telegram — на продукт с 1&nbsp;млрд+ пользователей, без отдела HR</div>
+      <p class="quote-note">Дуров лично остаётся единственным продакт-менеджером компании, встречи часто проводит на ходу, пешком. Проблему «23 прямых линий» он не решает распределением — он никогда не даёт организации вырасти настолько, чтобы каскад вообще возник.</p>
+      <cite><strong>Павел Дуров</strong>, Telegram — vc.ru, интервью Лексу Фридману</cite>
+      <div class="bn-quote-takeaway">Не рецепт для Banki.ru при текущем масштабе — но острая иллюстрация к находке 03: 23 линии решаются либо построением слоя (Reynolds), либо тем, чтобы организация никогда не переросла одного человека. Второе для вас уже не вариант.</div>
+    </div>
+
+    <div class="bn-quote-card contradicts">
+      <span class="bn-quote-tag">Расходится с бенчмарком</span>
+      <blockquote>«Работать больше других — на полчаса в день, на два имейла, на один звонок больше, чем тот, кто идёт за вами».</blockquote>
+      <cite><strong>Владимир Верхошинский</strong>, Альфа-Банк — ВШЭ, интервью</cite>
+      <div class="bn-quote-takeaway">Ни слова о делегировании. Громкий голос среды — и прямой контрпример к тому, что показывают систематические исследования (CEO Excellence: лучшие CEO делегируют, а не работают больше всех).</div>
+    </div>
+
+    <div class="bn-quote-card contradicts">
+      <span class="bn-quote-tag">Тот же паттерн, другая отрасль</span>
+      <blockquote>«Встаю между шестью и девятью утра, ложусь обычно за полночь… на офис прихожу в 8–9 утра, ухожу в 20:30–21:00».</blockquote>
+      <cite><strong>Тигран Худавердян</strong>, топ-менеджмент «Яндекса» — Лайфхакер, «Рабочие места»</cite>
+      <div class="bn-quote-takeaway">12–13-часовой день и минимум инструментов тайм-менеджмента («других инструментов у меня нет, кроме корпоративного календаря»). Тот же raw-hours паттерн, что у Верхошинского — с той разницей, что open space здесь осознанный выбор скорости, а не просто хаос.</div>
+    </div>
+  </div>
+</section>
+
+<p class="bn-footer-note">Часть проекта «Календарь CEO — оптимизация» · подготовлено для брифа CEO и HRD.</p>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var topTabs = document.querySelectorAll(".topnav-tab");
+  topTabs.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var key = btn.getAttribute("data-sec");
+      topTabs.forEach(function (b) { b.classList.toggle("active", b === btn); });
+      document.querySelectorAll(".section-panel").forEach(function (p) {
+        p.classList.toggle("active", p.id === "sec-" + key);
+      });
+      window.scrollTo(0, 0);
+    });
+  });
+
+  var weekBtns = document.querySelectorAll(".week-tab-btn");
+  weekBtns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var group = btn.getAttribute("data-group");
+      var idx = btn.getAttribute("data-idx");
+      document.querySelectorAll('.week-tab-btn[data-group="' + group + '"]').forEach(function (b) {
+        b.classList.toggle("active", b === btn);
+      });
+      document.querySelectorAll('.week-tab-panel[data-group="' + group + '"]').forEach(function (p) {
+        p.style.display = (p.getAttribute("data-idx") === idx) ? "" : "none";
+      });
+    });
+  });
+
+  // deep-link to a To Be version anchor without losing the section switch
+  document.querySelectorAll(".version-jump a").forEach(function (a) {
+    a.addEventListener("click", function () {
+      setTimeout(function () {
+        var el = document.querySelector(a.getAttribute("href"));
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 0);
+    });
+  });
+})();
+</script>
