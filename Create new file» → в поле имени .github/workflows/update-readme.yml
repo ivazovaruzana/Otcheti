@@ -1,0 +1,28 @@
+name: Update README report list
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'README.md'
+      - '.github/**'
+
+permissions:
+  contents: write
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Regenerate report list in README.md
+        run: python3 scripts/update_readme.py
+
+      - name: Commit changes if README.md is now different
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: auto-update report list in README"
+          file_pattern: README.md
