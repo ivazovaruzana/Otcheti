@@ -250,6 +250,26 @@
   .section-heading { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
   .section-kicker { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); }
   .section-heading h2 { font-size: 1.5rem; margin: 0; }
+  .diag-lede { color: var(--ink-soft); max-width: 74ch; margin: -8px 0 34px; font-size: 0.98rem; }
+
+  .cat-list { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 12px; background: var(--paper-raised); box-shadow: var(--shadow); overflow: hidden; margin: 0 0 40px; }
+  .cat-list-row { display: flex; align-items: flex-start; gap: 13px; padding: 14px 20px; border-bottom: 1px solid var(--line-soft); font-size: 0.92rem; }
+  .cat-list-row:last-child { border-bottom: none; }
+  .cat-list-row .sw { width: 12px; height: 12px; border-radius: 4px; flex: none; margin-top: 4px; }
+  .cat-list-row b { color: var(--ink); }
+  .cat-list-row span.desc { color: var(--ink-soft); }
+
+  .donut-block { display: flex; align-items: center; gap: 44px; flex-wrap: wrap; margin: 0 0 44px; padding: 28px 30px; border: 1px solid var(--line); border-radius: 14px; background: var(--paper-raised); box-shadow: var(--shadow); }
+  .donut-chart { position: relative; width: 176px; height: 176px; border-radius: 50%; flex: none; }
+  .donut-hole { position: absolute; inset: 28px; border-radius: 50%; background: var(--paper-raised); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .donut-hole-num { font-family: "IBM Plex Mono", monospace; font-size: 1.5rem; font-weight: 600; color: var(--ink); }
+  .donut-hole-lbl { font-size: 11px; color: var(--ink-soft); }
+  .donut-legend { display: flex; flex-direction: column; gap: 11px; flex: 1; min-width: 250px; }
+  .donut-legend-row { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
+  .donut-legend-row .sw { width: 11px; height: 11px; border-radius: 3px; flex: none; }
+  .donut-legend-row .lbl { color: var(--ink-soft); flex: 1; }
+  .donut-legend-row .val { font-family: "IBM Plex Mono", monospace; font-weight: 600; color: var(--ink); white-space: nowrap; }
+  @media (max-width: 560px) { .donut-block { flex-direction: column; align-items: flex-start; } }
 
   .brief-versions { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 44px; }
   @media (max-width: 860px) { .brief-versions { grid-template-columns: 1fr; } }
@@ -409,6 +429,38 @@
 
   .bn-footer-note { margin-top: 40px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--ink-soft); }
 
+  /* ================= As Is: интерактивный календарь по дням ================= */
+  .dc-cal-layout { display: grid; grid-template-columns: 1fr 300px; gap: 20px; align-items: start; margin: 0 0 44px; }
+  @media (max-width: 980px) { .dc-cal-layout { grid-template-columns: 1fr; } }
+  .dc-cal-months { display: flex; flex-direction: column; gap: 20px; }
+  .dc-month-card { background: var(--paper-raised); border: 1px solid var(--line); border-radius: 14px; padding: 16px 16px 18px; box-shadow: var(--shadow); }
+  .dc-month-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 10px; padding: 0 4px; }
+  .dc-month-head h4 { font-family: "Newsreader", Georgia, serif; font-size: 16px; font-weight: 600; margin: 0; }
+  .dc-month-head .cnt { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--ink-soft); }
+  .dc-month-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 3px; }
+  .dc-month-wd { font-size: 10px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-soft); text-align: center; padding: 4px 0 6px; font-weight: 600; }
+  .dc-day-cell { background: var(--line-soft); border-radius: 7px; min-height: 64px; min-width: 0; padding: 4px 5px; display: flex; flex-direction: column; gap: 2px; cursor: default; border: 1.5px solid transparent; transition: border-color .12s; }
+  .dc-day-cell.has-events { cursor: pointer; }
+  .dc-day-cell.has-events:hover { border-color: var(--line); }
+  .dc-day-cell.selected { border-color: var(--accent); background: color-mix(in oklab, var(--accent) 12%, var(--line-soft)); }
+  .dc-day-cell.out { opacity: 0.35; }
+  .dc-day-cell.weekend { background: color-mix(in oklab, var(--line) 55%, var(--line-soft)); }
+  .dc-day-num { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; color: var(--ink-soft); font-weight: 600; }
+  .dc-day-chip { font-size: 8.8px; line-height: 1.2; padding: 2px 4px; border-radius: 4px; color: #fff; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; max-width: 100%; }
+  .dc-day-more { font-size: 8.8px; color: var(--ink-soft); padding: 1px 4px; font-family: "IBM Plex Mono", monospace; }
+  .dc-day-detail { position: sticky; top: 78px; display: flex; flex-direction: column; gap: 12px; }
+  .dc-day-detail-card { background: var(--paper-raised); border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; box-shadow: var(--shadow); min-height: 140px; }
+  .dc-day-detail-empty { color: var(--ink-soft); font-size: 13px; text-align: center; padding: 30px 10px; }
+  .dc-dd-date { font-family: "Newsreader", Georgia, serif; font-size: 16px; font-weight: 600; margin: 0 0 12px; }
+  .dc-dd-row { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 12.5px; }
+  .dc-dd-row:last-child { border-bottom: none; }
+  .dc-dd-time { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--ink-soft); flex: none; width: 82px; }
+  .dc-dd-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; margin-top: 4px; }
+  .dc-dd-title { color: var(--ink); }
+  .dc-legend { display: flex; flex-wrap: wrap; gap: 12px 20px; margin-top: 4px; }
+  .dc-legend-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--ink-soft); }
+  .dc-swatch { width: 10px; height: 10px; border-radius: 3px; flex: none; }
+
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 
@@ -444,29 +496,51 @@
 </div>
 
 <div class="section-heading">
-  <div class="section-kicker">Структура календаря</div>
-  <h2>Куда уходит время</h2>
+  <div class="section-kicker">Календарь по дням</div>
+  <h2>Апрель – август 2026</h2>
 </div>
-<div class="timebar">
-  <div class="seg" style="width:24.7%;background:var(--cat-team)" title="Команда: 1:1 — 24,7%"></div>
-  <div class="seg" style="width:13.9%;background:var(--cat-ops)" title="Операционка / HR — 13,9%"></div>
-  <div class="seg" style="width:10.9%;background:var(--cat-ext)" title="Внешние — 10,9%"></div>
-  <div class="seg" style="width:3.5%;background:var(--cat-strategy)" title="Стратегия — 3,5%"></div>
-  <div class="seg" style="width:22.9%;background:var(--cat-protected)" title="Self Work / защищено — 22,9%"></div>
-  <div class="seg" style="width:24.1%;background:var(--cat-other)" title="Прочее / не размечено — 24,1%"></div>
-</div>
-<div class="timebar-figs">
-  <div class="timebar-fig"><span class="sw" style="background:var(--cat-team)"></span>Команда: 1:1 — <b>33,0 ч/мес · 24,7%</b></div>
-  <div class="timebar-fig"><span class="sw" style="background:var(--cat-ops)"></span>Операционка / HR — <b>18,5 ч/мес · 13,9%</b></div>
-  <div class="timebar-fig"><span class="sw" style="background:var(--cat-ext)"></span>Внешние — <b>14,6 ч/мес · 10,9%</b></div>
-  <div class="timebar-fig"><span class="sw" style="background:var(--cat-strategy)"></span>Стратегия — <b>4,7 ч/мес · 3,5%</b></div>
-  <div class="timebar-fig"><span class="sw" style="background:var(--cat-protected)"></span>Self Work / защищено — <b>30,5 ч/мес · 22,9%</b></div>
-  <div class="timebar-fig"><span class="sw" style="background:var(--cat-other)"></span>Прочее / не размечено — <b>32,2 ч/мес · 24,1%</b></div>
+<div class="dc-cal-layout">
+  <div class="dc-cal-months" id="dcCalMonths"></div>
+  <div class="dc-day-detail">
+    <div class="dc-day-detail-card" id="dcDayDetailCard">
+      <div class="dc-day-detail-empty">Кликните по дню в календаре слева, чтобы увидеть список встреч</div>
+    </div>
+    <div class="dc-legend" id="dcCalLegend"></div>
+  </div>
 </div>
 
 <div class="section-heading">
   <div class="section-kicker">Разбор пяти месяцев</div>
   <h2>Динамика по месяцам, дням недели и организаторам</h2>
+</div>
+
+<div class="data-grid-2">
+  <div class="data-card">
+    <h4>Нагрузка по дням недели</h4>
+    <p class="data-note">Часов встреч в среднем на день</p>
+    <div class="chart-wd">
+      <div class="w-col"><div class="w-bar" style="height:82.7%"><span class="val">6,2</span></div><div class="w-label">Пн</div></div>
+      <div class="w-col"><div class="w-bar" style="height:90.7%"><span class="val">6,8</span></div><div class="w-label">Вт</div></div>
+      <div class="w-col"><div class="w-bar" style="height:73.3%"><span class="val">5,5</span></div><div class="w-label">Ср</div></div>
+      <div class="w-col"><div class="w-bar" style="height:100%;background:var(--brick)"><span class="val">7,5</span></div><div class="w-label">Чт</div></div>
+      <div class="w-col"><div class="w-bar" style="height:62.7%;background:var(--teal)"><span class="val">4,7</span></div><div class="w-label">Пт</div></div>
+    </div>
+    <p class="data-foot-note">Самый загруженный день — четверг, самый лёгкий — пятница. Разброс держится месяц к месяцу, это не сезонный эффект, а структура недели.</p>
+  </div>
+  <div class="data-card">
+    <h4>Кто ставит встречи напрямую</h4>
+    <p class="data-note">Топ-7 организаторов из 57 за 5 месяцев, число встреч</p>
+    <div class="bar-list">
+      <div class="bar-row"><span class="bl-label">Малеванкина (HR)</span><span class="bl-track"><span class="bl-fill" style="width:100%"></span></span><span class="bl-val">17</span></div>
+      <div class="bar-row"><span class="bl-label">Егорова (All&nbsp;Staff)</span><span class="bl-track"><span class="bl-fill" style="width:82.4%"></span></span><span class="bl-val">14</span></div>
+      <div class="bar-row"><span class="bl-label">Доценко (HR)</span><span class="bl-track"><span class="bl-fill" style="width:70.6%"></span></span><span class="bl-val">12</span></div>
+      <div class="bar-row"><span class="bl-label">Лапикова</span><span class="bl-track"><span class="bl-fill" style="width:52.9%"></span></span><span class="bl-val">9</span></div>
+      <div class="bar-row"><span class="bl-label">Авагян</span><span class="bl-track"><span class="bl-fill" style="width:35.3%"></span></span><span class="bl-val">6</span></div>
+      <div class="bar-row"><span class="bl-label">Мандрик</span><span class="bl-track"><span class="bl-fill" style="width:35.3%"></span></span><span class="bl-val">6</span></div>
+      <div class="bar-row"><span class="bl-label">Гарнец</span><span class="bl-track"><span class="bl-fill" style="width:35.3%"></span></span><span class="bl-val">6</span></div>
+    </div>
+    <p class="data-foot-note">57 уникальных организаторов за 5 месяцев. 78% встреч идёт через ассистента или самого CEO — но HR/наём (Малеванкина + Доценко) поставили напрямую 29 встреч, Егорова (All Staff / AI Demo) — 14.</p>
+  </div>
 </div>
 
 <div class="data-card" style="margin-bottom:20px;">
@@ -524,67 +598,8 @@
   <p class="data-foot-note">Картина нестабильна месяц к месяцу — операционка скачет от 7,6 до 44,8 ч, стратегия пропадает совсем в мае и августе — но сумма всегда держится в диапазоне 118–146 ч/мес.</p>
 </div>
 
-<div class="data-grid-2">
-  <div class="data-card">
-    <h4>Нагрузка по дням недели</h4>
-    <p class="data-note">Часов встреч в среднем на день</p>
-    <div class="chart-wd">
-      <div class="w-col"><div class="w-bar" style="height:82.7%"><span class="val">6,2</span></div><div class="w-label">Пн</div></div>
-      <div class="w-col"><div class="w-bar" style="height:90.7%"><span class="val">6,8</span></div><div class="w-label">Вт</div></div>
-      <div class="w-col"><div class="w-bar" style="height:73.3%"><span class="val">5,5</span></div><div class="w-label">Ср</div></div>
-      <div class="w-col"><div class="w-bar" style="height:100%;background:var(--brick)"><span class="val">7,5</span></div><div class="w-label">Чт</div></div>
-      <div class="w-col"><div class="w-bar" style="height:62.7%;background:var(--teal)"><span class="val">4,7</span></div><div class="w-label">Пт</div></div>
-    </div>
-    <p class="data-foot-note">Самый загруженный день — четверг, самый лёгкий — пятница. Разброс держится месяц к месяцу, это не сезонный эффект, а структура недели.</p>
-  </div>
-  <div class="data-card">
-    <h4>Кто ставит встречи напрямую</h4>
-    <p class="data-note">Топ-7 организаторов из 57 за 5 месяцев, число встреч</p>
-    <div class="bar-list">
-      <div class="bar-row"><span class="bl-label">Малеванкина (HR)</span><span class="bl-track"><span class="bl-fill" style="width:100%"></span></span><span class="bl-val">17</span></div>
-      <div class="bar-row"><span class="bl-label">Егорова (All&nbsp;Staff)</span><span class="bl-track"><span class="bl-fill" style="width:82.4%"></span></span><span class="bl-val">14</span></div>
-      <div class="bar-row"><span class="bl-label">Доценко (HR)</span><span class="bl-track"><span class="bl-fill" style="width:70.6%"></span></span><span class="bl-val">12</span></div>
-      <div class="bar-row"><span class="bl-label">Лапикова</span><span class="bl-track"><span class="bl-fill" style="width:52.9%"></span></span><span class="bl-val">9</span></div>
-      <div class="bar-row"><span class="bl-label">Авагян</span><span class="bl-track"><span class="bl-fill" style="width:35.3%"></span></span><span class="bl-val">6</span></div>
-      <div class="bar-row"><span class="bl-label">Мандрик</span><span class="bl-track"><span class="bl-fill" style="width:35.3%"></span></span><span class="bl-val">6</span></div>
-      <div class="bar-row"><span class="bl-label">Гарнец</span><span class="bl-track"><span class="bl-fill" style="width:35.3%"></span></span><span class="bl-val">6</span></div>
-    </div>
-    <p class="data-foot-note">57 уникальных организаторов за 5 месяцев. 78% встреч идёт через ассистента или самого CEO — но HR/наём (Малеванкина + Доценко) поставили напрямую 29 встреч, Егорова (All Staff / AI Demo) — 14.</p>
-  </div>
-</div>
-
-<div class="data-card" style="margin-bottom:20px;">
-  <h4>Буферы и вечерние переработки</h4>
-  <div class="callout">
-    <div class="callout-row"><span class="k">Переходов между встречами без буфера</span><span class="v accent">50%</span></div>
-    <div class="callout-row"><span class="k">Переходов с буфером 1–10 минут</span><span class="v">8%</span></div>
-    <div class="callout-row"><span class="k">Средний буфер, когда он есть</span><span class="v">41 мин</span></div>
-    <div class="callout-row"><span class="k">Встреч, заканчивающихся позже 18:00</span><span class="v accent">14 / мес</span></div>
-    <div class="callout-row"><span class="k">Встреч, начинающихся раньше 9:30</span><span class="v">3 / мес</span></div>
-    <div class="callout-row"><span class="k">Самый загруженный день</span><span class="v">четверг · 7,5 ч</span></div>
-    <div class="callout-row"><span class="k">Самый лёгкий день</span><span class="v">пятница · 4,7 ч</span></div>
-  </div>
-</div>
-
-<div class="section-heading">
-  <div class="section-kicker">Выводы</div>
-  <h2>Что это значит на практике</h2>
-</div>
-<div class="reasons-grid reasons-grid-2col">
-  <div class="reason-card">
-    <div class="rn">01</div>
-    <h4>Индивидуальные 1:1 — четверть календаря, стабильно все 5 месяцев</h4>
-    <p>33,0 ч/мес. 23 человека получают персональный слот с CEO каждую неделю. В июле–августе добавился ещё и параллельный цикл «Оценка 1H 2026» — фактически два касания с частью команды.</p>
-  </div>
-  <div class="reason-card">
-    <div class="rn">02</div>
-    <h4>Стратегия — это не регулярная практика, а один выезд</h4>
-    <p>4,7 ч/мес. 23,4 часа за 5 месяцев с пометкой «стратегия» — 19 из них это Advisory Board 2–3 апреля в Стамбуле. Без этого выезда регулярного стратегического времени в календаре нет вообще.</p>
-  </div>
-</div>
-
 <div class="brief-footer">
-  Полная интерактивная версия (календарь по дням, разбор 130 неразмеченных встреч) — в личном кабинете: <a href="https://claude.ai/code/artifact/ea1773a6-5e2a-4881-9a7d-91f4de6bac62">Календарь CEO — личный кабинет</a>.
+  Разбор 130 неразмеченных встреч — в личном кабинете: <a href="https://claude.ai/code/artifact/ea1773a6-5e2a-4881-9a7d-91f4de6bac62">Календарь CEO — личный кабинет</a>.
 </div>
 
   </div>
@@ -655,21 +670,40 @@
   <div class="section-kicker">Диагностика · апрель–август 2026, 701 встреча</div>
   <h2>Куда сейчас уходит время</h2>
 </div>
-<div class="timebar">
-  <div class="seg" style="width:24.7%;background:var(--cat-team)" title="Команда: 1:1 — 24,7%"></div>
-  <div class="seg" style="width:13.9%;background:var(--cat-ops)" title="Операционка / HR — 13,9%"></div>
-  <div class="seg" style="width:10.9%;background:var(--cat-ext)" title="Внешние — 10,9%"></div>
-  <div class="seg" style="width:3.5%;background:var(--cat-strategy)" title="Стратегия — 3,5%"></div>
-  <div class="seg" style="width:22.9%;background:var(--cat-protected)" title="Self Work / защищено — 22,9%"></div>
-  <div class="seg" style="width:24.1%;background:var(--cat-other)" title="Прочее / не размечено — 24,1%"></div>
+<p class="diag-lede">Проведён анализ выгрузки календаря CEO из Outlook за период с апреля по конец августа 2026 года — 701 встреча за 5 календарных месяцев.</p>
+
+<div class="section-heading">
+  <div class="section-kicker">Результат анализа</div>
+  <h2>Выявленные категории встреч</h2>
 </div>
-<div class="timebar-figs">
-  <div class="timebar-fig"><span class="sw" style="background:var(--cat-team)"></span>Команда: 1:1 — <b>33,0 ч/мес · 24,7%</b></div>
-  <div class="timebar-fig"><span class="sw" style="background:var(--cat-ops)"></span>Операционка / HR — <b>18,5 ч/мес · 13,9%</b></div>
-  <div class="timebar-fig"><span class="sw" style="background:var(--cat-ext)"></span>Внешние — <b>14,6 ч/мес · 10,9%</b></div>
-  <div class="timebar-fig"><span class="sw" style="background:var(--cat-strategy)"></span>Стратегия — <b>4,7 ч/мес · 3,5%</b></div>
-  <div class="timebar-fig"><span class="sw" style="background:var(--cat-protected)"></span>Self Work / защищено — <b>30,5 ч/мес · 22,9%</b></div>
-  <div class="timebar-fig"><span class="sw" style="background:var(--cat-other)"></span>Прочее / не размечено — <b>32,2 ч/мес · 24,1%</b></div>
+<div class="cat-list">
+  <div class="cat-list-row"><span class="sw" style="background:var(--cat-team)"></span><span><b>Команда: 1:1 и синки</b> — <span class="desc">индивидуальные встречи и регулярные синки с командой</span></span></div>
+  <div class="cat-list-row"><span class="sw" style="background:var(--cat-ops)"></span><span><b>Операционка / HR</b> — <span class="desc">оперативное управление и HR-процессы</span></span></div>
+  <div class="cat-list-row"><span class="sw" style="background:var(--cat-ext)"></span><span><b>Внешние</b> — <span class="desc">встречи с партнёрами, контрагентами и другими внешними сторонами</span></span></div>
+  <div class="cat-list-row"><span class="sw" style="background:var(--cat-strategy)"></span><span><b>Стратегия</b> — <span class="desc">стратегические сессии и планирование</span></span></div>
+  <div class="cat-list-row"><span class="sw" style="background:var(--cat-protected)"></span><span><b>Self Work / защищено</b> — <span class="desc">защищённое личное рабочее время</span></span></div>
+  <div class="cat-list-row"><span class="sw" style="background:var(--cat-other)"></span><span><b>Прочее / не размечено</b> — <span class="desc">встречи, которые не удалось однозначно отнести к категории</span></span></div>
+</div>
+
+<div class="section-heading">
+  <div class="section-kicker">Процентная разбивка</div>
+  <h2>Доля времени по категориям</h2>
+</div>
+<div class="donut-block">
+  <div class="donut-chart" style="background: conic-gradient(var(--cat-team) 0% 24.7%, var(--cat-ops) 24.7% 38.6%, var(--cat-ext) 38.6% 49.5%, var(--cat-strategy) 49.5% 53%, var(--cat-protected) 53% 75.9%, var(--cat-other) 75.9% 100%);">
+    <div class="donut-hole">
+      <span class="donut-hole-num">133</span>
+      <span class="donut-hole-lbl">ч/мес</span>
+    </div>
+  </div>
+  <div class="donut-legend">
+    <div class="donut-legend-row"><span class="sw" style="background:var(--cat-team)"></span><span class="lbl">Команда: 1:1 и синки</span><span class="val">33,0 ч/мес · 24,7%</span></div>
+    <div class="donut-legend-row"><span class="sw" style="background:var(--cat-ops)"></span><span class="lbl">Операционка / HR</span><span class="val">18,5 ч/мес · 13,9%</span></div>
+    <div class="donut-legend-row"><span class="sw" style="background:var(--cat-ext)"></span><span class="lbl">Внешние</span><span class="val">14,6 ч/мес · 10,9%</span></div>
+    <div class="donut-legend-row"><span class="sw" style="background:var(--cat-strategy)"></span><span class="lbl">Стратегия</span><span class="val">4,7 ч/мес · 3,5%</span></div>
+    <div class="donut-legend-row"><span class="sw" style="background:var(--cat-protected)"></span><span class="lbl">Self Work / защищено</span><span class="val">30,5 ч/мес · 22,9%</span></div>
+    <div class="donut-legend-row"><span class="sw" style="background:var(--cat-other)"></span><span class="lbl">Прочее / не размечено</span><span class="val">32,2 ч/мес · 24,1%</span></div>
+  </div>
 </div>
 
 <div class="reasons-grid">
@@ -1190,5 +1224,276 @@
       }, 0);
     });
   });
+})();
+</script>
+<script>
+(function () {
+  "use strict";
+
+  var CAL_DATA = {
+  '2026-04-01': [{s:'15:00',e:'15:45',t:'Максимова, Weekly',c:'team'}],
+  '2026-04-02': [{s:'9:00',e:'19:00',t:'Banki.ru: Advisory Board - April 01-03',c:'strategy'},{s:'10:30',e:'11:30',t:'selfwork',c:'protected'},{s:'15:00',e:'15:45',t:'Марченко, Weekly',c:'team'},{s:'15:00',e:'15:30',t:'Еженедельный синк ВТБ - Банки.ру',c:'ops'}],
+  '2026-04-03': [{s:'9:00',e:'16:00',t:'Banki.ru: Advisory Board - April 01-03',c:'strategy'}],
+  '2026-04-06': [{s:'11:00',e:'12:00',t:'Банки ру // Билайн - таргет смс',c:'ext'},{s:'11:00',e:'11:30',t:'Открытый семинар по опросу вовлеченности для сотрудников',c:'other'},{s:'12:00',e:'13:00',t:'Статус встреча',c:'ops'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:30',e:'18:00',t:'нотариус',c:'other'},{s:'16:30',e:'19:00',t:'встреча',c:'other'}],
+  '2026-04-07': [{s:'10:00',e:'10:50',t:'Командная сессия, Сокольники',c:'other'},{s:'11:00',e:'11:45',t:'Пестов, Weekly',c:'team'},{s:'11:00',e:'11:30',t:'Открытый семинар по опросу вовлеченности для руководителей',c:'other'},{s:'12:00',e:'12:45',t:'Лукашова, Weekly',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Сарибекян, Weekly',c:'team'},{s:'15:00',e:'15:50',t:'Дорога',c:'other'},{s:'16:00',e:'16:50',t:'Банк БЖФ',c:'ext'}],
+  '2026-04-08': [{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Князева, Weekly',c:'team'},{s:'16:00',e:'16:45',t:'Шамба, Weekly',c:'team'},{s:'17:00',e:'17:45',t:'Хасанова, Weekly',c:'team'},{s:'18:00',e:'19:00',t:'Встреча Авто Финанс Банк и Банки.ру',c:'ext'}],
+  '2026-04-09': [{s:'10:00',e:'10:50',t:'Клиника семейной стоматологии',c:'other'},{s:'10:30',e:'11:30',t:'selfwork',c:'protected'},{s:'11:30',e:'13:00',t:'FW: Воркшоп Банки ру',c:'ops'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'15:00',t:'Интервью_Специалист по валютно-обменным операциям (Клёнов …',c:'other'},{s:'15:00',e:'15:30',t:'Глобал',c:'other'},{s:'15:30',e:'16:00',t:'Сергунов, Weekly',c:'team'},{s:'16:00',e:'16:45',t:'Егоров, Weekly',c:'team'},{s:'17:00',e:'17:50',t:'SELF WORK',c:'protected'},{s:'18:00',e:'19:00',t:'Weekly Banki.ru',c:'team'}],
+  '2026-04-10': [{s:'10:00',e:'10:50',t:'Ильин, Щепкина 35, ЕМС',c:'other'},{s:'12:00',e:'13:00',t:'self-work',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:50',t:'УК',c:'other'},{s:'15:00',e:'15:50',t:'Пестов, как применяем ИИ',c:'team'},{s:'16:00',e:'16:45',t:'Хачикян, Weekly',c:'team'},{s:'17:00',e:'17:30',t:'Безопасность перс данных наших пользователей',c:'other'}],
+  '2026-04-13': [{s:'11:00',e:'11:45',t:'Манджиева, Weekly',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'13:00',e:'16:00',t:'Обед с Директ Кредит',c:'other'},{s:'14:00',e:'15:00',t:'Обед - Директ Кредит Банки.ру',c:'other'},{s:'18:00',e:'19:00',t:'кандидат BO (Бизнес)_Антон Огородников',c:'other'}],
+  '2026-04-14': [{s:'11:00',e:'11:45',t:'Багиров, Weekly',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'17:30',e:'18:15',t:'Курсы валют',c:'ops'}],
+  '2026-04-15': [{s:'11:00',e:'11:50',t:'Шамба, Weekly',c:'team'},{s:'12:00',e:'13:00',t:'Canceled: Business Development Meeting',c:'other'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'13:00',e:'14:00',t:'FP&A Academy_Язык бизнеса',c:'other'},{s:'14:00',e:'14:45',t:'Князева, Weekly',c:'team'},{s:'15:00',e:'15:45',t:'Максимова, Weekly',c:'team'},{s:'15:00',e:'16:00',t:'Банки.ру х Мандрик, Казаков и Роботы',c:'team'},{s:'17:30',e:'18:00',t:'Маркетплейс лидогенерация вклады',c:'other'},{s:'18:00',e:'18:30',t:'Оргструктура',c:'other'}],
+  '2026-04-16': [{s:'10:00',e:'10:50',t:'Дом РФ (Большая Никитская 15)',c:'other'},{s:'10:30',e:'11:30',t:'selfwork',c:'protected'},{s:'12:00',e:'12:45',t:'Хачикян, Weekly',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Кожухарь, Weekly',c:'team'},{s:'15:00',e:'15:45',t:'Марченко, Weekly',c:'team'},{s:'15:00',e:'15:45',t:'Щербаков, Weekly',c:'team'},{s:'16:00',e:'16:45',t:'Егоров, Weekly',c:'team'},{s:'17:00',e:'17:50',t:'SELF WORK',c:'protected'},{s:'18:00',e:'19:00',t:'Weekly Banki.ru',c:'team'}],
+  '2026-04-17': [{s:'9:00',e:'9:50',t:'WB (4 ветра Кофемания)',c:'ext'},{s:'12:00',e:'13:00',t:'self-work',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:50',t:'Дрим Лабс и Банки.ру',c:'ext'},{s:'15:00',e:'15:50',t:'Встреча',c:'other'},{s:'16:00',e:'16:50',t:'Синк по ZBB',c:'ops'},{s:'16:00',e:'16:15',t:'УК',c:'other'}],
+  '2026-04-20': [{s:'11:30',e:'12:00',t:'Запись видео для КЦ',c:'other'},{s:'12:00',e:'13:00',t:'Статус встреча',c:'ops'},{s:'12:30',e:'13:10',t:'Банк 131 и Банки.ру',c:'ext'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'13:15',e:'14:00',t:'СДМ и Банки.ру',c:'ext'},{s:'14:00',e:'14:45',t:'Манджиева, Weekly',c:'team'},{s:'16:00',e:'17:00',t:'Встреча с Димой Багинским',c:'other'},{s:'17:00',e:'17:50',t:'БЖФ - Банки.ру',c:'ext'},{s:'17:00',e:'17:50',t:'(без названия)',c:'other'}],
+  '2026-04-21': [{s:'9:00',e:'9:50',t:'Альфа Банк и Банки.ру',c:'ext'},{s:'11:00',e:'11:45',t:'Пестов, Weekly',c:'team'},{s:'12:00',e:'12:50',t:'Майорова',c:'other'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Полищук, Weekly',c:'team'},{s:'15:00',e:'16:00',t:'Интервью_Валютный стратег (Курамшин Рустам)',c:'other'}],
+  '2026-04-22': [{s:'11:00',e:'12:00',t:'All Staff',c:'ops'},{s:'12:00',e:'12:50',t:'УК',c:'other'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'}],
+  '2026-04-23': [{s:'9:00',e:'9:50',t:'Сбер, Банкирос и Банки.ру',c:'ext'},{s:'10:30',e:'11:30',t:'selfwork',c:'protected'},{s:'11:00',e:'11:30',t:'Норвик Банк и Банки.ру',c:'ext'},{s:'12:00',e:'12:45',t:'Хачикян, Weekly',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Кожухарь, Weekly',c:'team'},{s:'15:00',e:'15:30',t:'Сергунов, Weekly',c:'team'},{s:'15:30',e:'17:30',t:'FW: Демо AI внутри ДИ',c:'other'},{s:'17:00',e:'17:50',t:'SELF WORK',c:'protected'},{s:'18:00',e:'19:00',t:'Weekly Banki.ru',c:'team'}],
+  '2026-04-24': [{s:'9:00',e:'9:50',t:'ЕМЦ, Щепкина 35. Ильин',c:'other'},{s:'12:00',e:'13:00',t:'self-work',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'15:00',t:'Интервью_Валютный стратег (Булаев Юрий)',c:'other'},{s:'17:30',e:'19:00',t:'«Finbridge - Banki.ru»',c:'other'}],
+  '2026-04-27': [{s:'11:00',e:'11:30',t:'Частная встреча',c:'other'},{s:'12:00',e:'13:00',t:'Статус встреча',c:'ops'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'13:00',e:'13:30',t:'ДР Катя Лукашова',c:'team'},{s:'14:00',e:'15:00',t:'Банки.ру',c:'other'},{s:'15:00',e:'15:45',t:'Щербаков, Weekly',c:'team'},{s:'16:00',e:'17:00',t:'кандидат на случай бэк апа Кати Селеверстовой _Богданова Е…',c:'other'},{s:'18:30',e:'19:00',t:'Встреча с Сергеем Тепловым',c:'other'}],
+  '2026-04-28': [{s:'9:30',e:'10:30',t:'Альфа Банк и Банки.ру',c:'ext'},{s:'11:00',e:'11:45',t:'Багиров, Weekly',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'15:00',t:'Банк 131 и Банки.ру',c:'ext'},{s:'14:00',e:'14:45',t:'Полищук, Weekly',c:'team'},{s:'15:00',e:'15:45',t:'Сарибекян, Weekly',c:'team'}],
+  '2026-04-29': [{s:'11:30',e:'12:00',t:'Finbridge // Банки.ру',c:'other'},{s:'12:00',e:'12:30',t:'ЛК партнера: согласовать ТЗ',c:'other'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Хасанова, Weekly',c:'team'},{s:'15:00',e:'16:00',t:'Маша',c:'other'},{s:'15:00',e:'15:45',t:'Максимова, Weekly',c:'team'},{s:'15:40',e:'16:30',t:'Дорога',c:'other'},{s:'16:30',e:'17:20',t:'Встреча Артем и CEO',c:'ext'}],
+  '2026-04-30': [{s:'10:30',e:'11:30',t:'selfwork',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'15:00',t:'Лукашова, Weekly',c:'team'},{s:'15:00',e:'15:45',t:'Марченко, Weekly',c:'team'},{s:'17:00',e:'17:50',t:'SELF WORK',c:'protected'},{s:'18:00',e:'19:00',t:'Weekly Banki.ru',c:'team'}],
+  '2026-05-01': [{s:'12:00',e:'13:00',t:'self-work',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'}],
+  '2026-05-04': [{s:'10:30',e:'11:30',t:'Металлинвест',c:'other'},{s:'10:30',e:'12:00',t:'Canceled: Развитие Сбережений Металлинвестбанк//Банки ру',c:'other'},{s:'12:00',e:'13:00',t:'Canceled: Статус встреча',c:'ops'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'13:00',e:'13:55',t:'Updated invitation: Zaymer | Banki.ru - бизнес часть',c:'other'},{s:'14:00',e:'14:45',t:'Манджиева, Weekly',c:'team'},{s:'15:00',e:'16:00',t:'Изменение логики в блоке "Одобренные" по типам оформления.',c:'other'}],
+  '2026-05-05': [{s:'9:00',e:'12:00',t:'Стоматолог',c:'other'},{s:'11:00',e:'11:45',t:'Пестов, Weekly',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Лукашова, Weekly',c:'team'},{s:'15:00',e:'15:45',t:'Сарибекян, Weekly',c:'team'},{s:'16:00',e:'16:50',t:'Дорога в Атмосфера',c:'other'},{s:'17:00',e:'18:00',t:'Привет сосед и Банки.ру',c:'ext'}],
+  '2026-05-06': [{s:'10:00',e:'11:00',t:'Банки.ру/МТС Банк ДК/НС',c:'other'},{s:'11:00',e:'11:45',t:'Шамба',c:'team'},{s:'12:00',e:'12:50',t:'Отменено: УК',c:'ops'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'15:00',e:'16:00',t:'Welcome meeting',c:'ops'},{s:'16:00',e:'16:45',t:'Мальцев, Weekly',c:'team'},{s:'16:30',e:'17:00',t:'Банки.ру | билайн - скоринг модель',c:'ext'},{s:'17:00',e:'17:45',t:'Хасанова, Weekly',c:'team'}],
+  '2026-05-07': [{s:'10:00',e:'11:00',t:'Частная встреча',c:'other'},{s:'10:30',e:'11:30',t:'selfwork',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Кожухарь, Weekly',c:'team'},{s:'15:00',e:'15:45',t:'Сергунов, Weekly',c:'team'},{s:'15:00',e:'15:30',t:'Еженедельный синк ВТБ - Банки.ру',c:'ops'},{s:'16:00',e:'16:45',t:'Егоров, Weekly',c:'team'},{s:'17:00',e:'17:50',t:'SELF WORK',c:'protected'},{s:'18:00',e:'20:00',t:'Встреча Артем и CEO',c:'ext'},{s:'18:00',e:'19:00',t:'Weekly Banki.ru',c:'team'}],
+  '2026-05-08': [{s:'12:00',e:'13:00',t:'self-work',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'15:00',t:'Камкомбанк x Банки.ру (Курсы валют, партнерские запуски)',c:'ops'}],
+  '2026-05-11': [{s:'13:00',e:'14:00',t:'Self Work',c:'protected'}],
+  '2026-05-12': [{s:'10:30',e:'11:00',t:'Пре ipo',c:'other'},{s:'11:00',e:'11:45',t:'Багиров, Weekly',c:'team'},{s:'12:00',e:'12:45',t:'Лукашова, Weekly',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Полищук, Weekly',c:'team'},{s:'15:00',e:'15:45',t:'Сарибекян, Weekly',c:'team'},{s:'16:00',e:'17:00',t:'кандидат BО Бизнес_Алексей Воронин',c:'team'},{s:'17:30',e:'18:15',t:'Курсы валют',c:'ops'}],
+  '2026-05-13': [{s:'11:00',e:'11:45',t:'Шамба, Weekly',c:'team'},{s:'12:00',e:'12:30',t:'презентация оффера на БО Бизнес: Алексей Воронин',c:'team'},{s:'12:00',e:'12:30',t:'презентация оффера BO Бизнес_Воронин Алексей',c:'team'},{s:'12:30',e:'13:00',t:'синк',c:'ops'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'13:00',e:'13:30',t:'Банк Куб и Банки.ру',c:'ext'},{s:'14:00',e:'15:00',t:'Дорога (банк 131)',c:'other'},{s:'14:00',e:'14:45',t:'Князева, Weekly',c:'team'},{s:'15:00',e:'16:00',t:'Банк 131',c:'ext'},{s:'15:00',e:'16:00',t:'Zoom: Михаил и CEO',c:'other'},{s:'15:00',e:'15:45',t:'Максимова, Weekly',c:'team'},{s:'17:00',e:'17:45',t:'Хасанова, Weekly',c:'team'}],
+  '2026-05-14': [{s:'10:00',e:'11:00',t:'Народный рейтинг_ банки ру',c:'other'},{s:'10:30',e:'11:30',t:'selfwork',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'15:00',e:'15:45',t:'Марченко, Weekly',c:'team'},{s:'17:00',e:'17:50',t:'SELF WORK',c:'protected'},{s:'18:00',e:'19:00',t:'Weekly Banki.ru',c:'team'}],
+  '2026-05-15': [{s:'11:00',e:'12:00',t:'CMO_Литвинов Олег',c:'ops'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Встреча с департаментом маркетинга',c:'other'},{s:'15:00',e:'16:00',t:'интервью на развитие офлайн сети_Екатерина Мальцева',c:'other'},{s:'16:00',e:'17:00',t:'Итоги и бэклог команды контента',c:'other'},{s:'17:00',e:'17:45',t:'WL FX Ренессанс Банк & Банки.ру',c:'other'}],
+  '2026-05-18': [{s:'9:30',e:'10:30',t:'Встреча Яндекс Банк & Банки.ру',c:'ext'},{s:'12:00',e:'13:00',t:'Статус встреча',c:'ops'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Манджиева, Weekly',c:'team'},{s:'15:00',e:'15:45',t:'Щербаков, Weekly',c:'team'},{s:'18:30',e:'19:00',t:'Личный кабинет Рекламодателя',c:'other'}],
+  '2026-05-19': [{s:'9:00',e:'10:00',t:'Завтрак с Инго Банком',c:'other'},{s:'11:00',e:'11:45',t:'Пестов, Weekly',c:'team'},{s:'12:00',e:'12:45',t:'Лукашова, Weekly',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:30',e:'15:00',t:'Взаимодействие по фроду и антифроду с Банки.ру',c:'other'},{s:'15:00',e:'15:45',t:'Полищук, Weekly',c:'team'},{s:'16:00',e:'20:30',t:'Мери родилась',c:'other'},{s:'16:00',e:'17:00',t:'Интервью с Наталией Тараскиной (Валютный стратег)',c:'ops'},{s:'17:00',e:'17:45',t:'Мобильное приложение',c:'other'}],
+  '2026-05-20': [{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'15:00',e:'16:00',t:'Canceled: Интервью_Казначей (Орехова Татьяна)',c:'ops'}],
+  '2026-05-21': [{s:'10:30',e:'11:30',t:'selfwork',c:'protected'},{s:'12:00',e:'13:00',t:'Canceled: БЖФ - Банки.ру',c:'ext'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Кожухарь, Weekly',c:'team'},{s:'15:00',e:'15:45',t:'Сергунов, Weekly',c:'team'},{s:'16:00',e:'16:45',t:'Егоров, Weekly',c:'team'},{s:'17:00',e:'17:50',t:'SELF WORK',c:'protected'},{s:'18:00',e:'19:00',t:'Weekly Banki.ru',c:'team'}],
+  '2026-05-22': [{s:'10:00',e:'11:00',t:'Частная встреча',c:'other'},{s:'12:00',e:'13:00',t:'self-work',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:10',e:'15:00',t:'Воркшоп Персонализированные бонусы для клиентов',c:'ops'},{s:'15:00',e:'15:45',t:'Хачикян, Weekly',c:'team'},{s:'16:00',e:'17:00',t:'финал сети_Павел Никитин',c:'other'}],
+  '2026-05-25': [{s:'10:00',e:'11:30',t:'Озон / Банки.ру / оффлайн завтрак',c:'other'},{s:'12:15',e:'13:15',t:'Статус встреча',c:'ops'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'15:00',t:'Отменено: Личный кабинет Рекламодателя',c:'other'},{s:'14:40',e:'15:00',t:'Дорога',c:'other'},{s:'15:00',e:'15:50',t:'Встреча Иль Питторе, Нахимовский проспект 45 стр 1',c:'other'},{s:'16:00',e:'16:30',t:'Дорога',c:'other'},{s:'17:00',e:'17:30',t:'План конференции',c:'other'},{s:'17:30',e:'18:30',t:'CMO_Буйная Мария',c:'ops'}],
+  '2026-05-26': [{s:'8:00',e:'12:00',t:'Стоматолог',c:'other'},{s:'11:00',e:'11:45',t:'Багиров, Weekly',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Полищук, Weekly',c:'team'},{s:'15:00',e:'15:45',t:'Сарибекян, Weekly',c:'team'},{s:'16:00',e:'16:50',t:'Дорога',c:'other'},{s:'17:00',e:'18:00',t:'Встреча',c:'other'},{s:'18:00',e:'18:50',t:'Дорога',c:'other'},{s:'18:00',e:'18:30',t:'Частная встреча',c:'other'},{s:'19:30',e:'20:30',t:'Авито и Банки.ру',c:'ext'}],
+  '2026-05-27': [{s:'10:00',e:'10:50',t:'Шамба, викли',c:'team'},{s:'11:00',e:'12:00',t:'All Staff',c:'ops'},{s:'12:30',e:'13:00',t:'УК',c:'other'},{s:'13:00',e:'14:00',t:'Лена и Никита',c:'other'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Князева, Weekly',c:'team'},{s:'15:00',e:'16:00',t:'Встреча в зум: Михаил и Артем',c:'other'},{s:'15:00',e:'15:45',t:'Максимова, Weekly',c:'team'},{s:'16:00',e:'16:50',t:'Сверка по номеру телефона',c:'other'},{s:'17:00',e:'17:45',t:'Хасанова, Weekly',c:'team'},{s:'18:00',e:'19:00',t:'Личный кабинет рекламодателя',c:'other'}],
+  '2026-05-28': [{s:'10:00',e:'11:30',t:'оффлайн завтрак//Сбер//Банки.ру',c:'other'},{s:'10:30',e:'11:30',t:'selfwork',c:'protected'},{s:'12:00',e:'12:45',t:'Хачикян, Weekly',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Кожухарь, Weekly',c:'team'},{s:'15:00',e:'15:45',t:'Марченко, Weekly',c:'team'},{s:'16:00',e:'17:00',t:'Интервью_Казначей (Каюков Александр)',c:'ops'},{s:'17:00',e:'17:50',t:'SELF WORK',c:'protected'},{s:'17:00',e:'17:45',t:'Тема ИИ в выдаче',c:'other'},{s:'18:00',e:'19:00',t:'Weekly Banki.ru',c:'team'}],
+  '2026-05-29': [{s:'12:00',e:'13:00',t:'self-work',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Щербаков, Weekly',c:'team'}],
+  '2026-05-31': [{s:'18:00',e:'19:00',t:'Встреча в zoom',c:'other'}],
+  '2026-06-01': [{s:'10:00',e:'11:00',t:'FW: Завтрак Яндекс & Банки.ру',c:'ext'},{s:'11:00',e:'12:00',t:'Марина Психолог',c:'other'},{s:'12:00',e:'13:00',t:'Статус встреча',c:'ops'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Манджиева, Weekly',c:'team'},{s:'15:00',e:'16:00',t:'БЖФ - Банки.ру',c:'ext'},{s:'16:00',e:'16:45',t:'Инициативная группа',c:'other'},{s:'17:00',e:'17:45',t:'Внутренняя встреча',c:'other'},{s:'17:30',e:'18:00',t:'Модель лояльности по страхованию',c:'other'},{s:'18:00',e:'19:00',t:'Как усилить ключевые сценарии Banki.ru: выводы исследовани…',c:'other'}],
+  '2026-06-02': [{s:'11:00',e:'11:45',t:'Пестов, Weekly',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'16:00',e:'16:45',t:'Отток пользователей в мп',c:'other'}],
+  '2026-06-03': [{s:'11:30',e:'12:20',t:'VK',c:'ext'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:50',t:'ВСК',c:'other'},{s:'15:30',e:'16:20',t:'МТС',c:'other'},{s:'17:15',e:'18:05',t:'ПСБ',c:'ext'}],
+  '2026-06-04': [{s:'10:30',e:'11:30',t:'selfwork',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'13:00',e:'13:30',t:'WB Переговорная F1.2.',c:'other'},{s:'18:00',e:'19:00',t:'Weekly Banki.ru',c:'team'},{s:'19:00',e:'19:50',t:'VK ночь',c:'ext'}],
+  '2026-06-05': [{s:'12:00',e:'13:00',t:'self-work',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'}],
+  '2026-06-08': [{s:'10:00',e:'13:00',t:'Встреча в Банки.ру',c:'other'},{s:'10:00',e:'10:50',t:'Крюков',c:'other'},{s:'12:00',e:'13:00',t:'Статус встреча',c:'ops'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'15:00',t:'welcome встреча с Ворониным Лешей, БО бизнес',c:'ops'},{s:'15:00',e:'15:45',t:'Щербаков, Weekly',c:'team'},{s:'16:00',e:'16:50',t:'Welcome встреча',c:'ops'},{s:'17:00',e:'18:00',t:'CMO_Олег Литвинов',c:'ops'},{s:'18:00',e:'18:45',t:'Манджиева, Weekly',c:'team'}],
+  '2026-06-09': [{s:'8:00',e:'11:00',t:'Стоматология',c:'other'},{s:'11:00',e:'11:45',t:'Багиров, Weekly',c:'team'},{s:'12:00',e:'12:45',t:'Лукашова, Weekly',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Полищук, Weekly',c:'team'},{s:'15:00',e:'15:45',t:'Сарибекян, Weekly',c:'team'},{s:'16:00',e:'17:00',t:'Встреча с Максимом Радюковым СIO Циан',c:'ext'},{s:'17:00',e:'17:30',t:'Онбординг MyMeet',c:'ops'},{s:'17:30',e:'18:15',t:'Курсы валют',c:'ops'}],
+  '2026-06-10': [{s:'9:00',e:'9:55',t:'Встреча Александр Крайник и CEO',c:'ext'},{s:'10:00',e:'11:00',t:'Марина',c:'other'},{s:'12:00',e:'13:00',t:'УК',c:'other'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Князева, Weekly',c:'team'},{s:'15:00',e:'15:50',t:'Билайн и банки.ру',c:'ext'},{s:'17:00',e:'17:45',t:'Хасанова, Weekly',c:'team'}],
+  '2026-06-11': [{s:'10:00',e:'10:50',t:'Атлас',c:'other'},{s:'10:30',e:'11:30',t:'selfwork',c:'protected'},{s:'11:00',e:'11:30',t:'Демо кафетерия льгот',c:'ops'},{s:'12:00',e:'12:45',t:'Хачикян, Weekly',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'15:00',e:'15:45',t:'Марченко, Weekly',c:'team'},{s:'16:00',e:'16:45',t:'Егоров, Weekly',c:'team'},{s:'17:00',e:'18:00',t:'Частная встреча',c:'other'},{s:'18:00',e:'19:00',t:'Weekly Banki.ru',c:'team'}],
+  '2026-06-12': [{s:'12:00',e:'13:00',t:'self-work',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'}],
+  '2026-06-15': [{s:'11:00',e:'11:45',t:'Roadmap по кредитованию',c:'strategy'},{s:'12:00',e:'13:00',t:'Статус встреча',c:'ops'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Манджиева, Weekly',c:'team'},{s:'15:00',e:'15:45',t:'Щербаков, Weekly',c:'team'},{s:'17:00',e:'17:50',t:'Дорога',c:'other'},{s:'18:00',e:'18:50',t:'Атлант',c:'other'}],
+  '2026-06-16': [{s:'11:00',e:'12:00',t:'интервью с Марией Буйной, СМО',c:'ops'},{s:'12:00',e:'12:45',t:'Лукашова, Weekly',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'13:10',e:'13:30',t:'Воркшоп Коммерции',c:'ops'},{s:'14:00',e:'15:00',t:'Билайн // Банки.Ру - таргет смс',c:'ext'},{s:'15:00',e:'16:00',t:'Встреча с Д.Багинским',c:'other'},{s:'16:00',e:'16:50',t:'Воронин Алексей',c:'team'},{s:'17:30',e:'18:20',t:'Собеседование CMO',c:'ops'},{s:'18:30',e:'19:00',t:'Итоги ПМЭФ',c:'ext'}],
+  '2026-06-17': [{s:'11:00',e:'11:50',t:'Шамба, Weekly',c:'team'},{s:'12:00',e:'12:50',t:'УК',c:'other'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Князева, Weekly',c:'team'},{s:'15:00',e:'15:50',t:'Шамбы, викли',c:'team'}],
+  '2026-06-18': [{s:'10:00',e:'19:00',t:'Программа по развитию управленческих и лидерских навыков',c:'ops'},{s:'10:30',e:'11:30',t:'selfwork',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'18:00',e:'19:00',t:'Weekly Banki.ru',c:'team'}],
+  '2026-06-19': [{s:'10:00',e:'19:00',t:'Программа по развитию управленческих и лидерских навыков',c:'ops'},{s:'12:00',e:'13:00',t:'self-work',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'}],
+  '2026-06-22': [{s:'12:00',e:'13:00',t:'Статус встреча',c:'ops'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'13:00',e:'13:30',t:'Инвестиции в группу Denum',c:'ext'},{s:'14:00',e:'15:00',t:'интервью с Дмитрием Кубышкиным, СМО',c:'ops'},{s:'16:00',e:'17:00',t:'Интервью_Казначей (Каюков Александр)',c:'ops'},{s:'18:00',e:'18:50',t:'Club First',c:'other'}],
+  '2026-06-23': [{s:'9:30',e:'11:00',t:'Стоматолог',c:'other'},{s:'11:00',e:'12:30',t:'AI Demo Week: HR',c:'ops'},{s:'12:00',e:'13:00',t:'Росвексель онлайн',c:'other'},{s:'12:00',e:'13:00',t:'Частная встреча',c:'other'},{s:'13:00',e:'14:00',t:'Александр, финкарта, оффлайн',c:'other'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Полищук, Weekly',c:'team'},{s:'15:00',e:'15:45',t:'Сарибекян, Weekly',c:'team'},{s:'16:00',e:'17:00',t:'Установочная сессия для сотрудников_оценка H1 2026',c:'team'},{s:'17:00',e:'17:45',t:'Багиров, Weekly',c:'team'}],
+  '2026-06-24': [{s:'11:00',e:'12:00',t:'All Staff',c:'ops'},{s:'12:00',e:'12:50',t:'Викли, Заяна',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'13:00',e:'14:30',t:'AI Demo week: Вертикаль Ипотеки',c:'ops'},{s:'14:00',e:'14:45',t:'Князева, Weekly',c:'team'},{s:'15:00',e:'16:30',t:'AI Demo Week: Правовое сопровождение',c:'ops'},{s:'16:00',e:'16:50',t:'Weekly, Шамба М.',c:'team'},{s:'17:00',e:'17:45',t:'Хасанова, Weekly',c:'team'},{s:'17:00',e:'18:00',t:'Установочная сессия для руководителей_H1 2026',c:'ops'},{s:'18:00',e:'19:00',t:'Интервью_Казначей (Клёнов Павел)',c:'ops'}],
+  '2026-06-25': [{s:'9:00',e:'10:30',t:'Встреча в Кофемании на Павелецкой',c:'other'},{s:'10:00',e:'11:00',t:'дорога в рестик',c:'other'},{s:'10:30',e:'11:30',t:'selfwork',c:'protected'},{s:'11:00',e:'13:00',t:'завтрак оффлайн // кредит хаб',c:'ext'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:50',t:'Яндекс и Банки.ру',c:'ext'},{s:'15:00',e:'15:45',t:'Хачикян, Weekly',c:'team'},{s:'16:00',e:'16:50',t:'Фаззи Лоджик Лабс и Банки.ру',c:'ext'},{s:'16:00',e:'17:00',t:'Установочная сессия для сотрудников_оценка H1 2026',c:'team'},{s:'18:00',e:'19:00',t:'Weekly Banki.ru',c:'team'}],
+  '2026-06-26': [{s:'11:00',e:'12:00',t:'Установочная сессия для руководителей_H1 2026',c:'ops'},{s:'12:00',e:'13:00',t:'self-work',c:'protected'},{s:'12:00',e:'13:30',t:'AI Demo Week: ДРКС',c:'ops'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'15:00',t:'«AI в коммерции: как держать руку на пульсе рынка»',c:'other'},{s:'14:00',e:'15:00',t:'Камкомбанк Курсы валют (очная встреча)',c:'ops'},{s:'15:00',e:'15:30',t:'приоритеты',c:'ops'},{s:'15:30',e:'17:00',t:'AI Demo Week: Департамент Инноваций',c:'ops'},{s:'17:00',e:'18:00',t:'Интервью для Ассоциации Финтех',c:'ops'}],
+  '2026-06-29': [{s:'10:00',e:'11:00',t:'Приглашение на мероприятие: "Встреча CEO/А.Подшибя…',c:'ext'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'13:30',e:'14:00',t:'1:1 Станислав Завершинский и CEO',c:'other'},{s:'14:00',e:'15:00',t:'СMO_Максим Кругов',c:'other'}],
+  '2026-06-30': [{s:'13:00',e:'14:00',t:'Self Work',c:'protected'}],
+  '2026-07-01': [{s:'13:00',e:'14:00',t:'Self Work',c:'protected'}],
+  '2026-07-02': [{s:'10:30',e:'11:30',t:'selfwork',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'15:00',e:'15:30',t:'Еженедельный синк ВТБ - Банки.ру',c:'ops'},{s:'18:00',e:'19:00',t:'Canceled: Weekly Banki.ru',c:'team'}],
+  '2026-07-03': [{s:'12:00',e:'13:00',t:'self-work',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'}],
+  '2026-07-06': [{s:'11:00',e:'12:00',t:'ФАСТ',c:'ext'},{s:'12:00',e:'13:00',t:'Статус встреча',c:'ops'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Манджиева',c:'team'},{s:'15:00',e:'16:00',t:'Билайн и Банки.ру',c:'ext'},{s:'16:00',e:'16:45',t:'Мандрик, Weekly',c:'team'},{s:'17:00',e:'17:30',t:'Банки ру - Яндекс // Размещение в блоке ОСАГО',c:'ext'}],
+  '2026-07-07': [{s:'9:30',e:'10:00',t:'Атлас - рентген',c:'other'},{s:'10:00',e:'10:50',t:'Дорога',c:'other'},{s:'11:00',e:'11:45',t:'Оценка 1H 2026, Багиров',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'15:00',t:'встреча в офисе с Фарход Аббасов (по рекомендации CEO С…',c:'other'},{s:'16:00',e:'17:00',t:'Встреча с Димой Багинским',c:'other'},{s:'16:00',e:'17:00',t:'Встреча рабочей группы по открытию офлайн офиса banki.ru',c:'other'},{s:'18:00',e:'18:30',t:'Кредит Хаб / Банки.ру',c:'ext'}],
+  '2026-07-08': [{s:'11:00',e:'11:45',t:'Оценка за 1 п/г, Шамба',c:'team'},{s:'12:00',e:'12:50',t:'CEO+BO',c:'other'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'13:15',e:'14:00',t:'Debex',c:'ext'},{s:'14:00',e:'14:45',t:'Князева, Weekly',c:'team'},{s:'14:00',e:'15:00',t:'FW: Sales Meeting Коммерция ИТОГИ Q2',c:'other'},{s:'15:00',e:'15:45',t:'Оценка 1H2026, Максимова',c:'team'},{s:'17:00',e:'17:50',t:'Звонок',c:'other'}],
+  '2026-07-09': [{s:'10:30',e:'11:30',t:'selfwork',c:'protected'},{s:'12:00',e:'12:45',t:'Хачикян, Weekly',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'18:00',e:'19:00',t:'Weekly Banki.ru',c:'team'}],
+  '2026-07-10': [{s:'10:00',e:'11:00',t:'Приглашение на мероприятие: "Встреча CEO/А.Подшибя…',c:'ext'},{s:'12:00',e:'13:00',t:'self-work',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'13:30',e:'14:00',t:'Банки ру - Яндекс // Аналитика и точки роста в блоке ОСАГО',c:'ext'},{s:'14:00',e:'15:00',t:'СMO_Максим Сухарев',c:'other'},{s:'15:00',e:'15:30',t:'Дорога',c:'other'},{s:'15:30',e:'17:30',t:'Встреча с Динарой',c:'other'},{s:'19:00',e:'20:00',t:'ВТБ',c:'ext'}],
+  '2026-07-13': [{s:'9:00',e:'10:30',t:'Артем и Рома - встреча',c:'ext'},{s:'12:00',e:'13:00',t:'Статус встреча',c:'ops'},{s:'13:00',e:'14:00',t:'Знакомство с Mandarin - по зуму',c:'ext'},{s:'14:00',e:'14:45',t:'Оценка 1 H 2026 Манджиева',c:'team'},{s:'15:00',e:'15:50',t:'Подготовка к СД',c:'strategy'},{s:'16:00',e:'16:50',t:'Оценка 1H2026, Мандрик',c:'team'},{s:'18:00',e:'19:00',t:'Banki.ru - Встреча с потенциальным СМО - Силаев Роман',c:'other'}],
+  '2026-07-14': [{s:'11:00',e:'11:50',t:'Структура вертикали',c:'strategy'},{s:'12:00',e:'12:45',t:'Оценка 1 H 2026, Лукашова',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Оценка за 1H 2026, Полищук',c:'team'},{s:'15:00',e:'16:00',t:'Оценка 1H2026, Сарибекян',c:'team'},{s:'15:00',e:'15:45',t:'Сарибекян, Weekly',c:'team'},{s:'16:00',e:'17:00',t:'синк по обмену валюты онлайн',c:'ops'},{s:'16:30',e:'17:30',t:'Дорога',c:'other'},{s:'17:30',e:'18:20',t:'Сlub First (начало в 17:30)',c:'other'},{s:'17:30',e:'18:15',t:'Курсы валют',c:'ops'},{s:'23:00',e:'0:00',t:'Банкирос',c:'ext'}],
+  '2026-07-15': [{s:'10:30',e:'11:00',t:'Банки ру - Яндекс // Аналитика и точки роста в блоке ОСАГО',c:'ext'},{s:'11:00',e:'11:50',t:'Шамба, Weekly',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'17:00',e:'18:00',t:'дорога в альфу',c:'other'},{s:'18:00',e:'19:00',t:'ОФП//Альфа//Банки.ру',c:'other'}],
+  '2026-07-16': [{s:'10:30',e:'11:30',t:'selfwork',c:'protected'},{s:'12:00',e:'12:45',t:'Хачикян, Оценка 1H2026',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'16:00',e:'16:30',t:'Дорога',c:'other'},{s:'16:00',e:'16:45',t:'Контроль качества обработки заявок',c:'other'},{s:'16:30',e:'18:00',t:'Banki.ru - встреча Сергей и CEO',c:'ext'},{s:'18:00',e:'19:00',t:'Weekly Banki.ru',c:'team'}],
+  '2026-07-17': [{s:'9:00',e:'11:00',t:'Встреча с Банки.ру',c:'other'},{s:'12:00',e:'13:00',t:'self-work',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'16:00',e:'16:45',t:'Оценка 1H2026, Марченко',c:'team'}],
+  '2026-07-20': [{s:'11:00',e:'12:00',t:'Теле 2',c:'other'},{s:'11:00',e:'12:00',t:'Встреча знакомство Банки.ру - Мониторинг базы от Т2',c:'ext'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'16:00',e:'17:00',t:'зум с Огородниковым Антоном',c:'other'}],
+  '2026-07-21': [{s:'12:00',e:'12:05',t:'Есть 5 минут?',c:'other'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Полищук, Weekly',c:'team'},{s:'15:00',e:'15:30',t:'Оценка 1H 2026, Грибунина Дарья',c:'team'},{s:'16:00',e:'17:20',t:'Оффлайн, Weekly',c:'team'}],
+  '2026-07-22': [{s:'11:00',e:'11:30',t:'Синк по автоотчетности МФО',c:'ops'},{s:'12:00',e:'13:00',t:'Репетиция СД',c:'strategy'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'}],
+  '2026-07-23': [{s:'10:30',e:'11:30',t:'selfwork',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'17:00',e:'20:00',t:'Banki.ru: Advisory Board - 23 июля 2026',c:'strategy'},{s:'18:00',e:'19:00',t:'Weekly Banki.ru',c:'team'}],
+  '2026-07-24': [{s:'12:00',e:'13:00',t:'self-work',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'15:00',e:'15:50',t:'Оценка 1 H 2026, Хасанова',c:'team'}],
+  '2026-07-27': [{s:'12:00',e:'13:00',t:'Статус встреча',c:'ops'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'15:00',e:'15:45',t:'Оценка 1H2026, Щербаков',c:'team'},{s:'15:00',e:'15:45',t:'Щербаков, Weekly',c:'team'},{s:'16:00',e:'17:00',t:'c&b встреча',c:'ops'},{s:'17:00',e:'17:45',t:'Подведение итогов проекта: Контроль качества обработки зая…',c:'other'}],
+  '2026-07-28': [{s:'11:00',e:'11:50',t:'Викли, Лапикова',c:'team'},{s:'12:00',e:'13:00',t:'Защита по итогам ИС на роль Руководитель отдела эффективно…',c:'ops'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Полищук, Weekly',c:'team'},{s:'15:00',e:'16:00',t:'WL FX Ренессанс кредит & Банки.ру',c:'other'},{s:'16:00',e:'17:00',t:'VK и Банки.ру',c:'ext'},{s:'16:00',e:'17:00',t:'Внешняя встреча',c:'other'},{s:'17:00',e:'18:00',t:'Конкурс на роль BO МФО',c:'ops'},{s:'18:00',e:'18:50',t:'Результаты olv по ОСАГО',c:'other'}],
+  '2026-07-29': [{s:'11:00',e:'12:00',t:'All Staff',c:'ops'},{s:'12:00',e:'12:30',t:'УК',c:'other'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:30',t:'Оценка 1H 2026, Тарасова Анна',c:'team'},{s:'15:00',e:'15:50',t:'Щербаков',c:'team'},{s:'16:00',e:'17:00',t:'Оценка 1H 2026, Егоров',c:'team'},{s:'17:00',e:'18:00',t:'Шамба, Weekly',c:'team'},{s:'18:00',e:'19:00',t:'Встреча с Zorko',c:'ext'},{s:'18:00',e:'19:00',t:'Частная встреча',c:'other'}],
+  '2026-07-30': [{s:'10:00',e:'11:00',t:'Invitation: Завтрак CEO <> Александр',c:'ext'},{s:'10:30',e:'11:30',t:'selfwork',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'15:00',t:'Оценка, Задворных',c:'team'},{s:'15:00',e:'15:45',t:'Сергунов, Оценка 1H2026',c:'team'},{s:'18:00',e:'19:00',t:'Weekly Banki.ru',c:'team'}],
+  '2026-07-31': [{s:'11:00',e:'11:45',t:'Оценка 1H 2026, Кожухарь',c:'team'},{s:'12:00',e:'13:00',t:'self-work',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:30',t:'Оценка 1H 2026, Лагунова Анжелика',c:'team'},{s:'15:00',e:'15:50',t:'Оценка, Марченко',c:'team'},{s:'16:00',e:'16:30',t:'1-1',c:'other'}],
+  '2026-08-03': [{s:'10:00',e:'11:00',t:'Алексей Примак - CEO (Банки.ру)',c:'ext'},{s:'11:00',e:'12:00',t:'Мтс триггеры',c:'ext'},{s:'12:00',e:'13:00',t:'Статус встреча',c:'ops'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'15:00',e:'16:00',t:'Мегафон встреча',c:'ext'},{s:'16:00',e:'16:45',t:'Оценка 1H 2026, Пестов',c:'team'},{s:'17:00',e:'17:30',t:'Мотивация КД H2',c:'other'}],
+  '2026-08-04': [{s:'11:15',e:'12:00',t:'Оценка, Багиров',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'15:00',t:'Конкурс на роль_Директор по маркетингу',c:'ops'},{s:'15:00',e:'16:00',t:'Встреча БЖФ - Банки.ру - запуск нового продукта',c:'ext'},{s:'16:00',e:'17:00',t:'Синк по PM',c:'ops'},{s:'17:00',e:'17:45',t:'Лукашова, Weekly',c:'team'},{s:'17:00',e:'17:10',t:'Подписание документов',c:'ops'},{s:'17:00',e:'17:45',t:'Canceled: Weekly Воронин',c:'team'},{s:'18:30',e:'19:20',t:'АНД',c:'other'}],
+  '2026-08-05': [{s:'9:30',e:'10:20',t:'Yandex и Банки.ру',c:'ext'},{s:'11:00',e:'11:50',t:'Оценка, Хачикян',c:'team'},{s:'12:00',e:'12:45',t:'Оценка, Манджиева',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:50',t:'Оценка, Хачикян',c:'team'},{s:'16:00',e:'17:00',t:'Встреча',c:'other'}],
+  '2026-08-06': [{s:'10:30',e:'11:30',t:'selfwork',c:'protected'},{s:'12:00',e:'13:00',t:'Self Work',c:'protected'},{s:'12:00',e:'12:30',t:'разбор задач',c:'ops'},{s:'13:00',e:'14:00',t:'Банкирос - Банки.ру - Курсы валют (структурирование целей)',c:'ops'},{s:'13:00',e:'14:00',t:'Развитие партнерства: фин.модель+продукт ДОМ.РФ//Банки.ру',c:'ext'},{s:'14:00',e:'14:45',t:'Кожухарь, Weekly',c:'team'},{s:'15:00',e:'16:00',t:'Синхронизация по кредитной вертикали',c:'other'},{s:'15:00',e:'15:45',t:'Марченко, Weekly',c:'team'},{s:'15:00',e:'15:30',t:'Еженедельный синк ВТБ - Банки.ру',c:'ops'},{s:'16:00',e:'16:45',t:'Егоров, Weekly',c:'team'},{s:'18:00',e:'19:00',t:'Weekly Banki.ru',c:'team'}],
+  '2026-08-07': [{s:'12:00',e:'13:00',t:'self-work',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Оценка, Шамба',c:'team'},{s:'16:00',e:'17:30',t:'FW: Инвестиционная возможность / ЭЛТ-ПОИСК / Банки.ру',c:'ext'},{s:'16:00',e:'17:00',t:'Предварительно: ЭЛТ-ПОИСК с Мишей Беккером',c:'ext'}],
+  '2026-08-10': [{s:'11:00',e:'12:00',t:'Банки.ру и Адизес Бизнес Консалтинг',c:'ext'},{s:'12:00',e:'13:00',t:'Статус встреча',c:'ops'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'13:30',e:'14:30',t:'FW: Поинтер\\\\Банки.ру',c:'other'},{s:'14:00',e:'14:45',t:'Манджиева, Weekly',c:'team'},{s:'15:00',e:'16:00',t:'Внедрение ИИ в компании',c:'other'},{s:'15:00',e:'15:45',t:'Щербаков, Weekly',c:'team'},{s:'16:00',e:'16:45',t:'Оценка, Хасанова',c:'team'},{s:'17:00',e:'18:00',t:'Банки.ру и Кредит Хаб',c:'ext'}],
+  '2026-08-11': [{s:'11:00',e:'11:45',t:'Пестов, Weekly',c:'team'},{s:'12:00',e:'12:45',t:'Лукашова, Weekly',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Полищук, Weekly',c:'team'},{s:'15:00',e:'15:45',t:'Сарибекян, Weekly',c:'team'},{s:'16:00',e:'17:20',t:'Оффлайн, weekly',c:'team'},{s:'17:30',e:'18:15',t:'Курсы валют',c:'ops'},{s:'17:30',e:'20:00',t:'Встреча с Банком 131',c:'other'}],
+  '2026-08-12': [{s:'11:00',e:'11:45',t:'Шамба, Weekly',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Князева, Weekly',c:'team'},{s:'14:00',e:'14:45',t:'Оценка 1H2026, Князева',c:'team'},{s:'15:00',e:'16:00',t:'Окб встреча с Юрой',c:'other'},{s:'16:00',e:'16:45',t:'Weekly, Лапикова',c:'team'},{s:'17:00',e:'17:45',t:'Хасанова, Weekly',c:'team'},{s:'18:00',e:'18:30',t:'Пройти по процессу возвратов по ипотечным полисам',c:'other'}],
+  '2026-08-13': [{s:'10:30',e:'11:30',t:'selfwork',c:'protected'},{s:'12:00',e:'13:00',t:'Разбор Задач',c:'ops'},{s:'12:00',e:'12:45',t:'Хачикян, Weekly',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'15:00',t:'Привет Сосед и Банки.ру',c:'ext'},{s:'15:00',e:'15:45',t:'Сергунов, Weekly',c:'team'},{s:'16:00',e:'16:45',t:'Егоров, Weekly',c:'team'},{s:'18:00',e:'19:00',t:'Weekly Banki.ru',c:'team'}],
+  '2026-08-14': [{s:'11:00',e:'11:50',t:'Кожухарь, оценка за 1 H 2026',c:'team'},{s:'12:00',e:'13:00',t:'self-work',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'13:00',e:'13:50',t:'Звонок',c:'other'},{s:'14:30',e:'15:00',t:'Хачкян',c:'other'}],
+  '2026-08-17': [{s:'12:00',e:'13:00',t:'Статус встреча',c:'ops'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Манджиева, Weekly',c:'team'},{s:'15:00',e:'15:45',t:'Щербаков, Weekly',c:'team'},{s:'16:00',e:'16:50',t:'Мандрик, викли',c:'team'},{s:'17:00',e:'17:50',t:'Князева',c:'team'},{s:'18:00',e:'19:00',t:'Банки.ру и Кредит Хаб',c:'ext'}],
+  '2026-08-18': [{s:'10:30',e:'11:00',t:'Denum и Банки.ру',c:'ext'},{s:'11:30',e:'12:00',t:'Багиров, Weekly',c:'team'},{s:'12:00',e:'12:45',t:'Лукашова, Weekly',c:'team'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Полищук, Weekly',c:'team'},{s:'15:00',e:'16:00',t:'Welcome meeting',c:'ops'},{s:'16:00',e:'16:45',t:'Медийная реклама, точки роста',c:'other'},{s:'17:00',e:'17:45',t:'Weekly Воронин',c:'team'},{s:'18:00',e:'18:50',t:'Встреча',c:'other'}],
+  '2026-08-19': [{s:'11:30',e:'12:30',t:'дорога в сити',c:'other'},{s:'12:30',e:'14:00',t:'РСХБ//Тузова (сити/ресторан Русский)',c:'ext'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'15:00',t:'Встреча Банки.ру Мобильная карусель от Т2',c:'ext'},{s:'16:00',e:'16:45',t:'Weekly, Лапикова',c:'team'},{s:'17:00',e:'19:00',t:'надо выехать в Ясечке в 17:00',c:'other'}],
+  '2026-08-20': [{s:'10:00',e:'11:00',t:'Экванта / Банки.ру / коллекшн',c:'ext'},{s:'10:30',e:'11:30',t:'selfwork',c:'protected'},{s:'12:00',e:'12:45',t:'Хачикян, Weekly',c:'team'},{s:'12:00',e:'13:00',t:'Разбор Задач',c:'ops'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'13:00',e:'13:15',t:'Подписание документов',c:'ops'},{s:'13:00',e:'14:00',t:'Клевер и Банки.ру',c:'ext'},{s:'14:00',e:'14:45',t:'Кожухарь, Weekly',c:'team'},{s:'15:00',e:'15:45',t:'Марченко, Weekly',c:'team'},{s:'16:00',e:'16:45',t:'Егоров, Weekly',c:'team'},{s:'17:00',e:'17:50',t:'Синк с Щербаковым',c:'ops'},{s:'18:00',e:'19:00',t:'Weekly Banki.ru',c:'team'}],
+  '2026-08-21': [{s:'12:00',e:'13:00',t:'self-work',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'15:00',t:'Банки.ру - Admon',c:'ext'}],
+  '2026-08-24': [{s:'10:00',e:'11:00',t:'Встреча Яндекс х Банки,ру в офисе (оффлайн)',c:'ext'},{s:'12:00',e:'13:00',t:'Статус встреча',c:'ops'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:50',t:'Князева',c:'team'},{s:'16:00',e:'16:50',t:'Мандрик викли',c:'team'},{s:'17:30',e:'18:30',t:'Приглашение: Банки.ру / Лайфхакер',c:'ext'},{s:'18:30',e:'19:00',t:'Князева',c:'team'}],
+  '2026-08-25': [{s:'9:30',e:'11:00',t:'встреча CEO//Антон Подшибякин',c:'ext'},{s:'12:00',e:'12:45',t:'Бэклог Страхование',c:'other'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Полищук, Weekly',c:'team'},{s:'15:00',e:'15:45',t:'Сарибекян, Weekly',c:'team'},{s:'16:00',e:'16:50',t:'Monthly вклады',c:'other'},{s:'17:00',e:'17:45',t:'Weekly Воронин',c:'team'}],
+  '2026-08-26': [{s:'11:00',e:'12:00',t:'All Staff',c:'ops'},{s:'12:00',e:'12:50',t:'УК',c:'other'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'13:00',e:'13:45',t:'Weekly, Лапикова',c:'team'},{s:'14:00',e:'14:45',t:'Князева, Weekly',c:'team'},{s:'15:00',e:'15:50',t:'Шамба, Weekly',c:'team'},{s:'16:00',e:'16:30',t:'Банки.ру CEO, Татьяна Мандрик, Антон Павлов',c:'team'},{s:'17:00',e:'17:45',t:'Хасанова, Weekly',c:'team'}],
+  '2026-08-27': [{s:'10:00',e:'11:00',t:'Баланс платформа и Банки.ру',c:'ext'},{s:'12:00',e:'12:45',t:'Хачикян, Weekly',c:'team'},{s:'12:00',e:'13:00',t:'Разбор Задач',c:'ops'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:45',t:'Кожухарь, Weekly',c:'team'},{s:'15:00',e:'15:45',t:'Сергунов, Weekly',c:'team'},{s:'17:00',e:'17:30',t:'Updated invitation: Звонок',c:'other'},{s:'18:00',e:'19:00',t:'Weekly Banki.ru',c:'team'}],
+  '2026-08-28': [{s:'12:00',e:'13:00',t:'self-work',c:'protected'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'}],
+  '2026-08-31': [{s:'8:30',e:'9:15',t:'Внешняя встреча с ОТП Банк',c:'ext'},{s:'12:00',e:'13:00',t:'Статус встреча',c:'ops'},{s:'13:00',e:'14:00',t:'Self Work',c:'protected'},{s:'14:00',e:'14:50',t:'Weekly, Манджиева Заяна',c:'team'}],
+};
+
+  var DC_CATS = [
+    { key: "team",       label: "Команда: 1:1 и синки",   var: "--cat-team" },
+    { key: "ops",         label: "Операционка / HR",        var: "--cat-ops" },
+    { key: "ext",         label: "Внешние",                 var: "--cat-ext" },
+    { key: "strategy",    label: "Стратегия",               var: "--cat-strategy" },
+    { key: "protected",   label: "Self Work / защищено",    var: "--cat-protected" },
+    { key: "other",       label: "Прочее / не размечено",   var: "--cat-other" }
+  ];
+
+  var DC_MONTHS_META = [
+    { y: 2026, m: 3, title: "Апрель 2026" },
+    { y: 2026, m: 4, title: "Май 2026" },
+    { y: 2026, m: 5, title: "Июнь 2026" },
+    { y: 2026, m: 6, title: "Июль 2026" },
+    { y: 2026, m: 7, title: "Август 2026" }
+  ];
+  var DC_WD_LABELS = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
+
+  function dcPad2(n) { return n < 10 ? "0" + n : "" + n; }
+  function dcMins(t) { var p = t.split(":"); return parseInt(p[0], 10) * 60 + parseInt(p[1], 10); }
+  function dcByTime(a, b) { return dcMins(a.s) - dcMins(b.s) || dcMins(a.e) - dcMins(b.e); }
+  function dcDateKey(y, m0, d) { return y + "-" + dcPad2(m0 + 1) + "-" + dcPad2(d); }
+
+  var dcCalMonthsHost = document.getElementById("dcCalMonths");
+  var dcDayDetailCard = document.getElementById("dcDayDetailCard");
+  var dcSelectedCell = null;
+  var dcSelectedKey = null;
+
+  if (dcCalMonthsHost && dcDayDetailCard) {
+
+    function dcRenderDayDetail(key, label) {
+      var evs = (CAL_DATA[key] || []).slice().sort(dcByTime);
+      var html = '<h4 class="dc-dd-date">' + label + '</h4>';
+      if (!evs.length) {
+        html += '<div class="dc-day-detail-empty">Встреч нет</div>';
+      } else {
+        evs.forEach(function (e) {
+          var cat = DC_CATS.filter(function (c) { return c.key === e.c; })[0] || DC_CATS[DC_CATS.length - 1];
+          html += '<div class="dc-dd-row">' +
+            '<span class="dc-dd-time">' + e.s + '&ndash;' + e.e + '</span>' +
+            '<span class="dc-dd-dot" style="background:var(' + cat.var + ')"></span>' +
+            '<span class="dc-dd-title">' + e.t + '</span>' +
+          '</div>';
+        });
+      }
+      dcDayDetailCard.innerHTML = html;
+    }
+
+    function dcEventsFor(key) {
+      return (CAL_DATA[key] || []).slice().sort(dcByTime);
+    }
+
+    function dcRenderCalendar() {
+      dcCalMonthsHost.innerHTML = "";
+      dcSelectedCell = null;
+
+      DC_MONTHS_META.forEach(function (meta) {
+        var monthCard = document.createElement("div");
+        monthCard.className = "dc-month-card";
+
+        var daysInMonth = new Date(meta.y, meta.m + 1, 0).getDate();
+        var firstOffset = (new Date(meta.y, meta.m, 1).getDay() + 6) % 7;
+        var totalCells = Math.ceil((firstOffset + daysInMonth) / 7) * 7;
+
+        var allCount = 0;
+        for (var d = 1; d <= daysInMonth; d++) {
+          var k0 = dcDateKey(meta.y, meta.m, d);
+          if (CAL_DATA[k0]) { allCount += CAL_DATA[k0].length; }
+        }
+
+        var head = document.createElement("div");
+        head.className = "dc-month-head";
+        head.innerHTML = '<h4>' + meta.title + '</h4><span class="cnt">' + allCount + ' встреч</span>';
+        monthCard.appendChild(head);
+
+        var grid = document.createElement("div");
+        grid.className = "dc-month-grid";
+        DC_WD_LABELS.forEach(function (wd) {
+          var h = document.createElement("div");
+          h.className = "dc-month-wd";
+          h.textContent = wd;
+          grid.appendChild(h);
+        });
+
+        for (var i = 0; i < totalCells; i++) {
+          var dayNum = i - firstOffset + 1;
+          var cell = document.createElement("div");
+          cell.className = "dc-day-cell";
+          if (i % 7 >= 5) cell.classList.add("weekend");
+
+          if (dayNum < 1 || dayNum > daysInMonth) {
+            cell.classList.add("out");
+          } else {
+            var key = dcDateKey(meta.y, meta.m, dayNum);
+            var evs = dcEventsFor(key);
+            var numEl = document.createElement("div");
+            numEl.className = "dc-day-num";
+            numEl.textContent = dayNum;
+            cell.appendChild(numEl);
+
+            if (evs.length) {
+              cell.classList.add("has-events");
+              evs.slice(0, 3).forEach(function (e) {
+                var cat = DC_CATS.filter(function (c) { return c.key === e.c; })[0] || DC_CATS[DC_CATS.length - 1];
+                var chip = document.createElement("div");
+                chip.className = "dc-day-chip";
+                chip.style.background = "var(" + cat.var + ")";
+                chip.textContent = e.t;
+                cell.appendChild(chip);
+              });
+              if (evs.length > 3) {
+                var more = document.createElement("div");
+                more.className = "dc-day-more";
+                more.textContent = "+" + (evs.length - 3);
+                cell.appendChild(more);
+              }
+              (function (k, lbl, cellRef) {
+                cellRef.addEventListener("click", function () {
+                  if (dcSelectedCell) dcSelectedCell.classList.remove("selected");
+                  cellRef.classList.add("selected");
+                  dcSelectedCell = cellRef;
+                  dcSelectedKey = k;
+                  dcRenderDayDetail(k, lbl);
+                });
+              })(key, dayNum + " " + meta.title.toLowerCase(), cell);
+
+              if (key === dcSelectedKey) {
+                cell.classList.add("selected");
+                dcSelectedCell = cell;
+              }
+            }
+          }
+          grid.appendChild(cell);
+        }
+
+        monthCard.appendChild(grid);
+        dcCalMonthsHost.appendChild(monthCard);
+      });
+    }
+
+    dcRenderCalendar();
+
+    var dcCalLegend = document.getElementById("dcCalLegend");
+    if (dcCalLegend) {
+      DC_CATS.forEach(function (c) {
+        var item = document.createElement("div");
+        item.className = "dc-legend-item";
+        item.innerHTML = '<span class="dc-swatch" style="background:var(' + c.var + ')"></span>' + c.label;
+        dcCalLegend.appendChild(item);
+      });
+    }
+  }
 })();
 </script>
